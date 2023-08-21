@@ -1,3 +1,7 @@
-<html>
-    <h1>Admin Dashboard!</h1>
-</html>
+@extends('layout.app')
+
+@section('content')
+
+<h1>Admin Dashboard!</h1>
+
+@stop

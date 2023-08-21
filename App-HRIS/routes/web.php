@@ -16,10 +16,11 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/admins/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
 Route::post('/admins/loginProcess', [AdminController::class, 'loginProcess'])->name('loginProcess');
+Route::get('/admins/logoutProcess', [AdminController::class, 'logoutProcess'])->name('logoutProcess');
 
 

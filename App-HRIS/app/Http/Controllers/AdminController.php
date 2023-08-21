@@ -51,6 +51,11 @@ class AdminController extends Controller
         return view('dashboard');
     }
 
+    public function logoutProcess()
+    {
+        return redirect()->route('index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
