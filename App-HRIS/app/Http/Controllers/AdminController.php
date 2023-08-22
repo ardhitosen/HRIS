@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function login()
     {
-            return view('index');
+        return view('index');
     }
 
     public function loginProcess(Request $request)
@@ -54,6 +54,27 @@ class AdminController extends Controller
     public function logoutProcess()
     {
         return redirect()->route('index');
+    }
+
+    public function employee()
+    {
+        $employee = Admin::all();
+        $employeeData = [];
+        foreach ($employee as $employee) {
+            $employeeData[] = [
+                'id' => $employee->id,
+                'username'=>$employee->username
+            ];
+        }
+
+        return view('employee', ['employee'=>$employeeData]);
+
+    }
+    
+    public function addEmployee(Request $request)
+    {
+        
+        return redirect()->route('dashboard');
     }
 
     /**

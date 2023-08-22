@@ -22,5 +22,7 @@ Route::get('/admins/dashboard', [AdminController::class, 'dashboard'])->name('da
 
 Route::post('/admins/loginProcess', [AdminController::class, 'loginProcess'])->name('loginProcess');
 Route::get('/admins/logoutProcess', [AdminController::class, 'logoutProcess'])->name('logoutProcess');
+Route::get('/admins/employee', [AdminController::class, 'employee'])->name('employee');
+Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 
 
