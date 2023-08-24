@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Announcement;
+use Illuminate\Support\Facades\Log;
+use App\Models\Employee;
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -48,7 +52,9 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $announcements = Announcement::all();
+
+        return view('dashboard', ['announcements' => $announcements]);
     }
 
     public function logoutProcess()
@@ -58,12 +64,31 @@ class AdminController extends Controller
 
     public function employee()
     {
-        $employee = Admin::all();
+        $employee = Employee::all();
         $employeeData = [];
         foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
-                'username'=>$employee->username
+                'username' => $employee->username,
+                'password' => $employee->password,
+                'name' => $employee->name,
+                'branch' => $employee->branch,
+                'organization' => $employee->organization,
+                'job_position' => $employee->job_position,
+                'job_level' => $employee->job_level,
+                'barcode' => $employee->barcode,
+                'email' => $employee->email,
+                'join_date' => $employee->join_date,
+                'sign_date' => $employee->sign_date,
+                'birth_date' => $employee->birth_date,
+                'birth_place' => $employee->birth_place,
+                'address' => $employee->address,
+                'mobile_phone' => $employee->mobile_phone,
+                'religion' => $employee->religion,
+                'gender' => $employee->gender,
+                'marital_status' => $employee->marital_status,
+                'salary' => $employee->salary,
+                'employment_status' => $employee->employment_status,
             ];
         }
 
@@ -73,7 +98,56 @@ class AdminController extends Controller
     
     public function addEmployee(Request $request)
     {
-        
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:employees,username',
+            'password' => 'required',
+            'name' => 'required',
+            'branch' => 'required',
+            'organization' => 'required',
+            'job_position' => 'required',
+            'job_level' => 'required',
+            'barcode' => 'required|unique:employees,barcode',
+            'email' => 'required|email|unique:employees,email',
+            'join_date' => 'required|date',
+            'sign_date' => 'required|date',
+            'birth_date' => 'required|date',
+            'birth_place' => 'required',
+            'address' => 'required',
+            'mobile_phone' => 'required',
+            'religion' => 'required',
+            'gender' => 'required|in:Male,Female',
+            'marital_status' => 'required|in:Single,Married,Divorced,Widowed',
+            'salary' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $employee = new Employee();
+        $employee->username = $request->input('username');
+        $employee->password = bcrypt($request->input('password'));
+        $employee->name = $request->input('name');
+        $employee->branch = $request->input('branch');
+        $employee->organization = $request->input('organization');
+        $employee->job_position = $request->input('jobposition');
+        $employee->job_level = $request->input('joblevel');
+        $employee->barcode = $request->input('barcode');
+        $employee->email = $request->input('email');
+        $employee->join_date = $request->input('joindate');
+        $employee->sign_date = $request->input('signdate');
+        $employee->birth_date = $request->input('birthdate');
+        $employee->birth_place = $request->input('birthplace');
+        $employee->address = $request->input('address');
+        $employee->mobile_phone = $request->input('mobilephone');
+        $employee->religion = $request->input('religion');
+        $employee->gender = $request->input('gender');
+        $employee->marital_status = $request->input('maritalstatus');
+        $employee->salary = $request->input('salary');
+        $employee->employment_status = "Employed";
+
+        $employee->save();
+
         return redirect()->route('dashboard');
     }
 
