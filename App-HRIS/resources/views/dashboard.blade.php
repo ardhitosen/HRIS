@@ -4,7 +4,7 @@
 <br>
 <div class="card">
     <div class="card-body">
-        Ini Dashboard
+        Welcome, Admin!
     </div>
 </div>
 @stop

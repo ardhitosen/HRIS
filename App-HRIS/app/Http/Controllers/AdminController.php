@@ -40,7 +40,7 @@ class AdminController extends Controller
         }
 
         if ($admin && $credentials['password'] == $admin->password) {
-            return redirect()->intended('admins/dashboard');
+            return redirect()->route('dashboard');
         } else {
             return redirect()->back()->withErrors('Invalid credentials');
         }
