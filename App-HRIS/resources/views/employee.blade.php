@@ -12,9 +12,9 @@
         </button>
     </div>
 </div>
-<div class="d-flex row">
-    <div class="col-12">
-        <table class="table">
+<div class="container">
+    <div class="table-responsive scrollable-table">
+        <table class="table text-nowrap">
             <thead>
                 <tr>
                     <th>Employee Name</th>
@@ -36,6 +36,7 @@
                     <th>Religion</th>
                     <th>Gender</th>
                     <th>Martial Status</th>
+                    <th class="tl-small-action column-sticky-end" style="right: 0px;">Activity</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,7 +61,7 @@
                     <td>{{ $emp['religion'] ?? '-' }}</td>
                     <td>{{ $emp['gender'] ?? '-' }}</td>
                     <td>{{ $emp['marital_status'] ?? '-' }}</td>
-                    <td>
+                    <td class="column-sticky-end" style="right: 0px;">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
