@@ -6,7 +6,7 @@
 <br>
 <div class="card">
     <div class="card-body d-flex justify-content-between">
-        Ini Employee List
+        <h5 class="card-title">Employee!</h5>
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#addEmployee">
         Add Employee
         </button>
