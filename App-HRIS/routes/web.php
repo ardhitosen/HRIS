@@ -24,5 +24,12 @@ Route::post('/admins/loginProcess', [AdminController::class, 'loginProcess'])->n
 Route::get('/admins/logoutProcess', [AdminController::class, 'logoutProcess'])->name('logoutProcess');
 Route::get('/admins/employee', [AdminController::class, 'employee'])->name('employee');
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
-
+Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('attendance');
+Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');
+Route::get('/admins/overtime', [AdminController::class, 'overtime'])->name('overtime');
+Route::get('/admins/scheduler', [AdminController::class, 'scheduler'])->name('scheduler');
+Route::get('/admins/timeoff', [AdminController::class, 'timeoff'])->name('timeoff');
+Route::get('/admins/announcement', [AdminController::class, 'announcement'])->name('announcement');
+Route::get('/admins/payroll', [AdminController::class, 'payroll'])->name('payroll');
+Route::get('/admins/reimbursement', [AdminController::class, 'reimbursement'])->name('reimbursement');
 

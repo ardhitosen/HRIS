@@ -30,21 +30,21 @@
                             Time Management
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Time Off</a></li>
-                            <li><a class="dropdown-item" href="#">Overtime</a></li>
-                            <li><a class="dropdown-item" href="#">Attendance</a></li>
-                            <li><a class="dropdown-item" href="#">Scheduler</a></li>
-                            <li><a class="dropdown-item" href="#">Calendar</a></li>
+                            <li><a class="dropdown-item" href="{{url('/admins/timeoff')}}">Time Off</a></li>
+                            <li><a class="dropdown-item" href="{{url('/admins/overtime')}}">Overtime</a></li>
+                            <li><a class="dropdown-item" href="{{url('/admins/attendance')}}">Attendance</a></li>
+                            <li><a class="dropdown-item" href="{{url('/admins/scheduler')}}">Scheduler</a></li>
+                            <li><a class="dropdown-item" href="{{url('/admins/calendar')}}">Calendar</a></li>
                         </ul>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Reimbursement</a>
+                        <a class="nav-link" href="{{url('/admins/reimbursement')}}">Reimbursement</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Payroll</a>
+                        <a class="nav-link" href="{{url('/admins/payroll')}}">Payroll</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Announcement</a>
+                        <a class="nav-link" href="{{url('/admins/announcement')}}">Announcement</a>
                     </li>
                 </ul>
             </div>

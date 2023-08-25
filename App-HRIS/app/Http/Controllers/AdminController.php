@@ -151,6 +151,52 @@ class AdminController extends Controller
         return redirect()->route('dashboard');
     }
 
+    
+    public function attendance()
+    {
+        return view('timeManagement.attendance');
+    }
+    
+    public function calendar()
+    {
+        return view('timeManagement.calendar');
+    }
+    
+    public function overtime()
+    {
+        return view('timeManagement.overtime');
+    }
+    
+    public function scheduler()
+    {
+        return view('timeManagement.scheduler');
+    }
+    
+    public function timeoff()
+    {
+        return view('timeManagement.timeoff');
+    }
+    
+    public function announcement()
+    {
+        return view('announcement');
+    }
+    
+    public function payroll()
+    {
+        return view('payroll');
+    }
+    
+    public function reimbursement()
+    {
+        return view('reimbursement');
+    }
+
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */
