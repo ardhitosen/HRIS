@@ -14,7 +14,7 @@
 </div>
 <div class="container">
     <div class="table-responsive scrollable-table">
-        <table class="table text-nowrap">
+        <table class="table text-nowrap text-center align-middle" style="height: 150px">
             <thead>
                 <tr>
                     <th>Employee Name</th>
@@ -62,8 +62,8 @@
                     <td>{{ $emp['gender'] ?? '-' }}</td>
                     <td>{{ $emp['marital_status'] ?? '-' }}</td>
                     <td class="column-sticky-end" style="right: 0px;">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="btn-group dropstart">
+                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
                             </button>
                             <ul class="dropdown-menu">
