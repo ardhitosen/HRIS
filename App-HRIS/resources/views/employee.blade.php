@@ -14,7 +14,7 @@
 </div>
 <div class="container">
     <div class="table-responsive scrollable-table">
-        <table class="table text-nowrap text-center align-middle" style="height: 150px">
+        <table class="table table-hover text-nowrap text-center align-middle" >
             <thead>
                 <tr>
                     <th>Employee Name</th>
@@ -39,7 +39,7 @@
                     <th class="tl-small-action column-sticky-end" style="right: 0px;">Activity</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="height: 200px">
                 @foreach($employee as $emp)
                 <tr>
                     <td>{{ $emp['name'] ?? '-' }}</td>
