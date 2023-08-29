@@ -23,6 +23,8 @@ Route::get('/admins/dashboard', [AdminController::class, 'dashboard'])->name('da
 Route::post('/admins/loginProcess', [AdminController::class, 'loginProcess'])->name('loginProcess');
 Route::get('/admins/logoutProcess', [AdminController::class, 'logoutProcess'])->name('logoutProcess');
 Route::get('/admins/employee', [AdminController::class, 'employee'])->name('employee');
+Route::get('/admins/employee/detail/personal/{id}', [AdminController::class, 'employeeDetail'])->name('employeeDetail');
+Route::get('/admins/employee/detail/employment/{id}', [AdminController::class, 'employeeEmployment'])->name('employeeEmployment');
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('attendance');
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');

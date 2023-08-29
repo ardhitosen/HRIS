@@ -92,7 +92,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('employee', ['employee'=>$employeeData]);
+        return view('employee.employee', ['employee'=>$employeeData]);
 
     }
     
@@ -191,8 +191,20 @@ class AdminController extends Controller
     {
         return view('reimbursement');
     }
+    
+    public function employeeDetail($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+        
+        return view('employee.employeeDetail', ['employee'=>$employee]);
+    }
 
-
+    public function employeeEmployment($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+        
+        return view('employee.employeeEmployment', ['employee'=>$employee]);
+    }
 
 
 

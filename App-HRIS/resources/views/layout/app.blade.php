@@ -11,6 +11,10 @@
         #actionButton:hover {
             background-color: #eaeaea;
         }
+
+        .detail {
+            width: 200px;
+        }
     </style>
 </head>
 

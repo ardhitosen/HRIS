@@ -8,13 +8,13 @@
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Employee!</h5>
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#addEmployee">
-        Add Employee
+            Add Employee
         </button>
     </div>
 </div>
 <div class="container">
     <div class="table-responsive scrollable-table">
-        <table class="table table-hover text-nowrap text-center align-middle" >
+        <table class="table table-hover text-nowrap text-center align-middle">
             <thead>
                 <tr>
                     <th>Employee Name</th>
@@ -35,8 +35,8 @@
                     <th>Mobile Phone</th>
                     <th>Religion</th>
                     <th>Gender</th>
-                    <th>Martial Status</th>
-                    <th class="tl-small-action column-sticky-end" style="right: 0px;">Activity</th>
+                    <th>Marital Status</th>
+                    <th>Activity</th>
                 </tr>
             </thead>
             <tbody style="height: 200px">
@@ -61,24 +61,24 @@
                     <td>{{ $emp['religion'] ?? '-' }}</td>
                     <td>{{ $emp['gender'] ?? '-' }}</td>
                     <td>{{ $emp['marital_status'] ?? '-' }}</td>
-                    <td class="column-sticky-end" style="right: 0px;">
+                    <td>
                         <div class="btn-group dropstart">
-                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a type="button" id="actionButton" class="btn" href="#">Detail</a></li>
-                                <li><a type="button" id="actionButton" class="btn" href="#">Transfer</a></li>
-                                <li><a type="button" id="actionButton" class="btn" href="#">Resign</a></li>
-                                <li><a type="button" id="actionButton" class="btn" href="#">Delete</a></li>
+                                <li><a id="actionButton" class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
+                                <li><a id="actionButton" class="dropdown-item" href="#">Transfer</a></li>
+                                <li><a id="actionButton" class="dropdown-item" href="#">Resign</a></li>
+                                <li><a id="actionButton" class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                         </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-        </table> 
-    </div>       
+        </table>
+    </div>
 </div>
 
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="addEmployee" aria-hidden="true">
@@ -158,7 +158,7 @@
                         <label for="barcode" class="col-sm-2 col-form-label">Barcode</label>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input type="text" name="barcode"id="barcode" class="form-control" value="{{ old('barcode') }}">
+                                <input type="text" name="barcode" id="barcode" class="form-control" value="{{ old('barcode') }}">
                             </div>
                         </div>
                     </div>
