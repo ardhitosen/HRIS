@@ -34,4 +34,6 @@ Route::get('/admins/timeoff', [AdminController::class, 'timeoff'])->name('timeof
 Route::get('/admins/announcement', [AdminController::class, 'announcement'])->name('announcement');
 Route::get('/admins/payroll', [AdminController::class, 'payroll'])->name('payroll');
 Route::get('/admins/reimbursement', [AdminController::class, 'reimbursement'])->name('reimbursement');
+Route::get('/admins/employee/resign/{id}', [AdminController::class, 'resign'])->name('resign');
+Route::post('/admins/addannouncement', [AdminController::class, 'create_announcement'])->name('createAnnouncement');
 

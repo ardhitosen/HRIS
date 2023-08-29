@@ -52,9 +52,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $announcements = Announcement::all();
 
-        return view('dashboard', ['announcements' => $announcements]);
+        return view('dashboard');
     }
 
     public function logoutProcess()
@@ -81,6 +80,7 @@ class AdminController extends Controller
                 'join_date' => $employee->join_date,
                 'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
+                'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
                 'address' => $employee->address,
                 'mobile_phone' => $employee->mobile_phone,
@@ -99,24 +99,24 @@ class AdminController extends Controller
     public function addEmployee(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:employees,username',
+            'username' => 'required',
             'password' => 'required',
             'name' => 'required',
             'branch' => 'required',
             'organization' => 'required',
-            'job_position' => 'required',
-            'job_level' => 'required',
-            'barcode' => 'required|unique:employees,barcode',
-            'email' => 'required|email|unique:employees,email',
-            'join_date' => 'required|date',
-            'sign_date' => 'required|date',
-            'birth_date' => 'required|date',
-            'birth_place' => 'required',
+            'jobposition' => 'required',
+            'joblevel' => 'required',
+            'barcode' => 'required',
+            'email' => 'required|email|',
+            'joindate' => 'required|date',
+            'signdate' => 'required|date',
+            'birthdate' => 'required|date',
+            'birthplace' => 'required',
             'address' => 'required',
-            'mobile_phone' => 'required',
+            'mobilephone' => 'required',
             'religion' => 'required',
             'gender' => 'required|in:Male,Female',
-            'marital_status' => 'required|in:Single,Married,Divorced,Widowed',
+            'maritalstatus' => 'required|in:Single,Married,Divorced,Widowed',
             'salary' => 'required|numeric',
         ]);
 
@@ -133,6 +133,7 @@ class AdminController extends Controller
         $employee->job_position = $request->input('jobposition');
         $employee->job_level = $request->input('joblevel');
         $employee->barcode = $request->input('barcode');
+        $employee->resign_date = null;
         $employee->email = $request->input('email');
         $employee->join_date = $request->input('joindate');
         $employee->sign_date = $request->input('signdate');
@@ -151,7 +152,13 @@ class AdminController extends Controller
         return redirect()->route('dashboard');
     }
 
-    
+    public function resign(Request $request, $id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->resign_date = date('Y-m-d');
+        $employee->save();
+        return redirect()->route('employee');
+    }
     public function attendance()
     {
         return view('timeManagement.attendance');
@@ -179,7 +186,28 @@ class AdminController extends Controller
     
     public function announcement()
     {
-        return view('announcement');
+        $announcements = Announcement::all();
+
+        return view('announcement', ['announcements' => $announcements]);
+    }
+
+    public function create_announcement(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $announcement = new Announcement();
+        $announcement->announcement = $request->title;
+        $announcement->description = $request->description;
+        $announcement->save();
+
+        return redirect()->route('announcement');
     }
     
     public function payroll()

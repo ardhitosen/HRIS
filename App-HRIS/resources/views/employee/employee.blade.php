@@ -4,6 +4,15 @@
 
 
 <br>
+@if ($errors->any())
+    <div class="alert alert-danger mt-4">
+        <ul class="pl-4">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="card">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Employee!</h5>
@@ -24,18 +33,9 @@
                     <th>Job Position</th>
                     <th>Job Level</th>
                     <th>Join Date</th>
-                    <th>End Date</th>
-                    <th>Sign Date</th>
                     <th>Resign Date</th>
-                    <th>Barcode</th>
                     <th>Email</th>
-                    <th>Birth Date</th>
-                    <th>Birth Place</th>
-                    <th>Address</th>
                     <th>Mobile Phone</th>
-                    <th>Religion</th>
-                    <th>Gender</th>
-                    <th>Marital Status</th>
                     <th>Activity</th>
                 </tr>
             </thead>
@@ -49,18 +49,9 @@
                     <td>{{ $emp['job_position'] ?? '-' }}</td>
                     <td>{{ $emp['job_level'] ?? '-' }}</td>
                     <td>{{ $emp['join_date'] ?? '-' }}</td>
-                    <td>{{ $emp['end_date'] ?? '-' }}</td>
-                    <td>{{ $emp['sign_date'] ?? '-' }}</td>
                     <td>{{ $emp['resign_date'] ?? '-' }}</td>
-                    <td>{{ $emp['barcode'] ?? '-' }}</td>
                     <td>{{ $emp['email'] ?? '-' }}</td>
-                    <td>{{ $emp['birth_date'] ?? '-' }}</td>
-                    <td>{{ $emp['birth_place'] ?? '-' }}</td>
-                    <td>{{ $emp['address'] ?? '-' }}</td>
                     <td>{{ $emp['mobile_phone'] ?? '-' }}</td>
-                    <td>{{ $emp['religion'] ?? '-' }}</td>
-                    <td>{{ $emp['gender'] ?? '-' }}</td>
-                    <td>{{ $emp['marital_status'] ?? '-' }}</td>
                     <td>
                         <div class="btn-group dropstart">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +60,7 @@
                             <ul class="dropdown-menu">
                                 <li><a id="actionButton" class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
                                 <li><a id="actionButton" class="dropdown-item" href="#">Transfer</a></li>
-                                <li><a id="actionButton" class="dropdown-item" href="#">Resign</a></li>
+                                <li><a id="actionButton" class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
                                 <li><a id="actionButton" class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                         </div>
@@ -89,15 +80,6 @@
                     <h5>Add Employee</h5>
                 </div>
                 <br>
-                @if ($errors->any())
-                <div class="mb-4 bg-red-100 p-4 rounded text-red-600">
-                    <ul class="list-disc pl-4">
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
                 <form action="{{url('/admins/addemployee')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
