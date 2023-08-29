@@ -99,15 +99,15 @@ class AdminController extends Controller
     public function addEmployee(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'username' => 'required|unique:employees,username',
             'password' => 'required',
             'name' => 'required',
             'branch' => 'required',
             'organization' => 'required',
             'jobposition' => 'required',
             'joblevel' => 'required',
-            'barcode' => 'required',
-            'email' => 'required|email|',
+            'barcode' => 'required|unique:employees,barcode',
+            'email' => 'required|email|unique:employees,email',
             'joindate' => 'required|date',
             'signdate' => 'required|date',
             'birthdate' => 'required|date',
