@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -53,8 +54,24 @@ class AdminController extends Controller
     public function dashboard()
     {
         $employee = Employee::all();
-        
-        return view('dashboard');
+        $empCount = 0;
+        $today = Carbon::now();
+
+        $year = [];
+        $male = 0;
+        $female = 0;
+        $activeStaff = 0;
+        foreach ($employee as $employee) {
+            if (isset($employee->id)) $empCount++;
+            if (!isset($employee->resign_date)) $activeStaff++;
+            $employee->gender == "Male" ? $male++ : $female++;
+            $interval = Carbon::parse($employee->join_date)->diff($today);
+            $year[] = $interval->y;
+        }
+        return view(
+            'dashboard',
+            ['empCount' => $empCount, 'year' => $year, 'male' => $male, 'female' => $female, 'activeStaff' => $activeStaff]
+        );
     }
 
     public function logoutProcess()
@@ -93,10 +110,9 @@ class AdminController extends Controller
             ];
         }
 
-        return view('employee.employee', ['employee'=>$employeeData]);
-
+        return view('employee.employee', ['employee' => $employeeData]);
     }
-    
+
     public function addEmployee(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -164,27 +180,27 @@ class AdminController extends Controller
     {
         return view('timeManagement.attendance');
     }
-    
+
     public function calendar()
     {
         return view('timeManagement.calendar');
     }
-    
+
     public function overtime()
     {
         return view('timeManagement.overtime');
     }
-    
+
     public function scheduler()
     {
         return view('timeManagement.scheduler');
     }
-    
+
     public function timeoff()
     {
         return view('timeManagement.timeoff');
     }
-    
+
     public function announcement()
     {
         $announcements = Announcement::all();
@@ -210,29 +226,29 @@ class AdminController extends Controller
 
         return redirect()->route('announcement');
     }
-    
+
     public function payroll()
     {
         return view('payroll');
     }
-    
+
     public function reimbursement()
     {
         return view('reimbursement');
     }
-    
+
     public function employeeDetail($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
-        
-        return view('employee.employeeDetail', ['employee'=>$employee]);
+
+        return view('employee.employeeDetail', ['employee' => $employee]);
     }
 
     public function employeeEmployment($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
-        
-        return view('employee.employeeEmployment', ['employee'=>$employee]);
+
+        return view('employee.employeeEmployment', ['employee' => $employee]);
     }
 
 
