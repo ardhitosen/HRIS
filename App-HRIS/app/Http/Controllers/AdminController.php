@@ -52,7 +52,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-
+        $employee = Employee::all();
+        
         return view('dashboard');
     }
 

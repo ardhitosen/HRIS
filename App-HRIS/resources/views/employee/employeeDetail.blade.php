@@ -30,15 +30,15 @@
                 <p>Marital Status</p>
             </div>
             <div class="detail">
-                <p>: {{ $employee['name'] ?? '-' }}</p>
-                <p>: {{ $employee['email'] ?? '-' }}</p>
-                <p>: {{ $employee['gender'] ?? '-' }}</p>
-                <p>: {{ $employee['mobile_phone'] ?? '-' }}</p>
-                <p>: {{ $employee['address'] ?? '-' }}</p>
-                <p>: {{ $employee['religion'] ?? '-' }}</p>
-                <p>: {{ $employee['birth_date'] ?? '-' }}</p>
-                <p>: {{ $employee['birth_place'] ?? '-' }}</p>
-                <p>: {{ $employee['marital_status'] ?? '-' }}</p>
+                <p>{{ $employee['name'] ?? '-' }}</p>
+                <p>{{ $employee['email'] ?? '-' }}</p>
+                <p>{{ $employee['gender'] ?? '-' }}</p>
+                <p>{{ $employee['mobile_phone'] ?? '-' }}</p>
+                <p>{{ $employee['address'] ?? '-' }}</p>
+                <p>{{ $employee['religion'] ?? '-' }}</p>
+                <p>{{ $employee['birth_date'] ?? '-' }}</p>
+                <p>{{ $employee['birth_place'] ?? '-' }}</p>
+                <p>{{ $employee['marital_status'] ?? '-' }}</p>
             </div>
         </div>
     </div>

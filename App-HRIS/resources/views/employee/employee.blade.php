@@ -5,13 +5,13 @@
 
 <br>
 @if ($errors->any())
-    <div class="alert alert-danger mt-4">
-        <ul class="pl-4">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+<div class="alert alert-danger mt-4">
+    <ul class="pl-4">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
 @endif
 <div class="card">
     <div class="card-body d-flex justify-content-between">
@@ -53,17 +53,25 @@
                     <td>{{ $emp['email'] ?? '-' }}</td>
                     <td>{{ $emp['mobile_phone'] ?? '-' }}</td>
                     <td>
+                        @if(!isset( $emp['resign_date'] ))
                         <div class="btn-group dropstart">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a id="actionButton" class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                                <li><a id="actionButton" class="dropdown-item" href="#">Transfer</a></li>
-                                <li><a id="actionButton" class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
-                                <li><a id="actionButton" class="dropdown-item" href="#">Delete</a></li>
+                            <ul class="dropdown-menu" id="actionButton" >
+                                <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
+                                <li><a class="dropdown-item" href="#">Transfer</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                         </div>
+                        @else
+                        <div class="btn-group dropstart">
+                            <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                        </div>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

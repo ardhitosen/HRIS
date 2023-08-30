@@ -8,12 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <title>HRIS UMN</title>
     <style>
-        #actionButton:hover {
+        #actionButton li a:hover {
             background-color: #eaeaea;
         }
 
         .detail {
             width: 200px;
+        }
+
+        #dashboardInfo div {
+            width: 23%;
+            padding: 10px;
         }
     </style>
 </head>
