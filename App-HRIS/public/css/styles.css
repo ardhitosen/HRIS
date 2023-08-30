@@ -1,0 +1,13 @@
+
+#actionButton li a:hover {
+    background-color: #eaeaea;
+}
+
+.detail {
+    width: 200px;
+}
+
+#dashboardInfo div {
+    width: 23%;
+    padding: 10px;
+}

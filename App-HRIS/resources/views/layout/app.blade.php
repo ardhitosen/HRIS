@@ -7,20 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <title>HRIS UMN</title>
-    <style>
-        #actionButton li a:hover {
-            background-color: #eaeaea;
-        }
-
-        .detail {
-            width: 200px;
-        }
-
-        #dashboardInfo div {
-            width: 23%;
-            padding: 10px;
-        }
-    </style>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -35,7 +22,7 @@
                         <a class="nav-link" href="{{url('/admins/employee')}}">Employees</a>
                     </li>
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Time Management
                         </button>
                         <ul class="dropdown-menu">
