@@ -11,3 +11,10 @@
     width: 23%;
     padding: 10px;
 }
+
+#attendanceDetail {
+    padding: 10px;
+}
+#attendanceDetail div {
+    width: 33%;
+}

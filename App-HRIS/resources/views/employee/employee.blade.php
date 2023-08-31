@@ -22,63 +22,59 @@
     </div>
 </div>
 <br>
-<div class="container">
-    <div class="table-responsive scrollable-table" style="max-height: 500px">
-        <table class="table table-hover text-nowrap text-center align-middle">
-            <thead>
-                <tr>
-                    <th>Employee Name</th>
-                    <th>ID</th>
-                    <th>Branch</th>
-                    <th>Organization</th>
-                    <th>Job Position</th>
-                    <th>Job Level</th>
-                    <th>Join Date</th>
-                    <th>Resign Date</th>
-                    <th>Email</th>
-                    <th>Mobile Phone</th>
-                    <th>Activity</th>
-                </tr>
-            </thead>
-            <tbody style="height: 200px">
-                @foreach($employee as $emp)
-                <tr>
-                    <td>{{ $emp['name'] ?? '-' }}</td>
-                    <td>{{ $emp['id'] ?? '-' }}</td>
-                    <td>{{ $emp['branch'] ?? '-' }}</td>
-                    <td>{{ $emp['organization'] ?? '-' }}</td>
-                    <td>{{ $emp['job_position'] ?? '-' }}</td>
-                    <td>{{ $emp['job_level'] ?? '-' }}</td>
-                    <td>{{ $emp['join_date'] ?? '-' }}</td>
-                    <td>{{ $emp['resign_date'] ?? '-' }}</td>
-                    <td>{{ $emp['email'] ?? '-' }}</td>
-                    <td>{{ $emp['mobile_phone'] ?? '-' }}</td>
-                    <td>
-                        @if(!isset( $emp['resign_date'] ))
-                        <div class="btn-group dropstart">
-                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
-                            </button>
-                            <ul class="dropdown-menu" id="actionButton" >
-                                <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                                <li><a class="dropdown-item" href="#">Transfer</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
-                                <li><a class="dropdown-item" href="#">Delete</a></li>
-                            </ul>
-                        </div>
-                        @else
-                        <div class="btn-group dropstart">
-                            <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
-                            </button>
-                        </div>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+<div class="table-responsive scrollable-table" style="max-height: 500px">
+    <table class="table table-hover text-nowrap text-center align-middle">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Employee ID</th>
+                <th>Branch</th>
+                <th>Organization</th>
+                <th>Job Position</th>
+                <th>Job Level</th>
+                <th>Join Date</th>
+                <th>Resign Date</th>
+                <th>Email</th>
+                <th>Activity</th>
+            </tr>
+        </thead>
+        <tbody style="height: 200px">
+            @foreach($employee as $emp)
+            <tr>
+                <td>{{ $emp['name'] ?? '-' }}</td>
+                <td>{{ $emp['id'] ?? '-' }}</td>
+                <td>{{ $emp['branch'] ?? '-' }}</td>
+                <td>{{ $emp['organization'] ?? '-' }}</td>
+                <td>{{ $emp['job_position'] ?? '-' }}</td>
+                <td>{{ $emp['job_level'] ?? '-' }}</td>
+                <td>{{ $emp['join_date'] ?? '-' }}</td>
+                <td>{{ $emp['resign_date'] ?? '-' }}</td>
+                <td>{{ $emp['email'] ?? '-' }}</td>
+                <td>
+                    @if(!isset( $emp['resign_date'] ))
+                    <div class="btn-group dropstart">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu" id="actionButton">
+                            <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
+                            <li><a class="dropdown-item" href="#">Transfer</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
+                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                    </div>
+                    @else
+                    <div class="btn-group dropstart">
+                        <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                    </div>
+                    @endif
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="addEmployee" aria-hidden="true">
