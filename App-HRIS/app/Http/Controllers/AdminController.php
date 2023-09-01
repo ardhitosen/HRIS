@@ -171,11 +171,12 @@ class AdminController extends Controller
         $employee->save();
         return redirect()->route('employee');
     }
+
     public function attendance()
     {
         $employee = Employee::all();
         $employeeData = [];
-        
+
         foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
@@ -220,7 +221,7 @@ class AdminController extends Controller
     {
         $employee = Employee::all();
         $employeeData = [];
-        
+
         foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
@@ -253,7 +254,7 @@ class AdminController extends Controller
     {
         $employee = Employee::all();
         $employeeData = [];
-        
+
         foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
@@ -278,7 +279,7 @@ class AdminController extends Controller
                 'employment_status' => $employee->employment_status,
             ];
         }
-        
+
         return view('timeManagement.timeoff', ['employee' => $employeeData]);
     }
 
@@ -317,48 +318,37 @@ class AdminController extends Controller
     {
         $employee = Employee::all();
         $employeeData = [];
-        
-        foreach ($employee as $employee) {
+
+        $reimbursement = Reimbursement::all();
+        $reimbursementData = [];
+
+        foreach ($reimbursement as $reimbursement) {
+            $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
+
             $employeeData[] = [
                 'id' => $employee->id,
-                'username' => $employee->username,
-                'password' => $employee->password,
                 'name' => $employee->name,
-                'branch' => $employee->branch,
-                'organization' => $employee->organization,
-                'job_position' => $employee->job_position,
-                'job_level' => $employee->job_level,
-                'email' => $employee->email,
-                'join_date' => $employee->join_date,
-                'birth_date' => $employee->birth_date,
-                'resign_date' => $employee->resign_date,
-                'birth_place' => $employee->birth_place,
-                'address' => $employee->address,
-                'mobile_phone' => $employee->mobile_phone,
-                'religion' => $employee->religion,
-                'gender' => $employee->gender,
-                'marital_status' => $employee->marital_status,
-                'salary' => $employee->salary,
-                'employment_status' => $employee->employment_status,
+            ];
+            $reimbursementData[] = [
+                'name' => $employee->name,
+                'id' => $reimbursement->reimburse_id,
+                'reimbursement_type' => $reimbursement->reimbursement_type,
+                'total_reimbursement' => $reimbursement->total_reimbursement,
             ];
         }
-        
-        return view('reimbursement', ['employee' => $employeeData]);
+
+        return view('reimbursement', ['reimbursement' => $reimbursementData, 'employee' => $employeeData]);
     }
-    
+
     public function createReimbursement(Request $request)
     {
-        $employee = Employee::where('id', $request->input('employee_id'))->firstOrFail();
-
-        
         $reimbursement = new Reimbursement();
         $reimbursement->employee_id = $request->input('employee_id');
         $reimbursement->reimbursement_type = $request->input('reimbursement_type');
         $reimbursement->total_reimbursement = $request->input('reimburse');
         $reimbursement->save();
-        
-        return view('reimbursement');
 
+        return redirect()->route('reimbursement');
     }
 
     public function employeeDetail($id)

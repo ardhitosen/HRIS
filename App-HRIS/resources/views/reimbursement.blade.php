@@ -10,28 +10,25 @@
         </button>
     </div>
 </div>
+<br>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
     <table class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
                 <th>Employee Name</th>
                 <th>Employee ID</th>
-                <th>Branch</th>
-                <th>Organization</th>
-                <th>Job Position</th>
-                <th>Current Schedule</th>
+                <th>Reimbursement Type</th>
+                <th>Total Reimbursement</th>
                 <th>Activity</th>
             </tr>
         </thead>
-        <tbody style="height: 200px">
-            @foreach($employee as $emp)
-            <tr>
-                <td>{{ $emp['name'] ?? '-' }}</td>
-                <td>{{ $emp['id'] ?? '-' }}</td>
-                <td>{{ $emp['branch'] ?? '-' }}</td>
-                <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
+        <tbody>
+            @foreach($reimbursement as $reim)
+            <tr style="height: 100px">
+                <td>{{ $reim['name'] ?? '-' }}</td>
+                <td>{{ $reim['id'] ?? '-' }}</td>
+                <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
+                <td>{{ $reim['total_reimbursement'] ?? '-' }}</td>
                 <td>
                     <button type="button" class="btn">
                         Add Schedule
