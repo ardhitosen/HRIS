@@ -15,8 +15,8 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->id('reimburse_id');
+            $table->string('reimbursement_type');
             $table->decimal('total_reimbursement', 10, 2);
-            $table->text('description');
         });
     }
 
