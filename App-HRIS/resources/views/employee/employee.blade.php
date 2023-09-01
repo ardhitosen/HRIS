@@ -38,9 +38,9 @@
                 <th>Activity</th>
             </tr>
         </thead>
-        <tbody style="height: 200px">
+        <tbody >
             @foreach($employee as $emp)
-            <tr>
+            <tr style="height: 100px">
                 <td>{{ $emp['name'] ?? '-' }}</td>
                 <td>{{ $emp['id'] ?? '-' }}</td>
                 <td>{{ $emp['branch'] ?? '-' }}</td>
@@ -142,14 +142,6 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="barcode" class="col-sm-2 col-form-label">Barcode</label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <input type="text" name="barcode" id="barcode" class="form-control" value="{{ old('barcode') }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
                             <div class="input-group">
@@ -161,12 +153,6 @@
                         <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
                         <div class="col-sm-10">
                             <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate') }}">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="signdate" class="col-sm-2 col-form-label">Sign Date</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="signdate" id="signdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('signdate') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">

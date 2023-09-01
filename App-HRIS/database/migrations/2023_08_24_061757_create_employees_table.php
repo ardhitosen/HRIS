@@ -23,10 +23,7 @@ return new class extends Migration
             $table->string('job_level');
             $table->string('employment_status');
             $table->date('join_date');
-            $table->date('end_date')->nullable();
-            $table->date('sign_date');
             $table->date('resign_date')->nullable();
-            $table->string('barcode');
             $table->string('email')->unique();
             $table->date('birth_date');
             $table->string('birth_place');

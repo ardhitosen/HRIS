@@ -93,10 +93,8 @@ class AdminController extends Controller
                 'organization' => $employee->organization,
                 'job_position' => $employee->job_position,
                 'job_level' => $employee->job_level,
-                'barcode' => $employee->barcode,
                 'email' => $employee->email,
                 'join_date' => $employee->join_date,
-                'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
                 'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
@@ -123,10 +121,8 @@ class AdminController extends Controller
             'organization' => 'required',
             'jobposition' => 'required',
             'joblevel' => 'required',
-            'barcode' => 'required|unique:employees,barcode',
             'email' => 'required|email|unique:employees,email',
             'joindate' => 'required|date',
-            'signdate' => 'required|date',
             'birthdate' => 'required|date',
             'birthplace' => 'required',
             'address' => 'required',
@@ -149,11 +145,9 @@ class AdminController extends Controller
         $employee->organization = $request->input('organization');
         $employee->job_position = $request->input('jobposition');
         $employee->job_level = $request->input('joblevel');
-        $employee->barcode = $request->input('barcode');
         $employee->resign_date = null;
         $employee->email = $request->input('email');
         $employee->join_date = $request->input('joindate');
-        $employee->sign_date = $request->input('signdate');
         $employee->birth_date = $request->input('birthdate');
         $employee->birth_place = $request->input('birthplace');
         $employee->address = $request->input('address');
@@ -191,10 +185,8 @@ class AdminController extends Controller
                 'organization' => $employee->organization,
                 'job_position' => $employee->job_position,
                 'job_level' => $employee->job_level,
-                'barcode' => $employee->barcode,
                 'email' => $employee->email,
                 'join_date' => $employee->join_date,
-                'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
                 'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
@@ -238,10 +230,8 @@ class AdminController extends Controller
                 'organization' => $employee->organization,
                 'job_position' => $employee->job_position,
                 'job_level' => $employee->job_level,
-                'barcode' => $employee->barcode,
                 'email' => $employee->email,
                 'join_date' => $employee->join_date,
-                'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
                 'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
@@ -273,10 +263,8 @@ class AdminController extends Controller
                 'organization' => $employee->organization,
                 'job_position' => $employee->job_position,
                 'job_level' => $employee->job_level,
-                'barcode' => $employee->barcode,
                 'email' => $employee->email,
                 'join_date' => $employee->join_date,
-                'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
                 'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
@@ -339,10 +327,8 @@ class AdminController extends Controller
                 'organization' => $employee->organization,
                 'job_position' => $employee->job_position,
                 'job_level' => $employee->job_level,
-                'barcode' => $employee->barcode,
                 'email' => $employee->email,
                 'join_date' => $employee->join_date,
-                'sign_date' => $employee->sign_date,
                 'birth_date' => $employee->birth_date,
                 'resign_date' => $employee->resign_date,
                 'birth_place' => $employee->birth_place,
