@@ -44,7 +44,7 @@
 </div>
 
 <div class="modal fade" id="reimburse" tabindex="-1" aria-labelledby="reimburse" aria-hidden="true">
-    <div class="modal-dialog modal modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center">
@@ -54,9 +54,9 @@
                 <form action="{{url('/admins/reimbursement/create')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
-                        <label for="maritalstatus" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <select name="name" class="form-control" id="martialstatus" value="{{ old('name') }}">
+                        <label for="maritalstatus" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9 my-auto">
+                            <select name="employee_id" class="form-control" id="employee_id" value="{{ old('name') }}">
                                 @foreach($employee as $emp)
                                 <option value="{{ $emp['id'] }}">{{ $emp['name'] }}</option>
                                 @endforeach
@@ -64,25 +64,19 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate') }}">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="maritalstatus" class="col-sm-2 col-form-label">Marital Status</label>
-                        <div class="col-sm-10">
-                            <select name="maritalstatus" class="form-control" id="martialstatus" value="{{ old('martialstatus') }}">
-                                <option value="Single">Single</option>
-                                <option value="Married">Married</option>
-                                <option value="Divorced">Divorced</option>
-                                <option value="Widowed">Widowed</option>
+                        <label for="reimbursement_type" class="col-sm-3 col-form-label">Reimbursement Type</label>
+                        <div class="col-sm-9 my-auto">
+                            <select name="reimbursement_type" class="form-control" id="reimbursement_type" value="{{ old('reimbursement_type') }}">
+                                <option value="Travel">Travel Expenses</option>
+                                <option value="Insurance">Insurance</option>
+                                <option value="Business">Business Expenses</option>
+                                <option value="Tax">Tax Refund</option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="reimburse" class="col-sm-2 col-form-label">Reimburse Amount</label>
-                        <div class="col-sm-10">
+                        <label for="reimburse" class="col-sm-3 col-form-label">Reimburse Amount</label>
+                        <div class="col-sm-9 my-auto">
                             <input type="text" name="reimburse" id="reimburse" class="form-control" value="{{ old('reimburse') }}">
                         </div>
                     </div>

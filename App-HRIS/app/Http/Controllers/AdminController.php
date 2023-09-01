@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Log;
 use App\Models\Employee;
+use App\Models\Reimbursement;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
@@ -345,10 +346,21 @@ class AdminController extends Controller
         return view('reimbursement', ['employee' => $employeeData]);
     }
     
-    public function createReimbursement() 
+    public function createReimbursement(Request $request)
     {
+        $employee = Employee::where('id', $request->input('employee_id'))->firstOrFail();
+
+        
+        $reimbursement = new Reimbursement();
+        $reimbursement->employee_id = $request->input('employee_id');
+        $reimbursement->reimbursement_type = $request->input('reimbursement_type');
+        $reimbursement->total_reimbursement = $request->input('reimburse');
+        $reimbursement->save();
+        
+        return view('reimbursement');
 
     }
+
     public function employeeDetail($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();

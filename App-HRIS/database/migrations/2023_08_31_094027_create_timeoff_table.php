@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timeoff', function (Blueprint $table) {
+        Schema::create('timeoffs', function (Blueprint $table) {
+            $table->id('timeoff_id');
+            $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->id('timeoff_id');
             $table->string('time_off_code')->nullable();
             $table->date('effective_date')->nullable();
             $table->date('expiration_date')->nullable();

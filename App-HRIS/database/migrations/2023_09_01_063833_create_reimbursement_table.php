@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reimbursement', function (Blueprint $table) {
+        Schema::create('reimbursements', function (Blueprint $table) {
+            $table->id('reimburse_id');
+            $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->id('reimburse_id');
             $table->string('reimbursement_type');
             $table->decimal('total_reimbursement', 10, 2);
         });

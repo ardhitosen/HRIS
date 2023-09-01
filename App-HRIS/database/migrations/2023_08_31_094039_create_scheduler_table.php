@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scheduler', function (Blueprint $table) {
+        Schema::create('schedulers', function (Blueprint $table) {
+            $table->id('scheduler_id');
+            $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->id('scheduler_id');
             $table->string('organization');
             $table->string('current_schedule');
         });
