@@ -259,7 +259,8 @@ class AdminController extends Controller
     }
 
     public function timeoff()
-    {$employee = Employee::all();
+    {
+        $employee = Employee::all();
         $employeeData = [];
         
         foreach ($employee as $employee) {
@@ -325,9 +326,43 @@ class AdminController extends Controller
 
     public function reimbursement()
     {
-        return view('reimbursement');
+        $employee = Employee::all();
+        $employeeData = [];
+        
+        foreach ($employee as $employee) {
+            $employeeData[] = [
+                'id' => $employee->id,
+                'username' => $employee->username,
+                'password' => $employee->password,
+                'name' => $employee->name,
+                'branch' => $employee->branch,
+                'organization' => $employee->organization,
+                'job_position' => $employee->job_position,
+                'job_level' => $employee->job_level,
+                'barcode' => $employee->barcode,
+                'email' => $employee->email,
+                'join_date' => $employee->join_date,
+                'sign_date' => $employee->sign_date,
+                'birth_date' => $employee->birth_date,
+                'resign_date' => $employee->resign_date,
+                'birth_place' => $employee->birth_place,
+                'address' => $employee->address,
+                'mobile_phone' => $employee->mobile_phone,
+                'religion' => $employee->religion,
+                'gender' => $employee->gender,
+                'marital_status' => $employee->marital_status,
+                'salary' => $employee->salary,
+                'employment_status' => $employee->employment_status,
+            ];
+        }
+        
+        return view('reimbursement', ['employee' => $employeeData]);
     }
+    
+    public function createReimbursement() 
+    {
 
+    }
     public function employeeDetail($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
