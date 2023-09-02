@@ -369,7 +369,7 @@ class AdminController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'newBranch' => 'required',
-            'newOrganization' => 'required',
+            'newPosition' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -378,7 +378,7 @@ class AdminController extends Controller
 
         $employee = Employee::findOrFail($id);
         $employee->branch = $request->input('newBranch');
-        $employee->organization = $request->input('newOrganization');
+        $employee->job_position = $request->input('newPosition');
         $employee->save();
 
         return redirect()->route('employee');

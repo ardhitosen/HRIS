@@ -69,9 +69,9 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <label for="oldOrganization" class="col-sm-2 col-form-label">Old Organization</label>
+                                            <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="oldOrganization" id="oldOrganization" class="form-control" value="{{ $emp['organization'] }}" readonly>
+                                                <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
@@ -81,9 +81,9 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <label for="newOrganization" class="col-sm-2 col-form-label">New Organization</label>
+                                            <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="newOrganization" id="newOrganization" class="form-control">
+                                                <input type="text" name="newPosition" id="newPosition" class="form-control">
                                             </div>
                                         </div>
                                         <div class="d-grid">
