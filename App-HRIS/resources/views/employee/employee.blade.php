@@ -52,13 +52,55 @@
                 <td>{{ $emp['email'] ?? '-' }}</td>
                 <td>
                     @if(!isset( $emp['resign_date'] ))
+                    <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="text-center">
+                                        <h5>Transfer Employee</h5>
+                                    </div>
+                                    <br>
+                                    <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
+                                        @csrf
+                                        <div class="mb-3 row">
+                                            <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="oldOrganization" class="col-sm-2 col-form-label">Old Organization</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="oldOrganization" id="oldOrganization" class="form-control" value="{{ $emp['organization'] }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="newBranch" id="newBranch" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="newOrganization" class="col-sm-2 col-form-label">New Organization</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="newOrganization" id="newOrganization" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-primary">Transfer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
                     <div class="btn-group dropstart">
                         <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                         </button>
                         <ul class="dropdown-menu" id="actionButton">
                             <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                            <li><a class="dropdown-item" href="#">Transfer</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>                           
                             <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
                             <li><a class="dropdown-item" href="#">Delete</a></li>
                         </ul>

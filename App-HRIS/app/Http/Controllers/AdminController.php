@@ -365,6 +365,25 @@ class AdminController extends Controller
         return view('employee.employeeEmployment', ['employee' => $employee]);
     }
 
+    public function transferEmployee(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'newBranch' => 'required',
+            'newOrganization' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $employee = Employee::findOrFail($id);
+        $employee->branch = $request->input('newBranch');
+        $employee->organization = $request->input('newOrganization');
+        $employee->save();
+
+        return redirect()->route('employee');
+    }
+
 
 
 
