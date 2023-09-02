@@ -165,6 +165,44 @@ class AdminController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function editEmployee(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'organization' => 'required',
+            'email' => 'required|unique:employees,email,'.$id.',id',
+            'birthdate' => 'required|date',
+            'birthplace' => 'required',
+            'joindate' => 'required|date',
+            'address' => 'required',
+            'mobilephone' => 'required',
+            'religion' => 'required',
+            'gender' => 'required|in:Male,Female',
+            'maritalstatus' => 'required|in:Single,Married,Divorced,Widowed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $employee = Employee::findOrFail($id);
+        $employee->name = $request->input('name');
+        $employee->organization = $request->input('organization');
+        $employee->email = $request->input('email');
+        $employee->join_date = $request->input('joindate');
+        $employee->birth_date = $request->input('birthdate');
+        $employee->birth_place = $request->input('birthplace');
+        $employee->address = $request->input('address');
+        $employee->mobile_phone = $request->input('mobilephone');
+        $employee->religion = $request->input('religion');
+        $employee->gender = $request->input('gender');
+        $employee->marital_status = $request->input('maritalstatus');
+
+        $employee->save();
+
+        return redirect()->route('dashboard');
+    }
+
     public function resign(Request $request, $id)
     {
         $employee = Employee::findOrFail($id);

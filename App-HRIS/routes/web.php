@@ -36,6 +36,7 @@ Route::get('/admins/payroll', [AdminController::class, 'payroll'])->name('payrol
 Route::get('/admins/reimbursement', [AdminController::class, 'reimbursement'])->name('reimbursement');
 Route::post('/admins/reimbursement/create', [AdminController::class, 'createReimbursement'])->name('reimbursementCreate');
 Route::get('/admins/employee/resign/{id}', [AdminController::class, 'resign'])->name('resign');
+Route::post('/admins/employee/edit/{id}', [AdminController::class, 'editemployee'])->name('edit');
 Route::post('/admins/employee/transfer/{id}', [AdminController::class, 'transferEmployee'])->name('transfer');
 Route::post('/admins/addannouncement', [AdminController::class, 'create_announcement'])->name('createAnnouncement');
 Route::post('/admins/editannouncement/{id}', [AdminController::class, 'editannouncement'])->name('editAnnouncement');
