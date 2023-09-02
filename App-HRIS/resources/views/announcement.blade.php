@@ -40,43 +40,45 @@
         </div>
     </div>
 </div>
-<div class="card mt-4">
-    <div class="card-body">
-        <h5 class="card-title">Announcements</h5>
-        <hr>
-        @if($announcements->isEmpty())
-        <p class="card-text">No announcements available.</p>
-        @else
-        <div id="announcement">
-            <h6>{{ $announcements[0]->announcement }}</h6>
-            <p>{{ $announcements[0]->description }}</p>
+@foreach ($announcements as $announcement)
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Announcement: {{ $announcement->announcement }}</h5>
+            <p>{{ $announcement->description }}</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAnnouncement{{$announcement->id}}">
+                Edit
+            </button>
+            <form action="{{ url('/admins/deleteannouncement/' . $announcement->id) }}" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <div class="modal fade" id="editAnnouncement{{$announcement->id}}" tabindex="-1" aria-labelledby="editAnnouncement{{$announcement->id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Announcement</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('/admins/editannouncement/' . $announcement->id) }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Announcement Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ $announcement->announcement }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3">{{ $announcement->description }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        @if($announcements->count() > 1)
-        <button id="nextAnnouncement" class="btn btn-primary mt-3">Next Announcement</button>
-        @endif
-        @endif
     </div>
-</div>
-
-
-<script>
-    var currentAnnouncement = 0;
-    var announcements = @json($announcements);
-
-    @if($announcements -> count() > 1)
-    document.getElementById('nextAnnouncement').addEventListener('click', function() {
-        currentAnnouncement = (currentAnnouncement + 1) % announcements.length;
-        updateAnnouncement();
-    });
-    @endif
-
-    function updateAnnouncement() {
-        var announcement = announcements[currentAnnouncement];
-        document.getElementById('announcement').innerHTML = `
-            <h6>${announcement.announcement}</h6>
-            <p>${announcement.description}</p>
-        `;
-    }
-</script>
+@endforeach
 
 @stop

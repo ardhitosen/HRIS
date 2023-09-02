@@ -310,6 +310,32 @@ class AdminController extends Controller
         return redirect()->route('announcement');
     }
 
+    public function editannouncement(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $announcement = Announcement::findOrFail($id);
+        $announcement->announcement = $request->input('title');
+        $announcement->description = $request->input('description');
+        $announcement->save();
+
+        return redirect()->route('announcement');
+    }
+
+    public function deleteannouncement(Request $request,$id)
+    {
+        $announcement = Announcement::findOrFail($id);
+        $announcement->delete();
+
+        return redirect()->route('announcement');
+    }
+
     public function payroll()
     {
         return view('payroll');

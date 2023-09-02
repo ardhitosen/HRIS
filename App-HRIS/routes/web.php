@@ -38,4 +38,6 @@ Route::post('/admins/reimbursement/create', [AdminController::class, 'createReim
 Route::get('/admins/employee/resign/{id}', [AdminController::class, 'resign'])->name('resign');
 Route::post('/admins/employee/transfer/{id}', [AdminController::class, 'transferEmployee'])->name('transfer');
 Route::post('/admins/addannouncement', [AdminController::class, 'create_announcement'])->name('createAnnouncement');
+Route::post('/admins/editannouncement/{id}', [AdminController::class, 'editannouncement'])->name('editAnnouncement');
+Route::delete('/admins/deleteannouncement/{id}', [AdminController::class, 'deleteannouncement'])->name('deleteAnnouncement');
 
