@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Announcement;
+use App\Models\Transfer;
 use Illuminate\Support\Facades\Log;
 use App\Models\Employee;
 use App\Models\Reimbursement;
@@ -376,6 +377,14 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
+        $transfer= new Transfer();
+        $transfer->employee_id = $id;
+        $transfer->old_branch = $request->input('oldBranch');
+        $transfer->new_branch = $request->input('newBranch');
+        $transfer->old_position = $request->input('oldPosition');
+        $transfer->new_position = $request->input('newPosition');
+        $transfer->date = date('Y-m-d');
+        $transfer->save();
         $employee = Employee::findOrFail($id);
         $employee->branch = $request->input('newBranch');
         $employee->job_position = $request->input('newPosition');
