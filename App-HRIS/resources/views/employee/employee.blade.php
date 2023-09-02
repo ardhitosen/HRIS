@@ -75,6 +75,12 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
+                                            <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
                                             <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="newBranch" id="newBranch" class="form-control">
@@ -84,6 +90,12 @@
                                             <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="newPosition" id="newPosition" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="newLevel" id="newLevel" class="form-control">
                                             </div>
                                         </div>
                                         <div class="d-grid">

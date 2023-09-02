@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('new_branch');
             $table->string('old_position');
             $table->string('new_position');
+            $table->string('old_level');
+            $table->string('new_level');
             $table->date('date');
         });
     }

@@ -436,6 +436,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'newBranch' => 'required',
             'newPosition' => 'required',
+            'newLevel' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -448,10 +449,13 @@ class AdminController extends Controller
         $transfer->new_branch = $request->input('newBranch');
         $transfer->old_position = $request->input('oldPosition');
         $transfer->new_position = $request->input('newPosition');
+        $transfer->old_level = $request->input('oldLevel');
+        $transfer->new_level = $request->input('newLevel');
         $transfer->date = date('Y-m-d');
         $transfer->save();
         $employee = Employee::findOrFail($id);
         $employee->branch = $request->input('newBranch');
+        $employee->job_level = $request->input('newLevel');
         $employee->job_position = $request->input('newPosition');
         $employee->save();
 
