@@ -301,8 +301,18 @@ class AdminController extends Controller
             ];
         }
 
-
         return view('timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
+    }
+
+    public function statusChange($status, $id) {
+        $timeoff = Timeoff::where('employee_id', $id)->firstOrFail();
+
+        // $timeoff->status = $status;
+        // $timeoff->update(['status' => $status]);
+        $timeoff->status = $status;
+        $timeoff->save();
+        
+        return redirect()->route('timeoff');
     }
 
     public function timeoffAssign(Request $request) {

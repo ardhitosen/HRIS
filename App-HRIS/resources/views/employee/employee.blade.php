@@ -220,7 +220,7 @@
                     </div>
                     @else
                     <div class="btn-group dropstart">
-                        <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" class="btn dropdown-toggle disabled   " data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                         </button>
                     </div>

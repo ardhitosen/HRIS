@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Timeoff extends Model
 {
     use HasFactory;
+    protected $primaryKey = "timeoff_id";
+    protected $fillable = [
+        'status', 
+    ];
 }

@@ -24,9 +24,9 @@
                 <th>Activity</th>
             </tr>
         </thead>
-        <tbody style="height: 100px">
+        <tbody>
             @foreach($timeoff as $timeoff)
-            <tr>
+            <tr style="height: 100px">
                 <td>{{ $timeoff['employee_name'] ?? '-' }}</td>
                 <td>{{ $timeoff['id'] ?? '-' }}</td>
                 <td>{{ $timeoff['time_off_code'] ?? '-' }}</td>
@@ -34,9 +34,23 @@
                 <td>{{ $timeoff['expiration_date'] ?? '-' }}</td>
                 <td>{{ $timeoff['status'] ?? '-' }}</td>
                 <td>
-                    <button type="button" class="btn">
-                        Edit
-                    </button>
+                    @if($timeoff['status'] == 'Pending')
+                    <div class="btn-group dropstart">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu" id="actionButton">                   
+                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Accept/' . $timeoff['id'])}}">Accept</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Decline/' . $timeoff['id'])}}">Decline</a></li>
+                        </ul>
+                    </div>
+                    @else
+                    <div class="btn-group dropstart ">
+                        <button type="button" class="btn dropdown-toggle disabled border-0">
+                            Action
+                        </button>
+                    </div>
+                    @endif
                 </td>
             </tr>
             @endforeach
