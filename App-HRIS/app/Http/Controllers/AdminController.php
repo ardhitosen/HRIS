@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Announcement;
 use App\Models\Transfer;
+use App\Models\Attendance;
+use App\Models\Timeoff;
 use Illuminate\Support\Facades\Log;
 use App\Models\Employee;
 use App\Models\Reimbursement;
@@ -219,25 +221,7 @@ class AdminController extends Controller
         foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
-                'username' => $employee->username,
-                'password' => $employee->password,
                 'name' => $employee->name,
-                'branch' => $employee->branch,
-                'organization' => $employee->organization,
-                'job_position' => $employee->job_position,
-                'job_level' => $employee->job_level,
-                'email' => $employee->email,
-                'join_date' => $employee->join_date,
-                'birth_date' => $employee->birth_date,
-                'resign_date' => $employee->resign_date,
-                'birth_place' => $employee->birth_place,
-                'address' => $employee->address,
-                'mobile_phone' => $employee->mobile_phone,
-                'religion' => $employee->religion,
-                'gender' => $employee->gender,
-                'marital_status' => $employee->marital_status,
-                'salary' => $employee->salary,
-                'employment_status' => $employee->employment_status,
             ];
         }
 
@@ -294,32 +278,43 @@ class AdminController extends Controller
         $employee = Employee::all();
         $employeeData = [];
 
-        foreach ($employee as $employee) {
+        $timeoff = Timeoff::all();
+        $timeoffData = [];
+        
+        foreach($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
-                'username' => $employee->username,
-                'password' => $employee->password,
-                'name' => $employee->name,
-                'branch' => $employee->branch,
-                'organization' => $employee->organization,
-                'job_position' => $employee->job_position,
-                'job_level' => $employee->job_level,
-                'email' => $employee->email,
-                'join_date' => $employee->join_date,
-                'birth_date' => $employee->birth_date,
-                'resign_date' => $employee->resign_date,
-                'birth_place' => $employee->birth_place,
-                'address' => $employee->address,
-                'mobile_phone' => $employee->mobile_phone,
-                'religion' => $employee->religion,
-                'gender' => $employee->gender,
-                'marital_status' => $employee->marital_status,
-                'salary' => $employee->salary,
-                'employment_status' => $employee->employment_status,
+                'name' => $employee->name
             ];
         }
 
-        return view('timeManagement.timeoff', ['employee' => $employeeData]);
+        foreach ($timeoff as $timeoff) {
+            $emp = Employee::where('id', $timeoff->employee_id)->firstOrFail();
+
+            $timeoffData[] = [
+                'id' => $timeoff->employee_id,
+                'employee_name' => $emp->name,
+                'time_off_code' => $timeoff->time_off_code,
+                'effective_date' => $timeoff->effective_date,
+                'expiration_date' => $timeoff->expiration_date,
+                'status' => $timeoff->status
+            ];
+        }
+
+
+        return view('timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
+    }
+
+    public function timeoffAssign(Request $request) {
+        $newTimeOff = new Timeoff();
+        $newTimeOff->employee_id = $request->input('employee_id');
+        $newTimeOff->time_off_code = $request->input('timeoffcode');
+        $newTimeOff->effective_date = $request->input('effectiveDate');
+        $newTimeOff->expiration_date = $request->input('expDate');
+        $newTimeOff->status = "Pending";
+        $newTimeOff->save();
+
+        return redirect()->route('timeoff');
     }
 
     public function announcement()

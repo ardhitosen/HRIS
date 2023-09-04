@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('time_off_code')->nullable();
             $table->date('effective_date')->nullable();
             $table->date('expiration_date')->nullable();
+            $table->string('status')->nullable();
         });
     }
 
