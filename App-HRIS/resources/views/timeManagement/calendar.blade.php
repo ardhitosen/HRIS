@@ -13,6 +13,9 @@
         week: 'Week',
         day: 'Day',
         list: 'List'
+      },
+      eventClick: {
+        
       }
     });
     calendar.render();
