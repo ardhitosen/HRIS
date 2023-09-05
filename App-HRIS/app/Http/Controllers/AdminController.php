@@ -450,7 +450,7 @@ class AdminController extends Controller
     {
         $employee = Employee::where('id', $id)->firstOrFail();
 
-        return view('employee.employeeDetail', ['employee' => $employee]);
+        return view('employee.employeeDetail', ['emp' => $employee]);
     }
 
     public function employeeEmployment($id)
