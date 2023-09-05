@@ -38,7 +38,7 @@
                 <th>Activity</th>
             </tr>
         </thead>
-        <tbody >
+        <tbody>
             @foreach($employee as $emp)
             <tr style="height: 100px">
                 <td>{{ $emp['name'] ?? '-' }}</td>
@@ -52,167 +52,13 @@
                 <td>{{ $emp['email'] ?? '-' }}</td>
                 <td>
                     @if(!isset( $emp['resign_date'] ))
-                    <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="text-center">
-                                        <h5>Transfer Employee</h5>
-                                    </div>
-                                    <br>
-                                    <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
-                                        @csrf
-                                        <div class="mb-3 row">
-                                            <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="newBranch" id="newBranch" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="newPosition" id="newPosition" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="newLevel" id="newLevel" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="d-grid">
-                                            <button class="btn btn-primary">Transfer</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="editEmployee" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="text-center">
-                                        <h5>Edit Employee</h5>
-                                    </div>
-                                    <br>
-                                    <form action="{{ url('/admins/employee/edit/' . $emp['id']) }}" method="post">
-                                        @csrf
-                                        <div class="mb-3 row">
-                                            <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $emp['name']) }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="email" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $emp['email']) }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="organization" class="col-sm-2 col-form-label">Organization</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input type="text" name="organization" id="organization" class="form-control" value="{{ old('organization', $emp['organization']) }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate', $emp['join_date']) }}">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="joindate" class="col-sm-2 col-form-label">Birth Date</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate',$emp['birth_date']) }}">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="birthplace" class="col-sm-2 col-form-label">Birth Place</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input type="text" name="birthplace" id="birthplace" class="form-control" value="{{ old('birthplace',$emp['birth_place']) }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="address" class="col-sm-2 col-form-label">Address</label>
-                                            <div class="col-sm-10">
-                                                <textarea name="address" id="address" class="form-control">{{ old('address', $emp['address']) }}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="mobilephone" class="col-sm-2 col-form-label">Mobile Phone</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="mobilephone" id="mobilephone" class="form-control" value="{{ old('mobilephone',$emp['mobile_phone']) }}">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="religion" class="col-sm-2 col-form-label">Religion</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="religion" id="religion" class="form-control" value="{{ old('religion',$emp['religion']) }}">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                                            <div class="col-sm-10">
-                                                <select name="gender" class="form-control" id="gender" value="{{ old('gender',$emp['gender']) }}">
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="maritalstatus" class="col-sm-2 col-form-label">Marital Status</label>
-                                            <div class="col-sm-10">
-                                                <select name="maritalstatus" class="form-control" id="maritalstatus" value="{{ old('maritalstatus',$emp['marital_status']) }}">
-                                                    <option value="Single">Single</option>
-                                                    <option value="Married">Married</option>
-                                                    <option value="Divorced">Divorced</option>
-                                                    <option value="Widowed">Widowed</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="d-grid">
-                                            <button class="btn btn-primary">Save Changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="btn-group dropstart">
                         <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                         </button>
                         <ul class="dropdown-menu" id="actionButton">
                             <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>                           
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>
                             <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editEmployee">Edit</a></li>
                             <li><a class="dropdown-item" href="#">Delete</a></li>
@@ -376,6 +222,159 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <h5>Transfer Employee</h5>
+                </div>
+                <br>
+                <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
+                    @csrf
+                    <div class="mb-3 row">
+                        <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="newBranch" id="newBranch" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="newPosition" id="newPosition" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="newLevel" id="newLevel" class="form-control">
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary">Transfer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="editEmployee" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <h5>Edit Employee</h5>
+                </div>
+                <br>
+                <form action="{{ url('/admins/employee/edit/' . $emp['id']) }}" method="post">
+                    @csrf
+                    <div class="mb-3 row">
+                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $emp['name']) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $emp['email']) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="organization" class="col-sm-2 col-form-label">Organization</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" name="organization" id="organization" class="form-control" value="{{ old('organization', $emp['organization']) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate', $emp['join_date']) }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="joindate" class="col-sm-2 col-form-label">Birth Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate',$emp['birth_date']) }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="birthplace" class="col-sm-2 col-form-label">Birth Place</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" name="birthplace" id="birthplace" class="form-control" value="{{ old('birthplace',$emp['birth_place']) }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="address" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <textarea name="address" id="address" class="form-control">{{ old('address', $emp['address']) }}</textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="mobilephone" class="col-sm-2 col-form-label">Mobile Phone</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="mobilephone" id="mobilephone" class="form-control" value="{{ old('mobilephone',$emp['mobile_phone']) }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="religion" class="col-sm-2 col-form-label">Religion</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="religion" id="religion" class="form-control" value="{{ old('religion',$emp['religion']) }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                        <div class="col-sm-10">
+                            <select name="gender" class="form-control" id="gender" value="{{ old('gender',$emp['gender']) }}">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="maritalstatus" class="col-sm-2 col-form-label">Marital Status</label>
+                        <div class="col-sm-10">
+                            <select name="maritalstatus" class="form-control" id="maritalstatus" value="{{ old('maritalstatus',$emp['marital_status']) }}">
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @stop

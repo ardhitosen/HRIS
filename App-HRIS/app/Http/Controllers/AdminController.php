@@ -390,21 +390,25 @@ class AdminController extends Controller
         $employee = Employee::all();
         $employeeData = [];
 
+        foreach($employee as $employee) {
+            $employeeData[] = [
+                'id' => $employee->id,
+                'name' => $employee->name
+            ];
+        }
         $reimbursement = Reimbursement::all();
         $reimbursementData = [];
 
         foreach ($reimbursement as $reimbursement) {
-            $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
+            // $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
 
-            $employeeData[] = [
-                'id' => $employee->id,
-                'name' => $employee->name,
-            ];
             $reimbursementData[] = [
                 'name' => $employee->name,
                 'id' => $reimbursement->reimburse_id,
+                'employee_id' => $reimbursement->employee_id,
                 'reimbursement_type' => $reimbursement->reimbursement_type,
                 'total_reimbursement' => $reimbursement->total_reimbursement,
+                'status' => $reimbursement->status,
             ];
         }
 
@@ -417,8 +421,28 @@ class AdminController extends Controller
         $reimbursement->employee_id = $request->input('employee_id');
         $reimbursement->reimbursement_type = $request->input('reimbursement_type');
         $reimbursement->total_reimbursement = $request->input('reimburse');
+        $reimbursement->status = "Pending";
         $reimbursement->save();
 
+        return redirect()->route('reimbursement');
+    }
+    
+    public function reimbursementAction($status, $id) {
+        $reimburse = Reimbursement::where('employee_id', $id)->firstOrFail();
+
+        $reimburse->status = $status;
+        $reimburse->save();
+        
+        return redirect()->route('reimbursement');
+    }
+    
+    public function reimburseRevision(Request $request, $id) {
+        $reimburse = Reimbursement::where('employee_id', $id)->firstOrFail();
+
+        $reimburse->status = "Revision";
+        $reimburse->reason_for_revision = $request->reason;
+        $reimburse->save();
+        
         return redirect()->route('reimbursement');
     }
 

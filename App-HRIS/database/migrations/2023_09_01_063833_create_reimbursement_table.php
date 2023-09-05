@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('reimbursement_type');
             $table->decimal('total_reimbursement', 10, 2);
+            $table->string('status')->nullable();
+            $table->text('reason_for_revision')->nullable();
         });
     }
 
