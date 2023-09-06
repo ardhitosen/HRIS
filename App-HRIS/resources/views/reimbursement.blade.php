@@ -29,8 +29,12 @@
                 <td>{{ $reim['name'] ?? '-' }}</td>
                 <td>{{ $reim['id'] ?? '-' }}</td>
                 <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
-                <td>{{ $reim['total_reimbursement'] ?? '-' }}</td>
-                <td>{{ $reim['status'] ?? '-' }}</td>
+                <td>{{ 'IDR ' . number_format($reim['total_reimbursement'], 0, ',', '.') }}</td>
+                <td>
+                    <span style="{{ $reim['status'] == 'Pending' ? 'color: orange;' : ($reim['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
+                        {{ $reim['status'] ?? '-' }}
+                    </span>
+                </td>
                 <td>
                     @if($reim['status'] == 'Pending')
                     <div class="btn-group dropstart">
@@ -38,13 +42,13 @@
                             Action
                         </button>
                         <ul class="dropdown-menu" id="actionButton">
-                            <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Accept/' . $reim['employee_id'])}}">Accept</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Accept/' . $reim['id'])}}">Accept</a></li>
                             <li>
                                 <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#revision">
                                     Revision
                                 </button>
                             </li>
-                            <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Decline/' . $reim['employee_id'])}}">Decline</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Decline/' . $reim['id'])}}">Decline</a></li>
                         </ul>
                     </div>
                     @else

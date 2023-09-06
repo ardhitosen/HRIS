@@ -85,13 +85,13 @@
                     <div class="mb-3 row">
                         <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
                         <div class="col-sm-10">
-                            <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate', $emp['join_date']) }}">
+                            <input type="date" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate', $emp['join_date']) }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="joindate" class="col-sm-2 col-form-label">Birth Date</label>
+                        <label for="birthdate" class="col-sm-2 col-form-label">Birth Date</label>
                         <div class="col-sm-10">
-                            <input type="text" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate',$emp['birth_date']) }}">
+                            <input type="date" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate',$emp['birth_date']) }}">
                         </div>
                     </div>
                     <div class="mb-3 row">

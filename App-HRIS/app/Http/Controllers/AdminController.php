@@ -292,6 +292,7 @@ class AdminController extends Controller
             $emp = Employee::where('id', $timeoff->employee_id)->firstOrFail();
 
             $timeoffData[] = [
+                'timeoff_id' => $timeoff->timeoff_id,
                 'id' => $timeoff->employee_id,
                 'employee_name' => $emp->name,
                 'time_off_code' => $timeoff->time_off_code,
@@ -305,7 +306,7 @@ class AdminController extends Controller
     }
 
     public function statusChange($status, $id) {
-        $timeoff = Timeoff::where('employee_id', $id)->firstOrFail();
+        $timeoff = Timeoff::findOrFail($id);
 
         // $timeoff->status = $status;
         // $timeoff->update(['status' => $status]);
@@ -428,7 +429,7 @@ class AdminController extends Controller
     }
     
     public function reimbursementAction($status, $id) {
-        $reimburse = Reimbursement::where('employee_id', $id)->firstOrFail();
+        $reimburse = Reimbursement::findOrFail($id);
 
         $reimburse->status = $status;
         $reimburse->save();

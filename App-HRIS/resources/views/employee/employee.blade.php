@@ -72,6 +72,60 @@
                     @endif
                 </td>
             </tr>
+            <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <h5>Transfer Employee</h5>
+                            </div>
+                            <br>
+                            <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
+                                @csrf
+                                <div class="mb-3 row">
+                                    <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="newBranch" id="newBranch" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="newPosition" id="newPosition" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="newLevel" id="newLevel" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary">Transfer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
         </tbody>
     </table>
@@ -152,13 +206,13 @@
                     <div class="mb-3 row">
                         <label for="joindate" class="col-sm-2 col-form-label">Join Date</label>
                         <div class="col-sm-10">
-                            <input type="text" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate') }}">
+                            <input type="date" name="joindate" id="joindate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('joindate') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="joindate" class="col-sm-2 col-form-label">Birth Date</label>
+                        <label for="birthdate" class="col-sm-2 col-form-label">Birth Date</label>
                         <div class="col-sm-10">
-                            <input type="text" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate') }}">
+                            <input type="date" name="birthdate" id="birthdate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{ old('birthdate') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -215,60 +269,6 @@
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary">Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="text-center">
-                    <h5>Transfer Employee</h5>
-                </div>
-                <br>
-                <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
-                    @csrf
-                    <div class="mb-3 row">
-                        <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="newBranch" id="newBranch" class="form-control">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="newPosition" id="newPosition" class="form-control">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="newLevel" id="newLevel" class="form-control">
-                        </div>
-                    </div>
-                    <div class="d-grid">
-                        <button class="btn btn-primary">Transfer</button>
                     </div>
                 </form>
             </div>

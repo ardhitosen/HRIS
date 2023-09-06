@@ -32,7 +32,11 @@
                 <td>{{ $timeoff['time_off_code'] ?? '-' }}</td>
                 <td>{{ $timeoff['effective_date'] ?? '-' }}</td>
                 <td>{{ $timeoff['expiration_date'] ?? '-' }}</td>
-                <td>{{ $timeoff['status'] ?? '-' }}</td>
+                <td>
+                    <span style="{{ $timeoff['status'] == 'Pending' ? 'color: orange;' : ($timeoff['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
+                        {{ $timeoff['status'] ?? '-' }}
+                    </span>
+                </td>
                 <td>
                     @if($timeoff['status'] == 'Pending')
                     <div class="btn-group dropstart">
@@ -40,8 +44,8 @@
                             Action
                         </button>
                         <ul class="dropdown-menu" id="actionButton">                   
-                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Accept/' . $timeoff['id'])}}">Accept</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Decline/' . $timeoff['id'])}}">Decline</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Accept/' . $timeoff['timeoff_id'])}}">Accept</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admins/timeoff/status/Decline/' . $timeoff['timeoff_id'])}}">Decline</a></li>
                         </ul>
                     </div>
                     @else
