@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedulers', function (Blueprint $table) {
-            $table->id('scheduler_id');
+        Schema::create('overtime', function (Blueprint $table) {
+            $table->id('overtime_id');
             $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->string('organization'); 
-            $table->string('current_schedule');
+            $table->date('overtime_date')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->string('status')->nullable();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedulers');
+        Schema::dropIfExists('overtime');
     }
 };
