@@ -25,6 +25,7 @@ Route::get('/admins/logoutProcess', [AdminController::class, 'logoutProcess'])->
 Route::get('/admins/employee', [AdminController::class, 'employee'])->name('employee');
 Route::get('/admins/employee/detail/personal/{id}', [AdminController::class, 'employeeDetail'])->name('employeeDetail');
 Route::get('/admins/employee/detail/employment/{id}', [AdminController::class, 'employeeEmployment'])->name('employeeEmployment');
+Route::get('/admins/employee/detail/transferlog/{id}', [AdminController::class, 'employeeTransferLog'])->name('employeeTransferLog');
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('attendance');
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');

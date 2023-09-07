@@ -12,10 +12,13 @@
         <div class="d-flex row">
             <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/personal/' . $employee['id']) }}">Personal</a></span>
             <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/employment/' . $employee['id']) }}">Employment</a></span>
+            <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/transferlog/' . $employee['id']) }}">Transfer Log</a></span>
         </div>
     </div>
     <div class="col-10">
-        <h3>Employment</h3>
+        <div class="d-flex ">
+            <h3>Employment</h3>
+        </div>
         <hr>
         <div class="d-flex">
             <div class="detail">

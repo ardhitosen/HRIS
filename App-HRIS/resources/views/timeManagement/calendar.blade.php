@@ -9,7 +9,7 @@
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     buttonText: {
-      today: 'Today',
+      today: 'Today', 
       month: 'Month',
       week: 'Week',
       day: 'Day',

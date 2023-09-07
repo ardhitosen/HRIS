@@ -466,6 +466,30 @@ class AdminController extends Controller
         return view('employee.employeeEmployment', ['employee' => $employee]);
     }
 
+    public function employeeTransferLog($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+
+        $transfer_log = Transfer::where('employee_id', $id)->get();
+        $transferData = [];
+
+        foreach ($transfer_log as $log) {
+            // $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
+
+            $transferData[] = [
+                'id' => $log->logs_id,
+                'date' => Carbon::parse($log->created_at)->format('F j, Y - h:i A'),
+                'old_branch' => $log->old_branch,
+                'new_branch' => $log->new_branch,
+                'old_position' => $log->old_position,
+                'new_position' => $log->new_position,
+                'old_level' => $log->old_level,
+                'new_level' => $log->new_level,
+            ];
+        }
+        return view('employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
+    }
+
     public function transferEmployee(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [

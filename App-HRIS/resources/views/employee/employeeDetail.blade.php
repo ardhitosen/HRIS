@@ -12,7 +12,7 @@
         <div class="d-flex row">
             <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Personal</a></span>
             <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/employment/' . $emp['id']) }}">Employment</a></span>
-            
+            <span class="w-100"><a class="btn" href="{{ url('/admins/employee/detail/transferlog/' . $emp['id']) }}">Transfer Log</a></span>
         </div>
     </div>
     <div class="col-10">
