@@ -406,8 +406,6 @@ class AdminController extends Controller
         $reimbursementData = [];
 
         foreach ($reimbursement as $reimbursement) {
-            // $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
-
             $reimbursementData[] = [
                 'name' => $employee->name,
                 'id' => $reimbursement->reimburse_id,
@@ -443,7 +441,7 @@ class AdminController extends Controller
     }
     
     public function reimburseRevision(Request $request, $id) {
-        $reimburse = Reimbursement::where('employee_id', $id)->firstOrFail();
+        $reimburse = Reimbursement::where('reimburse_id', $id)->firstOrFail();
 
         $reimburse->status = "Revision";
         $reimburse->reason_for_revision = $request->reason;
@@ -474,8 +472,6 @@ class AdminController extends Controller
         $transferData = [];
 
         foreach ($transfer_log as $log) {
-            // $employee = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
-
             $transferData[] = [
                 'id' => $log->logs_id,
                 'date' => Carbon::parse($log->created_at)->format('F j, Y - h:i A'),

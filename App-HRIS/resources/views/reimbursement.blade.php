@@ -15,6 +15,7 @@
     <table class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
+                <th>Reimburse ID</th>
                 <th>Employee Name</th>
                 <th>Employee ID</th>
                 <th>Reimbursement Type</th>
@@ -26,8 +27,9 @@
         <tbody>
             @foreach($reimbursement as $reim)
             <tr style="height: 100px">
-                <td>{{ $reim['name'] ?? '-' }}</td>
                 <td>{{ $reim['id'] ?? '-' }}</td>
+                <td>{{ $reim['name'] ?? '-' }}</td>
+                <td>{{ $reim['employee_id'] ?? '-' }}</td>
                 <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
                 <td>{{ 'IDR ' . number_format($reim['total_reimbursement'], 0, ',', '.') }}</td>
                 <td>
@@ -44,7 +46,7 @@
                         <ul class="dropdown-menu" id="actionButton">
                             <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Accept/' . $reim['id'])}}">Accept</a></li>
                             <li>
-                                <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#revision">
+                                <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#revision{{ $reim['id'] }}">
                                     Revision
                                 </button>
                             </li>
@@ -60,7 +62,7 @@
                     @endif
                 </td>
             </tr>
-            <div class="modal fade" id="revision" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
+            <div class="modal fade" id="revision{{ $reim['id'] }}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -68,7 +70,7 @@
                                 <h5>Revision</h5>
                             </div>
                             <br>
-                            <form action="{{url('/admins/reimbursement/status/revision/' . $reim['employee_id'])}}" method="post">
+                            <form action="{{url('/admins/reimbursement/status/revision/' . $reim['id'])}}" method="post">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label for="reimburse" class="col-sm-3 col-form-label">Reason for revision</label>
