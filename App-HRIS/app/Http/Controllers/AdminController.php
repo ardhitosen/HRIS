@@ -257,8 +257,8 @@ class AdminController extends Controller
                 'job_position' => $emp->job_position,
                 'job_level' => $emp->job_level,
                 'employment_status' => $emp->employment_status,
-                'current_schedule' => $scheduler ? $scheduler->current_schedule : null,
-                'schedule_time' => $scheduler ? $scheduler->schedule_time : null,
+                'current_schedule' => $scheduler ? Carbon::parse($scheduler->current_schedule)->format('j F, Y') : null,
+                'schedule_time' => $scheduler ? Carbon::parse($scheduler->schedule_time)->format('h:i A') : null,
                 'schedule_description' => $scheduler ? $scheduler->schedule_detail : null,
             ];
         }
