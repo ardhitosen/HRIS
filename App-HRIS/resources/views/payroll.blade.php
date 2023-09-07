@@ -14,9 +14,10 @@
                 <th>Employee Name</th>
                 <th>Employee ID</th>
                 <th>Salary</th>
-                <th>BPJS</th>
-                <th>JJK</th>
-                <th>PPH 21</th>
+                <th>Tunjangan BPJS</th>
+                <th>Tunjangan JJK</th>
+                <th>Tunjangan PPH 21</th>
+                <th>Tunjangan Jabatan</th>
                 <th>Overtime</th>
                 <th>Total Salary</th>
                 <th>Action</th>
@@ -28,8 +29,9 @@
                 <td>{{ $emp['name'] ?? '-' }}</td>
                 <td>{{ $emp['id'] ?? '-' }}</td>
                 <td>{{ 'IDR ' . number_format($emp['salary'], 0, ',', '.') }}</td>
-                <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
-                <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
+                <td>{{ 'IDR ' . number_format($emp['salary']*0.05, 0, ',', '.') }}</td>
+                <td>{{ 'IDR ' . number_format($emp['salary']*0.05, 0, ',', '.') }}</td>
+                <td>{{ 'IDR ' . number_format($emp['salary']*0.025, 0, ',', '.') }}</td>
                 <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
                 <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
                 <td>

@@ -388,6 +388,7 @@ class AdminController extends Controller
     public function payroll()
     {
         $employee = Employee::all();
+        
         return view('payroll', ['employee' => $employee]);
     }
 
