@@ -30,6 +30,7 @@ Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');
 Route::get('/admins/overtime', [AdminController::class, 'overtime'])->name('overtime');
 Route::get('/admins/scheduler', [AdminController::class, 'scheduler'])->name('scheduler');
+Route::post('/admins/scheduler/assign', [AdminController::class, 'assignScheduler'])->name('assignScheduler');
 Route::get('/admins/timeoff', [AdminController::class, 'timeoff'])->name('timeoff');
 Route::post('/admins/timeoff/assign', [AdminController::class, 'timeoffAssign'])->name('assigntimeoff');
 Route::get('/admins/timeoff/status/{status}/{id}', [AdminController::class, 'statusChange'])->name('statusChange');

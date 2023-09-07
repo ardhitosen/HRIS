@@ -7,6 +7,7 @@ use App\Models\Announcement;
 use App\Models\Transfer;
 use App\Models\Attendance;
 use App\Models\Timeoff;
+use App\Models\Scheduler;
 use Illuminate\Support\Facades\Log;
 use App\Models\Employee;
 use App\Models\Reimbursement;
@@ -245,32 +246,36 @@ class AdminController extends Controller
         $employee = Employee::all();
         $employeeData = [];
 
-        foreach ($employee as $employee) {
+        foreach ($employee as $emp) {
+            $scheduler = Scheduler::where('employee_id', $emp->id)->first();
+            
             $employeeData[] = [
-                'id' => $employee->id,
-                'username' => $employee->username,
-                'password' => $employee->password,
-                'name' => $employee->name,
-                'branch' => $employee->branch,
-                'organization' => $employee->organization,
-                'job_position' => $employee->job_position,
-                'job_level' => $employee->job_level,
-                'email' => $employee->email,
-                'join_date' => $employee->join_date,
-                'birth_date' => $employee->birth_date,
-                'resign_date' => $employee->resign_date,
-                'birth_place' => $employee->birth_place,
-                'address' => $employee->address,
-                'mobile_phone' => $employee->mobile_phone,
-                'religion' => $employee->religion,
-                'gender' => $employee->gender,
-                'marital_status' => $employee->marital_status,
-                'salary' => $employee->salary,
-                'employment_status' => $employee->employment_status,
+                'id' => $emp->id,
+                'name' => $emp->name,
+                'branch' => $emp->branch,
+                'organization' => $emp->organization,
+                'job_position' => $emp->job_position,
+                'job_level' => $emp->job_level,
+                'employment_status' => $emp->employment_status,
+                'current_schedule' => $scheduler ? $scheduler->current_schedule : null,
+                'schedule_time' => $scheduler ? $scheduler->schedule_time : null,
+                'schedule_description' => $scheduler ? $scheduler->schedule_detail : null,
             ];
         }
 
         return view('timeManagement.scheduler', ['employee' => $employeeData]);
+    }
+    
+    public function assignScheduler(Request $request)
+    {
+        $scheduler = new Scheduler();
+        $scheduler->employee_id = $request->employee_id;
+        $scheduler->current_schedule = $request->scheduleDate;
+        $scheduler->schedule_time = $request->scheduleTime;
+        $scheduler->schedule_detail = $request->description;
+        $scheduler->save();
+        
+        return redirect()->route('scheduler');
     }
 
     public function timeoff()

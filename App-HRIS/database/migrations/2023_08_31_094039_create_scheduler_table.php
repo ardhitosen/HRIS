@@ -16,8 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->string('organization'); 
-            $table->string('current_schedule');
+            $table->date('current_schedule')->nullable();
+            $table->time('schedule_time')->nullable();
+            $table->text('schedule_detail')->nullable();
         });
     }
 
