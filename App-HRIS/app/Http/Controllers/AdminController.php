@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Announcement;
 use App\Models\Transfer;
 use App\Models\Attendance;
+use App\Models\Overtime;
 use App\Models\Timeoff;
 use App\Models\Scheduler;
 use Illuminate\Support\Facades\Log;
@@ -238,7 +239,26 @@ class AdminController extends Controller
 
     public function overtime()
     {
-        return view('timeManagement.overtime');
+        $employee = Employee::all();
+        $employeeData = [];
+
+        foreach ($employee as $employee) {
+            $employeeData[] = [
+                'id' => $employee->id,
+                'name' => $employee->name,
+            ];
+        }
+        return view('timeManagement.overtime', ['employee' => $employeeData]);
+    }
+
+    public function overtimeAssign(Request $request)
+    {
+        $overtime = new Overtime();
+        $overtime->employee_id = $request->employee_id;
+        $overtime->overtime_date = $request->scheduleDate;
+        $overtime->start_time = $request->scheduleTime;
+        $overtime->overtime_date = $request->scheduleDate;
+        return redirect()->route('overtime');
     }
 
     public function scheduler()
@@ -388,7 +408,7 @@ class AdminController extends Controller
     public function payroll()
     {
         $employee = Employee::all();
-        
+
         return view('payroll', ['employee' => $employee]);
     }
 
