@@ -35,9 +35,9 @@
                 <th>Activity</th>
             </tr>
         </thead>
-        <tbody style="height: 200px">
+        <tbody>
             @foreach($employee as $emp)
-            <tr>
+            <tr style="height: 100px">
                 <td>{{ $emp['name'] ?? '-' }}</td>
                 <td>{{ $emp['id'] ?? '-' }}</td>
                 <td>{{ $today }}</td>
