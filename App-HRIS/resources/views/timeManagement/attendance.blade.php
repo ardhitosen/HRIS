@@ -2,6 +2,15 @@
 
 @section('content')
 <br>
+@if ($errors->any())
+<div class="alert alert-danger mt-4">
+    <ul class="pl-4">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <div class="card">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Attendance!</h5>
@@ -49,16 +58,54 @@
                 <td>{{ $attendance['date'] ?? '-' }}</td>
                 <td>{{ $attendance['schedule_in'] ?? '-' }}</td>
                 <td>{{ $attendance['schedule_out'] ?? '-' }}</td>
-                <td>{{ $attendance['clock_in'] ?? '-' }}</td>
-                <td>{{ $attendance['clock_out'] ?? '-' }}</td>
+                <td style="color: {{ strtotime($attendance['clock_in']) > strtotime($attendance['schedule_in']) ? 'red' : 'green' }}">{{ $attendance['clock_in'] ?? '-' }}</td>
+                <td style="color: {{ strtotime($attendance['clock_out']) < strtotime($attendance['schedule_out']) ? 'red' : 'green' }}">{{ $attendance['clock_out'] ?? '-' }}</td>
                 <td>{{ '-' }}</td>
                 <td>{{ '-' }}</td>
                 <td>
-                    <button type="button" class="btn">
+                    <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
                         Edit
                     </button>
                 </td>
+                <div class="modal fade" id="attendanceEdit{{$attendance['attendance_id']}}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <h5>Edit</h5>
+                                </div>
+                                <br>
+                                <form action="{{url('/admins/attendance/edit/' . $attendance['attendance_id'])}}" method="post">
+                                    @csrf
+                                    <div class="mb-3 row">
+                                        <label for="schedule_in" class="col-sm-3 col-form-label">Schedule In</label>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="time" name="schedule_in" id="schedule_out" class="form-control datepicker" value="{{$attendance['schedule_in']}}">
+                                        </div>
+                                        <label for="schedule_out" class="col-sm-3 col-form-label">Schedule In</label>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="time" name="schedule_out" id="schedule_out" class="form-control datepicker" value="{{$attendance['schedule_out']}}">
+                                        </div>
+                                        <label for="clock_in" class="col-sm-3 col-form-label">Clock In</label>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="time" name="clock_in" id="clock_in" class="form-control datepicker" value="{{$attendance['clock_in']}}">
+                                        </div>
+                                        <label for="clock_out" class="col-sm-3 col-form-label">Clock Out</label>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="time" name="clock_out" id="clock_out" class="form-control datepicker" value="{{$attendance['clock_out']}}">
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary">Confirm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </tr>
+            
             @endforeach
         </tbody>
     </table>

@@ -29,6 +29,7 @@ Route::get('/admins/employee/detail/transferlog/{id}', [AdminController::class, 
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('attendance');
 Route::post('/admins/attendance/generate', [AdminController::class, 'generateAttendance'])->name('generateAttendance');
+Route::post('/admins/attendance/edit/{id}', [AdminController::class, 'attendanceEdit'])->name('attendanceEdit');
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');
 Route::get('/admins/overtime', [AdminController::class, 'overtime'])->name('overtime');
 Route::post('/admins/overtime/assign', [AdminController::class, 'overtimeAssign'])->name('overtimeAssign');

@@ -229,7 +229,7 @@ class AdminController extends Controller
         foreach ($attendance as $attendance) {
             $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
             $attendanceData[] = [
-                'attendance_id' => $attendance->attendace_id,
+                'attendance_id' => $attendance->attendance_id,
                 'employee_id' => $attendance->employee_id,
                 'employee_name' => $emp->name,
                 'date' => $attendance->date ,
@@ -264,6 +264,29 @@ class AdminController extends Controller
             $attendance->date = $today;
             $attendance->save();
         }
+
+        return redirect()->route('attendance');
+    }
+
+    public function attendanceEdit($attendance_id,Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'clock_in' => 'required',
+            'clock_out' => 'required',
+            'schedule_in' => 'required',
+            'schedule_out' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $attendance = Attendance::findOrFail($attendance_id);
+            $attendance->schedule_in = $request->input('schedule_in');
+            $attendance->schedule_out = $request->input('schedule_out');
+            $attendance->clock_in = $request->input('clock_in');
+            $attendance->clock_out = $request->input('clock_out');
+            $attendance->save();
 
         return redirect()->route('attendance');
     }
