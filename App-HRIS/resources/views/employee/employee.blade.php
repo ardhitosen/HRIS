@@ -267,6 +267,13 @@
                             <input type="text" name="salary" id="salary" class="form-control" value="{{ old('salary') }}">
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="tunjangan" class="col-sm-2 col-form-label">Tunjangan (IDR)</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="tunjangan" id="tunjangan" class="form-control" value="{{ old('tunjangan') }}">
+                        </div>
+                    </div>
+                    
                     <div class="d-grid">
                         <button class="btn btn-primary">Confirm</button>
                     </div>

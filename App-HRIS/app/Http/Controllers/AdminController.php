@@ -137,6 +137,7 @@ class AdminController extends Controller
             'gender' => 'required|in:Male,Female',
             'maritalstatus' => 'required|in:Single,Married,Divorced,Widowed',
             'salary' => 'required|numeric',
+            'tunjangan' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -163,6 +164,7 @@ class AdminController extends Controller
         $employee->marital_status = $request->input('maritalstatus');
         $employee->salary = $request->input('salary');
         $employee->employment_status = "Employed";
+        $employee->tunjangan = $request->input('tunjangan');
 
         $employee->save();
 
@@ -217,19 +219,42 @@ class AdminController extends Controller
 
     public function attendance()
     {
+        $attendance = Attendance::all();
         $employee = Employee::all();
-        $employeeData = [];
-
-        foreach ($employee as $employee) {
-            $employeeData[] = [
-                'id' => $employee->id,
-                'name' => $employee->name,
+        $attendanceData = [];
+        foreach ($attendance as $attendance) {
+            $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
+            $attendanceData[] = [
+                'attendance_id' => $attendance->attendace_id,
+                'employee_id' => $attendance->employee_id,
+                'employee_name' => $emp->name,
+                'date' => $attendance->date ,
+                'schedule_in' => $attendance->schedule_in,
+                'schedule_out' => $attendance->schedule_out,
+                'clock_in' => $attendance->clock_in,
+                'clock_out' => $attendance->clock_out
             ];
         }
 
+        return view('timeManagement.attendance', ['attendance' => $attendanceData]);
+    }
+
+    public function generateAttendance()
+    {
+        $employee = Employee::all();
         $today = Carbon::parse(Carbon::now());
         $todayFormat = $today->format('d M Y');
-        return view('timeManagement.attendance', ['employee' => $employeeData, 'today' => $todayFormat]);
+
+        foreach ($employee as $employee) {
+            $attendance = new Attendance();
+            $attendance->employee_id = $employee->id;
+            $attendance->schedule_in = "08:00:00";
+            $attendance->schedule_out = "18:00:00";
+            $attendance->date = $today;
+            $attendance->save();
+        }
+
+        return redirect()->route('attendance');
     }
 
     public function calendar()

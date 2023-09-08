@@ -16,10 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
+            $table->date('date');
             $table->time('schedule_in');
             $table->time('schedule_out');
-            $table->time('clock_in');
-            $table->time('clock_out');
+            $table->time('clock_in')->nullable();
+            $table->time('clock_out')->nullable();
             
         });
     }

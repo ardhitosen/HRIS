@@ -5,6 +5,12 @@
 <div class="card">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Attendance!</h5>
+        <form method="post" action="{{route('generateAttendance')}}">
+        @csrf
+            <button class="btn btn-link nav-link float-end">
+                Generate Attendance
+            </button>
+        </form>
     </div>
 </div>
 <br>
@@ -36,15 +42,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($employee as $emp)
+            @foreach($attendance as $attendance)
             <tr style="height: 100px">
-                <td>{{ $emp['name'] ?? '-' }}</td>
-                <td>{{ $emp['id'] ?? '-' }}</td>
-                <td>{{ $today }}</td>
-                <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
+                <td>{{ $attendance['employee_name'] ?? '-' }}</td>
+                <td>{{ $attendance['employee_id'] ?? '-' }}</td>
+                <td>{{ $attendance['date'] ?? '-' }}</td>
+                <td>{{ $attendance['schedule_in'] ?? '-' }}</td>
+                <td>{{ $attendance['schedule_out'] ?? '-' }}</td>
+                <td>{{ $attendance['clock_in'] ?? '-' }}</td>
+                <td>{{ $attendance['clock_out'] ?? '-' }}</td>
                 <td>{{ '-' }}</td>
                 <td>{{ '-' }}</td>
                 <td>
