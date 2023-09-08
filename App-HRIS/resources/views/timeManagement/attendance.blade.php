@@ -16,10 +16,10 @@
 <br>
 <div id="attendanceDetail" class="card d-flex flex-row justify-content-between">
     <div>
-        <h5> Present </h5>
+        <h5> {{$present}} Present </h5>
     </div>
     <div>
-        <h5> Absent </h5>
+        <h5> {{$absent}} Absent </h5>
     </div>
     <div>
         <h5> Time Off </h5>

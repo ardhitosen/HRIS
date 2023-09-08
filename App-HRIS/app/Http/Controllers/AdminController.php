@@ -221,6 +221,10 @@ class AdminController extends Controller
     {
         $attendance = Attendance::all();
         $employee = Employee::all();
+
+        $present = 0;
+        $absent = 0;
+
         $attendanceData = [];
         foreach ($attendance as $attendance) {
             $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
@@ -234,9 +238,16 @@ class AdminController extends Controller
                 'clock_in' => $attendance->clock_in,
                 'clock_out' => $attendance->clock_out
             ];
+            if($attendance->clock_in)
+            {
+                $present++;
+            }
+            else{
+                $absent++;
+            }
         }
 
-        return view('timeManagement.attendance', ['attendance' => $attendanceData]);
+        return view('timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent]);
     }
 
     public function generateAttendance()
