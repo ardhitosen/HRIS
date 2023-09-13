@@ -23,7 +23,7 @@
 </div>
 <br>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
-    <table class="table table-hover text-nowrap text-center align-middle">
+    <table id="employeeTable" class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
                 <th>Employee Name</th>
@@ -283,5 +283,17 @@
     </div>
 </div>
 
+<script>
+    new DataTable('#employeeTable');
+    // $(document).ready(function() {
+    //     $('#employeeTable').DataTable({
+    //         "columnDefs": [{
+    //                 orderable: false,
+    //                 targets: 9
+    //             }
+    //         ]
+    //     });
+    // });
+</script>
 
 @stop
