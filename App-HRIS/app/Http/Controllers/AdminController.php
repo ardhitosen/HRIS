@@ -307,7 +307,22 @@ class AdminController extends Controller
                 'name' => $employee->name,
             ];
         }
-        return view('timeManagement.overtime', ['employee' => $employeeData]);
+
+        $overtime = Overtime::all();
+        $overtimeData = [];
+        foreach ($overtime as $ovt) {
+            $emp = Employee::where('id', $ovt->employee_id)->first();
+            $overtimeData[] = [
+                'employee_id' => $ovt->employee_id,
+                'overtime_id' => $ovt->overtime_id,
+                'date' => $ovt->overtime_date,
+                'duration' => $ovt->duration,
+                'description' => $ovt->description,
+                'status' => $ovt->status,
+                'employee_name' => $emp->name
+            ];
+        }
+        return view('timeManagement.overtime', ['employee' => $employeeData, 'overtime' => $overtimeData]);
     }
 
     public function overtimeAssign(Request $request)
@@ -315,8 +330,22 @@ class AdminController extends Controller
         $overtime = new Overtime();
         $overtime->employee_id = $request->employee_id;
         $overtime->overtime_date = $request->scheduleDate;
-        $overtime->start_time = $request->scheduleTime;
-        $overtime->overtime_date = $request->scheduleDate;
+        $scheduleOut = Carbon::parse("18:00:00");
+        $newTime = $scheduleOut->addSeconds($request->scheduleTime * 3600)->format('H:i:s');
+        $overtime->duration = $newTime;
+        $overtime->description = $request->description;
+        $overtime->status = "Pending";
+        $overtime->save();
+
+        return redirect()->route('overtime');
+    }
+
+    public function overtimeStatusChange($status, $id) {
+        $overtime = Overtime::findOrFail($id);
+
+        $overtime->status = $status;
+        $overtime->save();
+        
         return redirect()->route('overtime');
     }
 

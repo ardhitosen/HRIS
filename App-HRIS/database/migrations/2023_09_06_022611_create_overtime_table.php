@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('overtime', function (Blueprint $table) {
+        Schema::create('overtimes', function (Blueprint $table) {
             $table->id('overtime_id');
             $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->date('overtime_date')->nullable();
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            $table->time('duration')->nullable();
+            $table->string('description')->nullable();
             $table->string('status')->nullable();
         });
     }

@@ -7,6 +7,7 @@
         <h5 class="card-title">Payroll!</h5>
     </div>
 </div>
+<br>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
     <table class="table table-hover text-nowrap text-center align-middle">
         <thead>
@@ -32,7 +33,7 @@
                 <td>{{ 'IDR ' . number_format($emp['salary']*0.05, 0, ',', '.') }}</td>
                 <td>{{ 'IDR ' . number_format($emp['salary']*0.05, 0, ',', '.') }}</td>
                 <td>{{ 'IDR ' . number_format($emp['salary']*0.025, 0, ',', '.') }}</td>
-                <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
+                <td>{{ 'IDR ' . number_format($emp['tunjangan'], 0, ',', '.') }}</td>
                 <td>{{ 'IDR ' . number_format(300000, 0, ',', '.') }}</td>
                 <td>
                     {{ 'IDR ' . number_format($emp['salary'] + 300000 + 300000 + 300000 + 300000, 0, ',', '.') }}
