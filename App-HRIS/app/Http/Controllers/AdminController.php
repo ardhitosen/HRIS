@@ -496,8 +496,21 @@ class AdminController extends Controller
     public function payroll()
     {
         $employee = Employee::all();
+        $employeeData = [];
+        foreach($employee as $emp) {
+            $overtime = Overtime::where('employee_id', $emp->id)->first();
+            $scheduleOut = Carbon::parse('18:00:00')->format('H');
+            $interval = (Carbon::parse($overtime->duration)->format('H'))-$scheduleOut;
+            $employeeData[] = [
+                'id' => $emp->id,
+                'name' => $emp->name,
+                'salary' => $emp->salary,
+                'tunjangan' => $emp->tunjangan,
+                'overtime_duration' => $interval
+            ];
+        }
 
-        return view('payroll', ['employee' => $employee]);
+        return view('payroll', ['employee' => $employeeData]);
     }
 
     public function reimbursement()

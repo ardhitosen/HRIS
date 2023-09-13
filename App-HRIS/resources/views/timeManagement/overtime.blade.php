@@ -15,11 +15,11 @@
     <table class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
-                <th>Overtime ID</th>
+                <th>ID</th>
                 <th>Employee Name</th>
                 <th>Employee ID</th>
                 <th>Overtime Date</th>
-                <th>Overtime Duration</th>
+                <th>End Time</th>
                 <th>Overtime Description</th>
                 <th>Overtime Status</th>
                 <th>Activity</th>
