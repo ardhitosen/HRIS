@@ -500,14 +500,21 @@ class AdminController extends Controller
         foreach($employee as $emp) {
             $overtime = Overtime::where('employee_id', $emp->id)->first();
             $scheduleOut = Carbon::parse('18:00:00')->format('H');
-            $interval = (Carbon::parse($overtime->duration)->format('H'))-$scheduleOut;
+            $interval = NULL; 
+            if($overtime)
+            {
+                $interval = (Carbon::parse($overtime->duration)->format('H'))-$scheduleOut;
+            }
             $employeeData[] = [
                 'id' => $emp->id,
                 'name' => $emp->name,
                 'salary' => $emp->salary,
                 'tunjangan' => $emp->tunjangan,
-                'overtime_duration' => $interval
             ];
+
+            if ($interval !== NULL) {
+                $employeeData[count($employeeData) - 1]['overtime_duration'] = $interval;
+            }
         }
 
         return view('payroll', ['employee' => $employeeData]);
