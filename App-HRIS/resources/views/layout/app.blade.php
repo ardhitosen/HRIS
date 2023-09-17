@@ -67,7 +67,6 @@
     </div>
 </body>
 <script>
-    new DataTable('#employeeTable');
 
 </script>
 
