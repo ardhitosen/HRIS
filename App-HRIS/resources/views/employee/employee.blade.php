@@ -13,7 +13,7 @@
     </ul>
 </div>
 @endif
-<div class="card">
+<div class="card border-0">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Employee!</h5>
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#addEmployee">
@@ -284,16 +284,16 @@
 </div>
 
 <script>
-    new DataTable('#employeeTable');
-    // $(document).ready(function() {
-    //     $('#employeeTable').DataTable({
-    //         "columnDefs": [{
-    //                 orderable: false,
-    //                 targets: 9
-    //             }
-    //         ]
-    //     });
-    // });
+    // new DataTable('#employeeTable');
+    $(document).ready(function() {
+        $('#employeeTable').DataTable({
+            "columnDefs": [{
+                    orderable: false,
+                    targets: 9
+                }
+            ]
+        });
+    });
 </script>
 
 @stop

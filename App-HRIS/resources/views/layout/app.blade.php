@@ -53,7 +53,6 @@
             </div>
         </div>
         <div class="dropdown">
-            <!-- bisa diganti namanya sesuai sama session aja ntar -->
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 admin
             </button>

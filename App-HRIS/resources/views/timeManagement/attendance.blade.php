@@ -11,7 +11,7 @@
     </ul>
 </div>
 @endif
-<div class="card">
+<div class="card border-0">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Attendance!</h5>
         <form method="post" action="{{route('generateAttendance')}}">

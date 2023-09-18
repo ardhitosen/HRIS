@@ -3,7 +3,7 @@
 @section('content')
 
 <br>
-<div class="card">
+<div class="card border-0">
     <div class="card-body">
         <h5 class="card-title">Create Announcement</h5>
         <a class="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
