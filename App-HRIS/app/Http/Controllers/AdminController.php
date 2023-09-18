@@ -498,12 +498,13 @@ class AdminController extends Controller
         $employee = Employee::all();
         $employeeData = [];
         foreach($employee as $emp) {
-            $overtime = Overtime::where('employee_id', $emp->id)->first();
+            $overtime = Overtime::where('employee_id', $emp->id)->get();
             $scheduleOut = Carbon::parse('18:00:00')->format('H');
             $interval = NULL; 
-            if($overtime)
-            {
-                $interval = (Carbon::parse($overtime->duration)->format('H'))-$scheduleOut;
+            foreach($overtime as $ovt) {
+                if($ovt->status == "Accept") {
+                    $interval += (Carbon::parse($ovt->duration)->format('H'))-$scheduleOut;
+                }
             }
             $employeeData[] = [
                 'id' => $emp->id,
