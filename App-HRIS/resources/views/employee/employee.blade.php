@@ -22,123 +22,125 @@
     </div>
 </div>
 <br>
-<div class="card border-0 shadow" id="employee_table">
-    <table id="employeeTable" class="table table-hover text-nowrap text-center align-middle">
-        <thead>
-            <tr>
-                <th>Employee Name</th>
-                <th>Employee ID</th>
-                <th>Branch</th>
-                <th>Organization</th>
-                <th>Job Position</th>
-                <th>Job Level</th>
-                <th>Join Date</th>
-                <th>Resign Date</th>
-                <th>Email</th>
-                <th>Activity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($employee as $emp)
-            <tr style="height: 100px">
-                <td>{{ $emp['name'] ?? '-' }}</td>
-                <td>{{ $emp['id'] ?? '-' }}</td>
-                <td>{{ $emp['branch'] ?? '-' }}</td>
-                <td>{{ $emp['organization'] ?? '-' }}</td>
-                <td>{{ $emp['job_position'] ?? '-' }}</td>
-                <td>{{ $emp['job_level'] ?? '-' }}</td>
-                <td>{{ $emp['join_date'] ?? '-' }}</td>
-                <td>{{ $emp['resign_date'] ?? '-' }}</td>
-                <td>{{ $emp['email'] ?? '-' }}</td>
-                <td>
-                    @if(!isset( $emp['resign_date'] ))
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Action
-                        </button>
-                        <ul class="dropdown-menu" id="actionButton">
-                            <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
-                            <li><a class="dropdown-item" href="#">Delete</a></li>
-                        </ul>
-                    </div>
-                    @else
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                            Action
-                        </button>
-                    </div>
-                    @endif
-                </td>
-            </tr>
-            <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="text-center">
-                                <h5>Transfer Employee</h5>
+<div class="card border-0 shadow show_table">
+    <div class="table-responsive scrollable-table" style="max-height: 500px">
+        <table id="employeeTable" class="table table-hover text-nowrap text-center align-middle">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Employee ID</th>
+                    <th>Branch</th>
+                    <th>Organization</th>
+                    <th>Job Position</th>
+                    <th>Job Level</th>
+                    <th>Join Date</th>
+                    <th>Resign Date</th>
+                    <th>Email</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($employee as $emp)
+                <tr style="height: 100px">
+                    <td>{{ $emp['name'] ?? '-' }}</td>
+                    <td>{{ $emp['id'] ?? '-' }}</td>
+                    <td>{{ $emp['branch'] ?? '-' }}</td>
+                    <td>{{ $emp['organization'] ?? '-' }}</td>
+                    <td>{{ $emp['job_position'] ?? '-' }}</td>
+                    <td>{{ $emp['job_level'] ?? '-' }}</td>
+                    <td>{{ $emp['join_date'] ?? '-' }}</td>
+                    <td>{{ $emp['resign_date'] ?? '-' }}</td>
+                    <td>{{ $emp['email'] ?? '-' }}</td>
+                    <td>
+                        @if(!isset( $emp['resign_date'] ))
+                        <div class="btn-group dropstart">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                            <ul class="dropdown-menu" id="actionButton">
+                                <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                            </ul>
+                        </div>
+                        @else
+                        <div class="btn-group dropstart">
+                            <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                        </div>
+                        @endif
+                    </td>
+                </tr>
+                <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Transfer Employee</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <br>
-                            <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
-                                @csrf
-                                <div class="mb-3 row">
-                                    <label for="oldBranch" class="col-sm-2 col-form-label">Old Branch</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
+                            <div class="modal-body">
+                                <form action="{{ url('/admins/employee/transfer/' . $emp['id']) }}" method="post">
+                                    @csrf
+                                    <div class="mb-3 row">
+                                        <label for="oldBranch" class="col-sm-3 col-form-label">Old Branch</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="oldBranch" id="oldBranch" class="form-control" value="{{ $emp['branch'] }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="oldPosition" class="col-sm-2 col-form-label">Old Position</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
+                                    <div class="mb-3 row">
+                                        <label for="oldPosition" class="col-sm-3 col-form-label">Old Position</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="oldPosition" id="oldPosition" class="form-control" value="{{ $emp['job_position'] }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="oldLevel" class="col-sm-2 col-form-label">Old Level</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
+                                    <div class="mb-3 row">
+                                        <label for="oldLevel" class="col-sm-3 col-form-label">Old Level</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="oldLevel" id="oldLevel" class="form-control" value="{{ $emp['job_level'] }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="newBranch" class="col-sm-2 col-form-label">New Branch</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="newBranch" id="newBranch" class="form-control">
+                                    <div class="mb-3 row">
+                                        <label for="newBranch" class="col-sm-3 col-form-label">New Branch</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="newBranch" id="newBranch" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="newPosition" class="col-sm-2 col-form-label">New Position</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="newPosition" id="newPosition" class="form-control">
+                                    <div class="mb-3 row">
+                                        <label for="newPosition" class="col-sm-3 col-form-label">New Position</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="newPosition" id="newPosition" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="newLevel" class="col-sm-2 col-form-label">New Level</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="newLevel" id="newLevel" class="form-control">
+                                    <div class="mb-3 row">
+                                        <label for="newLevel" class="col-sm-3 col-form-label">New Level</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="newLevel" id="newLevel" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="d-grid">
-                                    <button class="btn btn-primary">Transfer</button>
-                                </div>
-                            </form>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary">Transfer</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
-        </tbody>
-    </table>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="addEmployee" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
-                <div class="text-center">
-                    <h5>Add Employee</h5>
-                </div>
-                <br>
                 <form action="{{url('/admins/addemployee')}}" method="post">
                     @csrf
                     <div class="mb-3 row">

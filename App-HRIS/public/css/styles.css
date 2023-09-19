@@ -13,6 +13,7 @@
 
 #attendanceDetail {
     padding: 10px;
+    margin-bottom: 1em;
 }
 
 #attendanceDetail div {
@@ -29,7 +30,6 @@
     margin-bottom: 100px;
 }
 
-html,
 body {
     background: #f7f8fb;
 }
@@ -38,12 +38,13 @@ body {
     background-color: transparent;
 }
 
-#employee_table {
+.show_table {
     padding: 1em;
 }
 
 #navbar {
-    background-color: rgb(24, 41, 99, 0.9);
+    /* background-color: rgb(8, 151, 176, 0.9); */
+    background-color: rgb(24, 41, 99, 0.9); 
 }
 
 #navbar button, #navbar a {

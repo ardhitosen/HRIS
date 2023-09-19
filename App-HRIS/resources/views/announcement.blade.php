@@ -4,10 +4,10 @@
 
 <br>
 <div class="card border-0 title">
-    <div class="card-body">
-        <h5 class="card-title">Create Announcement</h5>
+    <div class="card-body d-flex justify-content-between">
+        <h5 class="card-title">Announcement!</h5>
         <a class="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Add New
+            Create New
         </a>
     </div>
 </div>
@@ -54,7 +54,7 @@
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
             <div class="modal fade" id="editAnnouncement{{$announcement->id}}" tabindex="-1" aria-labelledby="editAnnouncement{{$announcement->id}}" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Edit Announcement</h5>
@@ -71,7 +71,9 @@
                                     <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control" id="description" name="description" rows="3">{{ $announcement->description }}</textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
                             </form>
                         </div>
                     </div>

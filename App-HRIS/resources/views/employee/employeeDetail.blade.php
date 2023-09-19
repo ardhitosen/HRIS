@@ -51,11 +51,11 @@
 <div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="editEmployee" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
-                <div class="text-center">
-                    <h5>Edit Employee</h5>
-                </div>
-                <br>
                 <form action="{{ url('/admins/employee/edit/' . $emp['id']) }}" method="post">
                     @csrf
                     <div class="mb-3 row">
