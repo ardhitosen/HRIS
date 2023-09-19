@@ -35,7 +35,7 @@
     </div>
 </div>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
-    <table class="table table-hover text-nowrap text-center align-middle">
+    <table id="attendanceTable" class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
                 <th>Employee Name</th>

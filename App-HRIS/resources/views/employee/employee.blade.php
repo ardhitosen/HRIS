@@ -283,16 +283,4 @@
     </div>
 </div>
 
-<script>
-    // new DataTable('#employeeTable');
-    $(document).ready(function() {
-        $('#employeeTable').DataTable({
-            "columnDefs": [{
-                orderable: false,
-                targets: 9
-            }]
-        });
-    });
-</script>
-
 @stop

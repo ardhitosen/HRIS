@@ -12,7 +12,7 @@
 </div>
 <br>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
-    <table class="table table-hover text-nowrap text-center align-middle">
+    <table id="reimbursementTable" class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
                 <th>Reimburse ID</th>

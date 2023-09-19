@@ -43,11 +43,11 @@ body {
 }
 
 #navbar {
-    background-color: rgb(24,41,99);
+    background-color: rgb(24, 41, 99, 0.9);
 }
 
 #navbar button, #navbar a {
-    color: rgb(255,255,255, 0.8);
+    color: rgb(255, 255, 255, 0.8);
 }
 
 #navbar_dropdown a {
