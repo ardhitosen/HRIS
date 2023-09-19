@@ -36,7 +36,7 @@
 </div>
 
 <div class="card border-0 shadow show_table">
-    <div class="table-responsive scrollable-table" style="max-height: 500px">
+    <div class="table-responsive scrollable-table" style="max-height: 432px">
         <table id="attendanceTable" class="table table-hover text-nowrap text-center align-middle">
             <thead>
                 <tr>
