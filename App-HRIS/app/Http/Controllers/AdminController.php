@@ -224,30 +224,29 @@ class AdminController extends Controller
 
         $present = 0;
         $absent = 0;
+        $timeoff = 0;
 
         $attendanceData = [];
         foreach ($attendance as $attendance) {
+            $toff = Timeoff::where('employee_id', $attendance->employee_id)->first();
             $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
             $attendanceData[] = [
                 'attendance_id' => $attendance->attendance_id,
                 'employee_id' => $attendance->employee_id,
                 'employee_name' => $emp->name,
-                'date' => $attendance->date ,
+                'timeoff_code' => $toff && $toff->status === "Accept" ? $toff->time_off_code : null,
+                'date' => $attendance->date,
                 'schedule_in' => $attendance->schedule_in,
                 'schedule_out' => $attendance->schedule_out,
                 'clock_in' => $attendance->clock_in,
                 'clock_out' => $attendance->clock_out
             ];
-            if($attendance->clock_in)
-            {
-                $present++;
-            }
-            else{
-                $absent++;
-            }
+            if($attendance->clock_in) $present++;
+            else if($attendanceData[count($attendanceData) - 1]['timeoff_code']) $timeoff++;
+            else $absent++;
         }
 
-        return view('timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent]);
+        return view('timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent,'timeoff'=>$timeoff]);
     }
 
     public function generateAttendance()
@@ -271,8 +270,6 @@ class AdminController extends Controller
     public function attendanceEdit($attendance_id,Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'clock_in' => 'required',
-            'clock_out' => 'required',
             'schedule_in' => 'required',
             'schedule_out' => 'required',
         ]);
@@ -284,8 +281,6 @@ class AdminController extends Controller
         $attendance = Attendance::findOrFail($attendance_id);
             $attendance->schedule_in = $request->input('schedule_in');
             $attendance->schedule_out = $request->input('schedule_out');
-            $attendance->clock_in = $request->input('clock_in');
-            $attendance->clock_out = $request->input('clock_out');
             $attendance->save();
 
         return redirect()->route('attendance');
@@ -328,10 +323,12 @@ class AdminController extends Controller
     public function overtimeAssign(Request $request)
     {
         $overtime = new Overtime();
+        $attendance = Attendance::where('employee_id', $request->employee_id)->first();
         $overtime->employee_id = $request->employee_id;
         $overtime->overtime_date = $request->scheduleDate;
-        $scheduleOut = Carbon::parse("18:00:00");
+        $scheduleOut = Carbon::parse($attendance->schedule_out);
         $newTime = $scheduleOut->addSeconds($request->scheduleTime * 3600)->format('H:i:s');
+        dd($newTime);
         $overtime->duration = $newTime;
         $overtime->description = $request->description;
         $overtime->status = "Pending";

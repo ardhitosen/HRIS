@@ -31,7 +31,7 @@
         <h5> {{$absent}} Absent </h5>
     </div>
     <div>
-        <h5> Time Off </h5>
+        <h5> {{$timeoff}} Time Off </h5>
     </div>
 </div>
 <div class="table-responsive scrollable-table" style="max-height: 500px">
@@ -61,7 +61,7 @@
                 <td style="color: {{ strtotime($attendance['clock_in']) > strtotime($attendance['schedule_in']) ? 'red' : 'green' }}">{{ $attendance['clock_in'] ?? '-' }}</td>
                 <td style="color: {{ strtotime($attendance['clock_out']) < strtotime($attendance['schedule_out']) ? 'red' : 'green' }}">{{ $attendance['clock_out'] ?? '-' }}</td>
                 <td>{{ '-' }}</td>
-                <td>{{ '-' }}</td>
+                <td>{{ $attendance['timeoff_code'] ?? '-' }}</td>
                 <td>
                     <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
                         Edit
@@ -79,21 +79,15 @@
                                     @csrf
                                     <div class="mb-3 row">
                                         <label for="schedule_in" class="col-sm-3 col-form-label">Schedule In</label>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-9">
                                             <input type="time" name="schedule_in" id="schedule_out" class="form-control datepicker" value="{{$attendance['schedule_in']}}">
                                         </div>
+                                    </div>
+                                    <div class="mb-3 row">
                                         <label for="schedule_out" class="col-sm-3 col-form-label">Schedule In</label>
                                         <div class="col-sm-9 my-auto">
                                             <input type="time" name="schedule_out" id="schedule_out" class="form-control datepicker" value="{{$attendance['schedule_out']}}">
-                                        </div>
-                                        <label for="clock_in" class="col-sm-3 col-form-label">Clock In</label>
-                                        <div class="col-sm-9 my-auto">
-                                            <input type="time" name="clock_in" id="clock_in" class="form-control datepicker" value="{{$attendance['clock_in']}}">
-                                        </div>
-                                        <label for="clock_out" class="col-sm-3 col-form-label">Clock Out</label>
-                                        <div class="col-sm-9 my-auto">
-                                            <input type="time" name="clock_out" id="clock_out" class="form-control datepicker" value="{{$attendance['clock_out']}}">
-                                        </div>
+                                        </div>  
                                     </div>
                                     <div class="d-grid">
                                         <button class="btn btn-primary">Confirm</button>
