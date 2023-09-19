@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-<div class="card border-0">
+<div class="card border-0 title">
     <div class="card-body">
         <h5 class="card-title">Payroll!</h5>
     </div>

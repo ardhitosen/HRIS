@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-<div class="card border-0">
+<div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Overtime!</h5>
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#overtime">

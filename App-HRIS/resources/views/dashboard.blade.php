@@ -3,7 +3,7 @@
 @section('content')
 <br>
 <div>
-    <div class="card border-0">
+    <div class="card border-0 title">
         <div class="card-body">
             <h5 class="card-title">Welcome, Admin!</h5>
         </div>

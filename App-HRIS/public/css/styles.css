@@ -1,4 +1,3 @@
-
 #actionButton li a:hover {
     background-color: #eaeaea;
 }
@@ -15,10 +14,42 @@
 #attendanceDetail {
     padding: 10px;
 }
+
 #attendanceDetail div {
     width: 33%;
 }
 
 #testhere {
     width: 1500px;
+}
+
+#calendar-card {
+    width: 900px;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+html,
+body {
+    background: #f7f8fb;
+}
+
+.title {
+    background-color: transparent;
+}
+
+#employee_table {
+    padding: 1em;
+}
+
+#navbar {
+    background-color: rgb(24,41,99);
+}
+
+#navbar button, #navbar a {
+    color: rgb(255,255,255, 0.8);
+}
+
+#navbar_dropdown a {
+    color: black !important;
 }

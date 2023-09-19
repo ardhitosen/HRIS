@@ -13,7 +13,7 @@
     </ul>
 </div>
 @endif
-<div class="card border-0">
+<div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Employee!</h5>
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#addEmployee">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <br>
-<div class="table-responsive scrollable-table" style="max-height: 500px">
+<div class="card border-0 shadow" id="employee_table">
     <table id="employeeTable" class="table table-hover text-nowrap text-center align-middle">
         <thead>
             <tr>
@@ -273,7 +273,7 @@
                             <input type="text" name="tunjangan" id="tunjangan" class="form-control" value="{{ old('tunjangan') }}">
                         </div>
                     </div>
-                    
+
                     <div class="d-grid">
                         <button class="btn btn-primary">Confirm</button>
                     </div>
@@ -288,10 +288,9 @@
     $(document).ready(function() {
         $('#employeeTable').DataTable({
             "columnDefs": [{
-                    orderable: false,
-                    targets: 9
-                }
-            ]
+                orderable: false,
+                targets: 9
+            }]
         });
     });
 </script>

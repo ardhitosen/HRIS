@@ -15,10 +15,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
+    
 </head>
 
 <body>
-    <nav class="shadow-sm navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="shadow-sm navbar navbar-expand-lg" id="navbar">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -32,7 +33,7 @@
                         <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Time Management
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" id="navbar_dropdown">
                             <li><a class="dropdown-item" href="{{url('/admins/timeoff')}}">Time Off</a></li>
                             <li><a class="dropdown-item" href="{{url('/admins/overtime')}}">Overtime</a></li>
                             <li><a class="dropdown-item" href="{{url('/admins/attendance')}}">Attendance</a></li>
