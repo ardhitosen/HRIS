@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Announcement;
 use App\Models\Transfer;
+use App\Models\Event;
 use App\Models\Attendance;
 use App\Models\Overtime;
 use App\Models\Timeoff;
@@ -288,7 +289,20 @@ class AdminController extends Controller
 
     public function calendar()
     {
-        return view('timeManagement.calendar');
+        $events = Event::all();
+        $eventData = [];
+        foreach ($events as $evt) {
+            $eventData[] = [
+                'title' => $evt->title,
+                'start_date'=> $evt->start_date
+            ];
+        }
+        return view('timeManagement.calendar',['events'=>$eventData]);
+    }
+
+    public function addEventCalendar()
+    {
+
     }
 
     public function overtime()
