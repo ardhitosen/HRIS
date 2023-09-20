@@ -27,7 +27,6 @@
 #calendar-card {
     width: 900px;
     margin: auto;
-    margin-bottom: 100px;
 }
 
 body {
@@ -44,10 +43,11 @@ body {
 
 #navbar {
     /* background-color: rgb(8, 151, 176, 0.9); */
-    background-color: rgb(24, 41, 99, 0.9); 
+    background-color: rgb(24, 41, 99, 0.9);
 }
 
-#navbar button, #navbar a {
+#navbar button,
+#navbar a {
     color: rgb(255, 255, 255, 0.8);
 }
 
