@@ -348,27 +348,27 @@ class AdminController extends Controller
 
     public function scheduler()
     {
+        $scheduler = Scheduler::all();
+        $schedulerData = [];
         $employee = Employee::all();
-        $employeeData = [];
 
-        foreach ($employee as $emp) {
-            $scheduler = Scheduler::where('employee_id', $emp->id)->first();
-            
-            $employeeData[] = [
-                'id' => $emp->id,
+        foreach($scheduler as $sched) {
+            $emp = Employee::where('id', $sched->employee_id)->first();
+
+            $schedulerData[] = [
                 'name' => $emp->name,
                 'branch' => $emp->branch,
                 'organization' => $emp->organization,
                 'job_position' => $emp->job_position,
-                'job_level' => $emp->job_level,
-                'employment_status' => $emp->employment_status,
-                'current_schedule' => $scheduler ? Carbon::parse($scheduler->current_schedule)->format('j F, Y') : null,
-                'schedule_time' => $scheduler ? Carbon::parse($scheduler->schedule_time)->format('h:i A') : null,
-                'schedule_description' => $scheduler ? $scheduler->schedule_detail : null,
+                'employee_id' => $sched ? $sched->employee_id : null,
+                'scheduler_id' => $sched ? $sched->scheduler_id : null,
+                'current_schedule' => $sched ? Carbon::parse($sched->current_schedule)->format('j F, Y') : null,
+                'schedule_time' => $sched ? Carbon::parse($sched->schedule_time)->format('h:i A') : null,
+                'schedule_description' => $sched ? $sched->schedule_detail : null,
             ];
         }
 
-        return view('timeManagement.scheduler', ['employee' => $employeeData]);
+        return view('timeManagement.scheduler', ['employee' => $employee, 'scheduler' => $schedulerData]);
     }
     
     public function assignScheduler(Request $request)
