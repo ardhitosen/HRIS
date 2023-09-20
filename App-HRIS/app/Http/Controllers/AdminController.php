@@ -17,6 +17,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -231,6 +232,7 @@ class AdminController extends Controller
         foreach ($attendance as $attendance) {
             $toff = Timeoff::where('employee_id', $attendance->employee_id)->first();
             $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
+            $overtime = Overtime::where('employee_id',$attendance->employee_id)->first();
             $attendanceData[] = [
                 'attendance_id' => $attendance->attendance_id,
                 'employee_id' => $attendance->employee_id,
@@ -240,10 +242,11 @@ class AdminController extends Controller
                 'schedule_in' => $attendance->schedule_in,
                 'schedule_out' => $attendance->schedule_out,
                 'clock_in' => $attendance->clock_in,
-                'clock_out' => $attendance->clock_out
+                'clock_out' => $attendance->clock_out,
+                'overtime_id'=>$overtime&&$overtime->status === "Accept" ? $overtime->overtime_id:null
             ];
             if($attendance->clock_in) $present++;
-            else if($attendanceData[count($attendanceData) - 1]['timeoff_code']) $timeoff++;
+            else if($attendanceData[count($attendanceData) - 1]['timeoff_id']) $timeoff++;
             else $absent++;
         }
 
@@ -284,6 +287,22 @@ class AdminController extends Controller
             $attendance->schedule_out = $request->input('schedule_out');
             $attendance->save();
 
+        return redirect()->route('attendance');
+    }
+
+    public function clockIn($attendance_id)
+    {
+        $attendance = Attendance::findOrFail($attendance_id);
+        $attendance->clock_in = Date::now();
+        $attendance->save();
+        return redirect()->route('attendance');
+    }
+
+    public function clockOut($attendance_id)
+    {
+        $attendance = Attendance::findOrFail($attendance_id);
+        $attendance->clock_out= Date::now();
+        $attendance->save();
         return redirect()->route('attendance');
     }
 
@@ -356,7 +375,6 @@ class AdminController extends Controller
         $overtime->overtime_date = $request->scheduleDate;
         $scheduleOut = Carbon::parse($attendance->schedule_out);
         $newTime = $scheduleOut->addSeconds($request->scheduleTime * 3600)->format('H:i:s');
-        dd($newTime);
         $overtime->duration = $newTime;
         $overtime->description = $request->description;
         $overtime->status = "Pending";

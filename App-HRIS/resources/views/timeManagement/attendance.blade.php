@@ -62,9 +62,25 @@
                     <td>{{ $attendance['schedule_out'] ?? '-' }}</td>
                     <td style="color: {{ strtotime($attendance['clock_in']) > strtotime($attendance['schedule_in']) ? 'red' : 'green' }}">{{ $attendance['clock_in'] ?? '-' }}</td>
                     <td style="color: {{ strtotime($attendance['clock_out']) < strtotime($attendance['schedule_out']) ? 'red' : 'green' }}">{{ $attendance['clock_out'] ?? '-' }}</td>
-                    <td>{{ '-' }}</td>
-                    <td>{{ $attendance['timeoff_code'] ?? '-' }}</td>
+                    <td>{{ $attendance['timeoff_id'] ?? '-' }}</td>
+                    <td>{{ $attendance['overtime_id'] ?? '-' }}</td>
                     <td>
+                        @if (!$attendance['clock_in'])
+                        <form action="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}" method="post">
+                            @csrf
+                            <button style="margin-bottom:5%" type="submit" class="btn btn-success">Clock In</button>
+                        </form>
+                        @else
+                        <button class="btn btn-success" disabled>Clocked In</button>
+                        @endif
+                        @if (!$attendance['clock_out'])
+                        <form action="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}" method="post">
+                            @csrf
+                            <button style="margin-bottom:5%" type="submit" class="btn btn-danger">Clock Out</button>
+                        </form>
+                        @else
+                        <button class="btn btn-danger" disabled>Clocked Out</button>
+                        @endif
                         <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
                             Edit
                         </button>

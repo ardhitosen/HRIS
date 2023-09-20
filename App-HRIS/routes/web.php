@@ -33,6 +33,8 @@ Route::post('/admins/employee/transfer/{id}', [AdminController::class, 'transfer
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 
 Route::get('/admins/attendance', [AdminController::class, 'attendance'])->name('attendance');
+Route::post('/admins/attendance/clockin/{id}', [AdminController::class, 'clockIn'])->name('clockin');   
+Route::post('/admins/attendance/clockout/{id}', [AdminController::class, 'clockOut'])->name('clockout');
 Route::post('/admins/attendance/generate', [AdminController::class, 'generateAttendance'])->name('generateAttendance');
 Route::post('/admins/attendance/edit/{id}', [AdminController::class, 'attendanceEdit'])->name('attendanceEdit');
 
