@@ -16,9 +16,9 @@
         <table id="timoffTable" class="table table-hover text-nowrap text-center align-middle">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Employee Name</th>
                     <th>Employee ID</th>
-                    <th>Time Off Code</th>
                     <th>Effective Date</th>
                     <th>Expiration Date</th>
                     <th>Status</th>
@@ -28,9 +28,9 @@
             <tbody>
                 @foreach($timeoff as $timeoff)
                 <tr style="height: 100px">
+                    <td>{{ $timeoff['timeoff_id'] ?? '-' }}</td>
                     <td>{{ $timeoff['employee_name'] ?? '-' }}</td>
                     <td>{{ $timeoff['id'] ?? '-' }}</td>
-                    <td>{{ $timeoff['time_off_code'] ?? '-' }}</td>
                     <td>{{ $timeoff['effective_date'] ?? '-' }}</td>
                     <td>{{ $timeoff['expiration_date'] ?? '-' }}</td>
                     <td>
@@ -82,12 +82,6 @@
                                 <option value="{{ $emp['id'] }}">{{ $emp['name'] }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="timeoffcode" class="col-sm-3 col-form-label">Time Off Code</label>
-                        <div class="col-sm-9 my-auto">
-                            <input type="text" name="timeoffcode" id="timeoffcode" class="form-control datepicker" placeholder="TO-xxxx" value="">
                         </div>
                     </div>
                     <div class="mb-3 row">

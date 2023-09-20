@@ -234,7 +234,7 @@ class AdminController extends Controller
                 'attendance_id' => $attendance->attendance_id,
                 'employee_id' => $attendance->employee_id,
                 'employee_name' => $emp->name,
-                'timeoff_code' => $toff && $toff->status === "Accept" ? $toff->time_off_code : null,
+                'timeoff_id' => $toff && $toff->status === "Accept" ? $toff->timeoff_id : null,
                 'date' => $attendance->date,
                 'schedule_in' => $attendance->schedule_in,
                 'schedule_out' => $attendance->schedule_out,
@@ -405,7 +405,6 @@ class AdminController extends Controller
                 'timeoff_id' => $timeoff->timeoff_id,
                 'id' => $timeoff->employee_id,
                 'employee_name' => $emp->name,
-                'time_off_code' => $timeoff->time_off_code,
                 'effective_date' => $timeoff->effective_date,
                 'expiration_date' => $timeoff->expiration_date,
                 'status' => $timeoff->status
@@ -429,7 +428,6 @@ class AdminController extends Controller
     public function timeoffAssign(Request $request) {
         $newTimeOff = new Timeoff();
         $newTimeOff->employee_id = $request->input('employee_id');
-        $newTimeOff->time_off_code = $request->input('timeoffcode');
         $newTimeOff->effective_date = $request->input('effectiveDate');
         $newTimeOff->expiration_date = $request->input('expDate');
         $newTimeOff->status = "Pending";

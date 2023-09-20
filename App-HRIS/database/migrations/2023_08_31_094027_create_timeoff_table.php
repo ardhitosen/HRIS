@@ -16,7 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->string('time_off_code')->nullable();
             $table->date('effective_date')->nullable();
             $table->date('expiration_date')->nullable();
             $table->string('status')->nullable();

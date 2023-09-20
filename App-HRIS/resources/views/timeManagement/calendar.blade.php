@@ -16,7 +16,7 @@
             initialView: 'dayGridMonth',
             plugins: [interactionPlugin],
             editable: true,
-            droppable: true,
+            droppable: true, 
             customButtons: {
                 addEvent: {
                     text: 'Add Event',
