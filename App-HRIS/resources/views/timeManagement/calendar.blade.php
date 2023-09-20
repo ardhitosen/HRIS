@@ -11,7 +11,6 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
     //     Calendar
     // } from '@fullcalendar/core'; // Import the core Calendar class
     // import interactionPlugin from '@fullcalendar/interaction'; // Import the interaction plugin
-
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -40,14 +39,15 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
                 day: 'Day',
                 list: 'List'
             },
-            events: [{
+            events: [
                 @foreach($events as $event)
                     {
                         title: '{{ $event['title'] }}',
-                        start: '{{ $event['start_date'] }}'
+                        start: '{{ $event['start_date'] }}',
+                        end: '{{$event['end_date'] ?? null}}'
                     },
                 @endforeach
-            }],
+            ],
             eventClick: function(info) {
                 alert('Event: ' + info.event.title);
             },
@@ -58,6 +58,15 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
     });
 </script>
 <br>
+@if ($errors->any())
+<div class="alert alert-danger mt-4">
+    <ul class="pl-4">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <div class="card" id="calendar-card">
     <div class="card-body">
         <div class="container">
@@ -75,7 +84,7 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="{{url('/admins/calendar/addevent')}}" method="post">
                         @csrf
                         <div class="mb-3 row">
                             <label for="title" class="col-sm-3 col-form-label">Title</label>
@@ -84,9 +93,15 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="date" class="col-sm-3 col-form-label">Date</label>
+                            <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
                             <div class="col-sm-9">
-                                <input type="date" name="date" id="date" class="form-control datepicker" placeholder="YYYY-MM-DD" value="">
+                                <input type="date" name="start_date" id="start_date" class="form-control datepicker" placeholder="YYYY-MM-DD" value="">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="end_date" class="col-sm-3 col-form-label">End Date (optional)</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="end_date" id="end_date" class="form-control datepicker" placeholder="YYYY-MM-DD" value="">
                             </div>
                         </div>
                         <div class="d-grid">

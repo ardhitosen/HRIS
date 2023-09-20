@@ -294,15 +294,29 @@ class AdminController extends Controller
         foreach ($events as $evt) {
             $eventData[] = [
                 'title' => $evt->title,
-                'start_date'=> $evt->start_date
+                'start_date'=> $evt->start_date,
+                'end_date'=>$evt->end_date
             ];
         }
         return view('timeManagement.calendar',['events'=>$eventData]);
     }
 
-    public function addEventCalendar()
+    public function addEvent(Request $request)
     {
-
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $event = new Event();
+        $event->start_date = $request->input('start_date');
+        $event->title = $request->input('title');
+        $event->end_date = ($request->input('end_date')) ? $request->input('end_date') : null;
+        $event->save();
+        return redirect()->route('calendar');
     }
 
     public function overtime()

@@ -37,6 +37,7 @@ Route::post('/admins/attendance/generate', [AdminController::class, 'generateAtt
 Route::post('/admins/attendance/edit/{id}', [AdminController::class, 'attendanceEdit'])->name('attendanceEdit');
 
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');
+Route::post('/admins/calendar/addevent', [AdminController::class, 'addEvent'])->name('addEvent');
 
 Route::get('/admins/overtime', [AdminController::class, 'overtime'])->name('overtime');
 Route::post('/admins/overtime/assign', [AdminController::class, 'overtimeAssign'])->name('overtimeAssign');
