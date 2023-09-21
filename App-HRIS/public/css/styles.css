@@ -42,8 +42,9 @@ body {
 }
 
 #navbar {
-    /* background-color: rgb(8, 151, 176, 0.9); */
-    background-color: rgb(24, 41, 99, 0.9);
+    background-color: rgb(0,158,169);
+    /* background-color: rgb(8, 151, 176); */
+    /* background-color: rgb(24, 41, 99, 0.9); */
 }
 
 #navbar button,

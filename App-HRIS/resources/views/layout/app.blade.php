@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/admins/dashboard')}}">Home</a>
+                        <a class="nav-link" href="{{url('/admins/dashboard')}}"><img src="{{ asset('images/BUMN-Untuk-Indonesia.png') }}" alt="Image" style="height: 25px;"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/admins/employee')}}">Employees</a>

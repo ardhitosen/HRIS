@@ -9,7 +9,7 @@
         </div>
     </div>
     <br>
-    <div class="d-flex justify-content-between" id="dashboardInfo">
+    <!-- <div class="d-flex justify-content-between" id="dashboardInfo">
         <div class="card">
             <h6>Employment</h6>
             {{ $empCount }}
@@ -29,7 +29,7 @@
             {{ $male }}
             {{ $female }}
         </div>
-    </div>
+    </div> -->
 </div>
 
 

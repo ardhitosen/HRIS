@@ -52,25 +52,24 @@
                     <td>{{ $emp['resign_date'] ?? '-' }}</td>
                     <td>{{ $emp['email'] ?? '-' }}</td>
                     <td>
-                        @if(!isset( $emp['resign_date'] ))
                         <div class="btn-group dropstart">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
                             </button>
+                            @if(!isset( $emp['resign_date'] ))
                             <ul class="dropdown-menu" id="actionButton">
                                 <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
                                 <li><a class="dropdown-item" href="#">Delete</a></li>
                             </ul>
+                            @else
+                            <ul class="dropdown-menu" id="actionButton">
+                                <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                            </ul>
+                            @endif
                         </div>
-                        @else
-                        <div class="btn-group dropstart">
-                            <button type="button" class="btn dropdown-toggle disabled border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
-                            </button>
-                        </div>
-                        @endif
                     </td>
                 </tr>
                 <div class="modal fade" id="transferEmployee{{$emp['id']}}" tabindex="-1" aria-labelledby="transferEmployee{{$emp['id']}}" aria-hidden="true">
@@ -110,7 +109,13 @@
                                     <div class="mb-3 row">
                                         <label for="newPosition" class="col-sm-3 col-form-label">New Position</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="newPosition" id="newPosition" class="form-control">
+                                            <select name="newPosition" class="form-control" id="newPosition">
+                                                <option value="Staff">Staff</option>
+                                                <option value="Officer">Officer</option>
+                                                <option value="Managar">Manager</option>
+                                                <option value="Supervisor">Supervisor</option>
+                                            </select>
+                                            <!-- <input type="text" name="newPosition" id="newPosition" class="form-control"> -->
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -166,7 +171,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="branch" class="col-sm-2 col-form-label">Branch</label>
+                        <label for="branch" class="col-sm-2 col-form-label">Division</label>
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <input type="text" name="branch" id="branch" class="form-control" value="{{ old('branch') }}">
@@ -184,9 +189,15 @@
                     <div class="mb-3 row">
                         <label for="jobposition" class="col-sm-2 col-form-label">Job Position</label>
                         <div class="col-sm-10">
-                            <div class="input-group">
+                            <select name="jobposition" class="form-control" id="jobposition" value="{{ old('jobposition') }}">
+                                <option value="Staff">Staff</option>
+                                <option value="Officer">Officer</option>
+                                <option value="Managar">Manager</option>
+                                <option value="Supervisor">Supervisor</option>
+                            </select>
+                            <!-- <div class="input-group">
                                 <input type="text" name="jobposition" id="jobposition" class="form-control" value="{{ old('jobposition') }}">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="mb-3 row">
