@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,13 @@ Route::post('/admins/reimbursement/status/revision/{id}', [AdminController::clas
 Route::get('/admins/reimbursement/status/{status}/{id}', [AdminController::class, 'reimbursementAction'])->name('reimburseAction');
 
 
+
+Route::get('/employee', function () {
+    return view('frontend.index');
+})->name('index_frontend');
+
+Route::controller(EmployeeController::class)->group(function(){
+    Route::post('/employee/login', 'login')->name('frontend_login');
+    Route::get('/employee/dashboard', 'dashboard')->name('frontend_dashboard');
+    Route::get('/employee/logout', 'logout')->name('frontend_logout');
+});
