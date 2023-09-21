@@ -69,4 +69,109 @@ class EmployeeController extends Controller
         return view('frontend.dashboard');
     }
 
+    public function overtime()
+    {
+        $user_id = session('employee')->id;
+        $overtime = [];
+        $overtime = Overtime::where('employee_id',$user_id)->get();
+        return view('frontend.timeManagement.overtime',['overtime'=>$overtime]);
+    }
+
+    public function overtimeadd(Request $request)
+    {
+        $user_id = session('employee')->id;
+        $validator = Validator::make($request->all(), [
+            'scheduleDate' => 'required|date',
+            'scheduleTime' => 'required|numeric',
+            'description' => 'required',
+            'overtimeWork' => 'required|file'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $filePath = $request->file('overtimeWork')->store('overtime_files');
+        $user_id = session('employee')->id;
+        $overtime = new Overtime();
+        $overtime->employee_id = $user_id;
+        $overtime->overtime_date = $request->input('scheduleDate');
+        $overtime->duration = $request->input('scheduleTime');
+        $overtime->description = $request->input('description');
+        $overtime->file = $filePath;
+        $overtime->status = "Pending";
+        $overtime->save();
+
+        return redirect()->route('frontend_overtime');
+    }
+
+    public function attendance()
+    {
+        $today = Carbon::now()->toDateString();
+        $user_id = session('employee')->id;
+        $attendance = [];
+        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        return view('frontend.timeManagement.attendance', ['attendance' => $attendance]);
+        
+    }
+
+    public function clockIn()
+    {
+        $today = Carbon::now()->toDateString();
+        $time = Carbon::now()->toTimeString();
+        $user_id = session('employee')->id;
+
+        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        $attendance->clock_in = $time;
+        $attendance->save();
+        return redirect()->route('frontend_attendance');
+    }
+
+    public function clockOut()
+    {
+        $today = Carbon::now()->toDateString();
+        $time = Carbon::now()->toTimeString();
+        $user_id = session('employee')->id;
+
+        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        $attendance->clock_out = $time;
+        $attendance->save();
+        return redirect()->route('frontend_attendance');
+    }
+
+    public function timeoff()
+    {
+        $user_id = session('employee')->id;
+
+        $timeoff=[];
+        $timeoff = Timeoff::where('employee_id',$user_id)->get();
+
+        return view('frontend.timeManagement.timeoff',['timeoff'=>$timeoff]);
+    }
+
+    public function timeoffAdd(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'effectiveDate' => 'required|date',
+            'expDate' => 'required|date',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user_id = session('employee')->id;
+
+        $newTimeOff = new Timeoff();
+        $newTimeOff->employee_id = $user_id;
+        $newTimeOff->effective_date = $request->input('effectiveDate');
+        $newTimeOff->expiration_date = $request->input('expDate');
+        $newTimeOff->status = "Pending";
+        $newTimeOff->save();
+
+        return redirect()->route('frontend_timeoff');
+    }
+
+    public function announcement()
+    {
+        $announcements = Announcement::all();
+        return view('frontend.announcement',['announcements' => $announcements]);
+    }
 }

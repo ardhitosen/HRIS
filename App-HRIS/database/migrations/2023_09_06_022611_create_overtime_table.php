@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('duration')->nullable();
             $table->string('description')->nullable();
             $table->string('status')->nullable();
+            $table->string('file');
         });
     }
 

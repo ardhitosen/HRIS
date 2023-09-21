@@ -57,7 +57,7 @@
                 admin
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{url('/admins/logoutProcess')}}">Log Out</a></li>
+                <li><a class="dropdown-item" style="color:black" href="{{url('/admins/logoutProcess')}}">Log Out</a></li>
             </ul>
         </div>
     </nav>

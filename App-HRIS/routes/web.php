@@ -74,5 +74,13 @@ Route::get('/employee', function () {
 Route::controller(EmployeeController::class)->group(function(){
     Route::post('/employee/login', 'login')->name('frontend_login');
     Route::get('/employee/dashboard', 'dashboard')->name('frontend_dashboard');
+    Route::get('/employee/attendance', 'attendance')->name('frontend_attendance');
+    Route::post('/employee/attendance/clockin', 'clockIn')->name('frontend_clockin');
+    Route::post('/employee/attendance/clockout', 'clockOut')->name('frontend_clockout');
+    Route::get('/employee/timeoff', 'timeoff')->name('frontend_timeoff');
+    Route::post('/employee/timeoff/add', 'timeoffAdd')->name('frontend_timeoff_add');
+    Route::get('/employee/overtime', 'overtime')->name('frontend_overtime');
+    Route::post('/employee/overtime/add', 'overtimeadd')->name('frontend_overtime_add');
+    Route::get('/employee/announcement', 'announcement')->name('frontend_announcement');
     Route::get('/employee/logout', 'logout')->name('frontend_logout');
 });

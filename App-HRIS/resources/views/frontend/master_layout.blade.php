@@ -25,29 +25,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/employee/dashboard')}}"><img src="{{ asset('images/BUMN-Untuk-Indonesia.png') }}" alt="Image" style="height: 25px;"></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/admins/employee')}}">Employees</a>
-                    </li>
                     <div class="dropdown">
                         <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Time Management
                         </button>
                         <ul class="dropdown-menu" id="navbar_dropdown">
-                            <li><a class="dropdown-item" href="{{url('/admins/timeoff')}}">Time Off</a></li>
-                            <li><a class="dropdown-item" href="{{url('/admins/overtime')}}">Overtime</a></li>
-                            <li><a class="dropdown-item" href="{{url('/admins/attendance')}}">Attendance</a></li>
-                            <li><a class="dropdown-item" href="{{url('/admins/scheduler')}}">Scheduler</a></li>
-                            <li><a class="dropdown-item" href="{{url('/admins/calendar')}}">Calendar</a></li>
+                            <li><a class="dropdown-item" href="{{url('/employee/attendance')}}">Attendance</a></li>
+                            <li><a class="dropdown-item" href="{{url('/employee/overtime')}}">Overtime</a></li>
+                            <li><a class="dropdown-item" href="{{url('/employee/timeoff')}}">Timeoff</a></li>
                         </ul>
                     </div>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/admins/reimbursement')}}">Reimbursement</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/admins/payroll')}}">Payroll</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/admins/announcement')}}">Announcement</a>
+                        <a class="nav-link" href="{{url('/employee/announcement')}}">Announcement</a>
                     </li>
                 </ul>
             </div>
@@ -57,7 +46,7 @@
                 {{ session()->get('employee') ->username}} 
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{url('/employee/logout')}}">Log Out</a></li>
+                <li><a class="dropdown-item" style="color:black" href="{{url('/employee/logout')}}">Log Out</a></li>
             </ul>
         </div>
     </nav>

@@ -363,6 +363,7 @@ class AdminController extends Controller
                 'overtime_id' => $ovt->overtime_id,
                 'date' => $ovt->overtime_date,
                 'duration' => $ovt->duration,
+                'file'=>$ovt->file,
                 'description' => $ovt->description,
                 'status' => $ovt->status,
                 'employee_name' => $emp->name
