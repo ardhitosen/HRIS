@@ -2,26 +2,26 @@
 
 @section('content')
 <br>
-@if ($errors->any())
-<div class="alert alert-danger mt-4">
-    <ul class="pl-4">
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+
 <div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Attendance!</h5>
         <form method="post" action="{{route('generateAttendance')}}">
-        @csrf
+            @csrf
             <button class="btn btn-link nav-link float-end">
                 Generate Attendance
             </button>
         </form>
     </div>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger mt-4 d-flex justify-content-between">
+    @foreach ($errors->all() as $error)
+    {{ $error }}
+    @endforeach
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <br>
 <div id="attendanceDetail" class="card d-flex flex-row justify-content-between border-0 shadow-sm">
     <div>
@@ -65,25 +65,26 @@
                     <td>{{ $attendance['timeoff_id'] ?? '-' }}</td>
                     <td>{{ $attendance['overtime_id'] ?? '-' }}</td>
                     <td>
-                        @if (!$attendance['clock_in'])
-                        <form action="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}" method="post">
-                            @csrf
-                            <button style="margin-bottom:5%" type="submit" class="btn btn-success">Clock In</button>
-                        </form>
-                        @else
-                        <button class="btn btn-success" disabled>Clocked In</button>
-                        @endif
-                        @if (!$attendance['clock_out'])
-                        <form action="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}" method="post">
-                            @csrf
-                            <button style="margin-bottom:5%" type="submit" class="btn btn-danger">Clock Out</button>
-                        </form>
-                        @else
-                        <button class="btn btn-danger" disabled>Clocked Out</button>
-                        @endif
-                        <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
-                            Edit
-                        </button>
+                        <div class="btn-group dropstart">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </button>
+                            <ul class="dropdown-menu" id="actionButton">
+                                @if(!isset($attendance['clock_in']))
+                                <li><a class="dropdown-item" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
+                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></li>
+                                @elseif(isset($attendance['clock_out']))
+                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
+                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></ @else <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></li>
+                                @endif
+                                <li>
+                                    <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
+                                        Edit
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                     <div class="modal fade" id="attendanceEdit{{$attendance['attendance_id']}}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -105,7 +106,7 @@
                                             <label for="schedule_out" class="col-sm-3 col-form-label">Schedule Out</label>
                                             <div class="col-sm-9 my-auto">
                                                 <input type="time" name="schedule_out" id="schedule_out" class="form-control datepicker" value="{{$attendance['schedule_out']}}">
-                                            </div>  
+                                            </div>
                                         </div>
                                         <div class="d-grid">
                                             <button class="btn btn-primary">Confirm</button>

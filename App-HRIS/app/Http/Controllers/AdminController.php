@@ -255,6 +255,10 @@ class AdminController extends Controller
 
     public function generateAttendance()
     {
+        if(null !== Attendance::first()) {
+            return redirect()->route('attendance')
+            ->withErrors(['message' => 'Today employee attendance already downloaded.']);;
+        }
         $employee = Employee::all();
         $today = Carbon::parse(Carbon::now());
         $todayFormat = $today->format('d M Y');
