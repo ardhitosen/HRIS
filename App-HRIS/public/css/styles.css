@@ -78,3 +78,8 @@ body {
 #profile_dropdown a:hover{
     background-color: rgb(1, 125, 134);
 }
+
+.dropdown-menu#navbar_dropdown a.dropdown-item {
+    color: black;
+}
+
