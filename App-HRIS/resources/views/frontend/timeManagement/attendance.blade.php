@@ -1,15 +1,26 @@
 @extends('frontend.master_layout')
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger mt-4">
-        <ul class="pl-4">
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<style>
+    .card {
+        animation: slideIn 0.5s ease-in-out forwards;
+        opacity: 0;
+        transform: translateY(-20px);
+        text-align: center;
+        padding: 20px;
+    }
+    
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
