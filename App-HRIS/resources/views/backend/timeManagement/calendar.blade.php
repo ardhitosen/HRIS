@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('backend.layout.app')
 
 @section('content')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>

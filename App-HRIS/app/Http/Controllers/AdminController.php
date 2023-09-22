@@ -31,7 +31,7 @@ class AdminController extends Controller
      */
     public function login()
     {
-        return view('index');
+        return view('backend.index');
     }
 
     public function loginProcess(Request $request)
@@ -77,7 +77,7 @@ class AdminController extends Controller
             $year[] = $interval->y;
         }
         return view(
-            'dashboard',
+            'backend.dashboard',
             ['empCount' => $empCount, 'year' => $year, 'male' => $male, 'female' => $female, 'activeStaff' => $activeStaff]
         );
     }
@@ -116,7 +116,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('employee.employee', ['employee' => $employeeData]);
+        return view('backend.employee.employee', ['employee' => $employeeData]);
     }
 
     public function addEmployee(Request $request)
@@ -250,7 +250,7 @@ class AdminController extends Controller
             else $absent++;
         }
 
-        return view('timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent,'timeoff'=>$timeoff]);
+        return view('backend.timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent,'timeoff'=>$timeoff]);
     }
 
     public function generateAttendance()
@@ -321,7 +321,7 @@ class AdminController extends Controller
                 'end_date'=>$evt->end_date
             ];
         }
-        return view('timeManagement.calendar',['events'=>$eventData]);
+        return view('backend.timeManagement.calendar',['events'=>$eventData]);
     }
 
     public function addEvent(Request $request)
@@ -369,7 +369,7 @@ class AdminController extends Controller
                 'employee_name' => $emp->name
             ];
         }
-        return view('timeManagement.overtime', ['employee' => $employeeData, 'overtime' => $overtimeData]);
+        return view('backend.timeManagement.overtime', ['employee' => $employeeData, 'overtime' => $overtimeData]);
     }
 
     public function overtimeAssign(Request $request)
@@ -419,7 +419,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('timeManagement.scheduler', ['employee' => $employee, 'scheduler' => $schedulerData]);
+        return view('backend.timeManagement.scheduler', ['employee' => $employee, 'scheduler' => $schedulerData]);
     }
     
     public function assignScheduler(Request $request)
@@ -462,7 +462,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
+        return view('backend.timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
     }
 
     public function statusChange($status, $id) {
@@ -491,7 +491,7 @@ class AdminController extends Controller
     {
         $announcements = Announcement::all();
 
-        return view('announcement', ['announcements' => $announcements]);
+        return view('backend.announcement', ['announcements' => $announcements]);
     }
 
     public function create_announcement(Request $request)
@@ -564,7 +564,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('payroll', ['employee' => $employeeData]);
+        return view('backend.payroll', ['employee' => $employeeData]);
     }
 
     public function reimbursement()
@@ -592,7 +592,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('reimbursement', ['reimbursement' => $reimbursementData, 'employee' => $employeeData]);
+        return view('backend.reimbursement', ['reimbursement' => $reimbursementData, 'employee' => $employeeData]);
     }
 
     public function createReimbursement(Request $request)
@@ -630,14 +630,14 @@ class AdminController extends Controller
     {
         $employee = Employee::where('id', $id)->firstOrFail();
 
-        return view('employee.employeeDetail', ['emp' => $employee]);
+        return view('backend.employee.employeeDetail', ['emp' => $employee]);
     }
 
     public function employeeEmployment($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
 
-        return view('employee.employeeEmployment', ['employee' => $employee]);
+        return view('backend.employee.employeeEmployment', ['employee' => $employee]);
     }
 
     public function employeeTransferLog($id)
@@ -659,7 +659,7 @@ class AdminController extends Controller
                 'new_level' => $log->new_level,
             ];
         }
-        return view('employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
+        return view('backend.employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
     }
 
     public function transferEmployee(Request $request, $id)
@@ -693,54 +693,4 @@ class AdminController extends Controller
         return redirect()->route('employee');
     }
 
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
