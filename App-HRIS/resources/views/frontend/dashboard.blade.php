@@ -1,8 +1,7 @@
 @extends('frontend.master_layout')
 
 @section('content')
-<br>
-<div class="card" id="test">
+<div class="card card_container">
     <div id="header">
         <div class="card-body">
             <h3>Welcome, {{ session()->get('employee') ->name}}!</h3>

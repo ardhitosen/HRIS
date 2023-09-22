@@ -9,61 +9,61 @@
         text-align: center;
         padding: 20px;
     }
-    
+
     @keyframes slideIn {
         0% {
             opacity: 0;
             transform: translateY(-20px);
         }
+
         100% {
             opacity: 1;
             transform: translateY(0);
         }
     }
 </style>
-<br>
 @if ($errors->any())
-    <div class="alert alert-danger mt-4">
-        <ul class="pl-4">
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-<div class="card border-0 title">
-    <div class="card-body d-flex justify-content-between">
-        <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#timeoff">
-            Request a Paid Leave
-        </button>
-    </div>
+<div class="alert alert-danger mt-4">
+    <ul class="pl-4">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
 </div>
-<div class="card border-0 shadow show_table">
-    <div class="table-responsive scrollable-table" style="max-height: 500px">
-        <table id="timeoff_frontend" class="table table-hover text-nowrap align-middle">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Effective Date</th>
-                    <th>Expiration Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($timeoff as $timeoff)
-                <tr style="height: 100px">
-                    <td>{{ $timeoff['timeoff_id'] ?? '-' }}</td>
-                    <td>{{ $timeoff['effective_date'] ?? '-' }}</td>
-                    <td>{{ $timeoff['expiration_date'] ?? '-' }}</td>
-                    <td>
-                        <span style="{{ $timeoff['status'] == 'Pending' ? 'color: orange;' : ($timeoff['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
-                            {{ $timeoff['status'] ?? '-' }}
-                        </span>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+@endif
+<div class="card card_container">
+    <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#timeoff">
+        Request a Paid Leave
+    </button>
+    <div class="card-body">
+        <div class="card border-0 shadow show_table">
+            <div class="table-responsive scrollable-table" style="max-height: 500px">
+                <table id="timeoff_frontend" class="table table-hover text-nowrap align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Effective Date</th>
+                            <th>Expiration Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($timeoff as $timeoff)
+                        <tr style="height: 100px">
+                            <td>{{ $timeoff['timeoff_id'] ?? '-' }}</td>
+                            <td>{{ $timeoff['effective_date'] ?? '-' }}</td>
+                            <td>{{ $timeoff['expiration_date'] ?? '-' }}</td>
+                            <td>
+                                <span style="{{ $timeoff['status'] == 'Pending' ? 'color: orange;' : ($timeoff['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
+                                    {{ $timeoff['status'] ?? '-' }}
+                                </span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

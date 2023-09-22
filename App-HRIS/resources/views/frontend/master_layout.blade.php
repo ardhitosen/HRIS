@@ -25,10 +25,10 @@
                     <a href="{{url('/employee/dashboard')}}" class="pb-3 mb-md-0 me-md-auto my-4">
                         <span class="fs-5 d-none d-sm-inline"><img src="{{ asset('images/BUMN-Untuk-Indonesia.png') }}" alt="Image" style="width: 100%;"></span>
                     </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" >
                         <li class="nav-link px-0">
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0">Management</a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <ul class="collapse nav ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
                                     <a href="{{url('/employee/attendance')}}" class="nav-link">Attendance</a>
                                 </li>

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#employeeTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -7,7 +7,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#payrollTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#attendanceTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -25,7 +25,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#schedulerTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -34,7 +34,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#overtimeTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#timoffTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -52,7 +52,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#reimbursementTable').DataTable({
         "columnDefs": [{
             orderable: false,
@@ -63,3 +63,12 @@ $(document).ready(function() {
 
 new DataTable('#timeoff_frontend');
 new DataTable('#overtimeTable_frontend');
+
+
+function showTime() {
+    var date = new Date();
+
+    document.getElementById('time').innerHTML = date.toLocaleTimeString();
+}
+
+setInterval(showTime, 1000);
