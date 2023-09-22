@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -178,7 +179,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'organization' => 'required',
-            'email' => 'required|unique:employees,email,'.$id.',id',
+            'email' => 'required|unique:employees,email,' . $id . ',id',
             'birthdate' => 'required|date',
             'birthplace' => 'required',
             'joindate' => 'required|date',
@@ -221,18 +222,21 @@ class AdminController extends Controller
 
     public function attendance()
     {
-        $attendance = Attendance::all();
-        $employee = Employee::all();
-
+        $attendanceData = [];
         $present = 0;
         $absent = 0;
         $timeoff = 0;
+        $attendance = Attendance::orderBy('attendance_id', 'desc')->get();
 
-        $attendanceData = [];
+        $processedEmployeeIds = [];
         foreach ($attendance as $attendance) {
+
+            if (in_array($attendance->employee_id, $processedEmployeeIds)) {
+                break;
+            }
             $toff = Timeoff::where('employee_id', $attendance->employee_id)->first();
             $emp = Employee::where('id', $attendance->employee_id)->firstOrFail();
-            $overtime = Overtime::where('employee_id',$attendance->employee_id)->first();
+            $overtime = Overtime::where('employee_id', $attendance->employee_id)->first();
             $attendanceData[] = [
                 'attendance_id' => $attendance->attendance_id,
                 'employee_id' => $attendance->employee_id,
@@ -243,25 +247,26 @@ class AdminController extends Controller
                 'schedule_out' => $attendance->schedule_out,
                 'clock_in' => $attendance->clock_in,
                 'clock_out' => $attendance->clock_out,
-                'overtime_id'=>$overtime&&$overtime->status === "Accept" ? $overtime->overtime_id:null
+                'overtime_id' => $overtime && $overtime->status === "Accept" ? $overtime->overtime_id : null
             ];
-            if($attendance->clock_in) $present++;
-            else if($attendanceData[count($attendanceData) - 1]['timeoff_id']) $timeoff++;
+            if ($attendance->clock_in) $present++;
+            else if ($attendanceData[count($attendanceData) - 1]['timeoff_id']) $timeoff++;
             else $absent++;
+            $processedEmployeeIds[] = $attendance->employee_id;
         }
 
-        return view('backend.timeManagement.attendance', ['attendance' => $attendanceData,'present'=>$present,'absent'=>$absent,'timeoff'=>$timeoff]);
+        return view('backend.timeManagement.attendance', ['attendance' => $attendanceData, 'present' => $present, 'absent' => $absent, 'timeoff' => $timeoff]);
     }
 
     public function generateAttendance()
     {
-        $today = Carbon::parse(Carbon::now());
-        return $today;
-        if(null !== Attendance::first()) {
+        $cacheKey = 'attendance_' . now()->format('Y-m-d');
+        if (Cache::has($cacheKey)) {
             return redirect()->route('attendance')
-            ->withErrors(['message' => 'Today employee attendance already downloaded.']);;
+                ->withErrors(['message' => 'Today employee attendance already downloaded.']);;
         }
         $employee = Employee::all();
+        $today = Carbon::parse(Carbon::now());
         $todayFormat = $today->format('d M Y');
 
         foreach ($employee as $employee) {
@@ -272,11 +277,12 @@ class AdminController extends Controller
             $attendance->date = $today;
             $attendance->save();
         }
+        Cache::put($cacheKey, now()->endOfDay());
 
         return redirect()->route('attendance');
     }
 
-    public function attendanceEdit($attendance_id,Request $request)
+    public function attendanceEdit($attendance_id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'schedule_in' => 'required',
@@ -288,9 +294,9 @@ class AdminController extends Controller
         }
 
         $attendance = Attendance::findOrFail($attendance_id);
-            $attendance->schedule_in = $request->input('schedule_in');
-            $attendance->schedule_out = $request->input('schedule_out');
-            $attendance->save();
+        $attendance->schedule_in = $request->input('schedule_in');
+        $attendance->schedule_out = $request->input('schedule_out');
+        $attendance->save();
 
         return redirect()->route('attendance');
     }
@@ -306,7 +312,7 @@ class AdminController extends Controller
     public function clockOut($attendance_id)
     {
         $attendance = Attendance::findOrFail($attendance_id);
-        $attendance->clock_out= Date::now();
+        $attendance->clock_out = Date::now();
         $attendance->save();
         return redirect()->route('attendance');
     }
@@ -318,11 +324,11 @@ class AdminController extends Controller
         foreach ($events as $evt) {
             $eventData[] = [
                 'title' => $evt->title,
-                'start_date'=> $evt->start_date,
-                'end_date'=>$evt->end_date
+                'start_date' => $evt->start_date,
+                'end_date' => $evt->end_date
             ];
         }
-        return view('backend.timeManagement.calendar',['events'=>$eventData]);
+        return view('backend.timeManagement.calendar', ['events' => $eventData]);
     }
 
     public function addEvent(Request $request)
@@ -364,7 +370,7 @@ class AdminController extends Controller
                 'overtime_id' => $ovt->overtime_id,
                 'date' => $ovt->overtime_date,
                 'duration' => $ovt->duration,
-                'file'=>$ovt->file,
+                'file' => $ovt->file,
                 'description' => $ovt->description,
                 'status' => $ovt->status,
                 'employee_name' => $emp->name
@@ -389,12 +395,13 @@ class AdminController extends Controller
         return redirect()->route('overtime');
     }
 
-    public function overtimeStatusChange($status, $id) {
+    public function overtimeStatusChange($status, $id)
+    {
         $overtime = Overtime::findOrFail($id);
 
         $overtime->status = $status;
         $overtime->save();
-        
+
         return redirect()->route('overtime');
     }
 
@@ -404,7 +411,7 @@ class AdminController extends Controller
         $schedulerData = [];
         $employee = Employee::all();
 
-        foreach($scheduler as $sched) {
+        foreach ($scheduler as $sched) {
             $emp = Employee::where('id', $sched->employee_id)->first();
 
             $schedulerData[] = [
@@ -422,7 +429,7 @@ class AdminController extends Controller
 
         return view('backend.timeManagement.scheduler', ['employee' => $employee, 'scheduler' => $schedulerData]);
     }
-    
+
     public function assignScheduler(Request $request)
     {
         $scheduler = new Scheduler();
@@ -431,7 +438,7 @@ class AdminController extends Controller
         $scheduler->schedule_time = $request->scheduleTime;
         $scheduler->schedule_detail = $request->description;
         $scheduler->save();
-        
+
         return redirect()->route('scheduler');
     }
 
@@ -442,8 +449,8 @@ class AdminController extends Controller
 
         $timeoff = Timeoff::all();
         $timeoffData = [];
-        
-        foreach($employee as $employee) {
+
+        foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
                 'name' => $employee->name
@@ -466,18 +473,20 @@ class AdminController extends Controller
         return view('backend.timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
     }
 
-    public function statusChange($status, $id) {
+    public function statusChange($status, $id)
+    {
         $timeoff = Timeoff::findOrFail($id);
 
         // $timeoff->status = $status;
         // $timeoff->update(['status' => $status]);
         $timeoff->status = $status;
         $timeoff->save();
-        
+
         return redirect()->route('timeoff');
     }
 
-    public function timeoffAssign(Request $request) {
+    public function timeoffAssign(Request $request)
+    {
         $newTimeOff = new Timeoff();
         $newTimeOff->employee_id = $request->input('employee_id');
         $newTimeOff->effective_date = $request->input('effectiveDate');
@@ -514,7 +523,7 @@ class AdminController extends Controller
         return redirect()->route('announcement');
     }
 
-    public function editannouncement(Request $request,$id)
+    public function editannouncement(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
@@ -532,7 +541,7 @@ class AdminController extends Controller
         return redirect()->route('announcement');
     }
 
-    public function deleteannouncement(Request $request,$id)
+    public function deleteannouncement(Request $request, $id)
     {
         $announcement = Announcement::findOrFail($id);
         $announcement->delete();
@@ -544,13 +553,13 @@ class AdminController extends Controller
     {
         $employee = Employee::all();
         $employeeData = [];
-        foreach($employee as $emp) {
+        foreach ($employee as $emp) {
             $overtime = Overtime::where('employee_id', $emp->id)->get();
             $scheduleOut = Carbon::parse('18:00:00')->format('H');
-            $interval = NULL; 
-            foreach($overtime as $ovt) {
-                if($ovt->status == "Accept") {
-                    $interval += (Carbon::parse($ovt->duration)->format('H'))-$scheduleOut;
+            $interval = NULL;
+            foreach ($overtime as $ovt) {
+                if ($ovt->status == "Accept") {
+                    $interval += (Carbon::parse($ovt->duration)->format('H')) - $scheduleOut;
                 }
             }
             $employeeData[] = [
@@ -573,7 +582,7 @@ class AdminController extends Controller
         $employee = Employee::all();
         $employeeData = [];
 
-        foreach($employee as $employee) {
+        foreach ($employee as $employee) {
             $employeeData[] = [
                 'id' => $employee->id,
                 'name' => $employee->name
@@ -607,23 +616,25 @@ class AdminController extends Controller
 
         return redirect()->route('reimbursement');
     }
-    
-    public function reimbursementAction($status, $id) {
+
+    public function reimbursementAction($status, $id)
+    {
         $reimburse = Reimbursement::findOrFail($id);
 
         $reimburse->status = $status;
         $reimburse->save();
-        
+
         return redirect()->route('reimbursement');
     }
-    
-    public function reimburseRevision(Request $request, $id) {
+
+    public function reimburseRevision(Request $request, $id)
+    {
         $reimburse = Reimbursement::where('reimburse_id', $id)->firstOrFail();
 
         $reimburse->status = "Revision";
         $reimburse->reason_for_revision = $request->reason;
         $reimburse->save();
-        
+
         return redirect()->route('reimbursement');
     }
 
@@ -675,7 +686,7 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $transfer= new Transfer();
+        $transfer = new Transfer();
         $transfer->employee_id = $id;
         $transfer->old_branch = $request->input('oldBranch');
         $transfer->new_branch = $request->input('newBranch');
@@ -693,5 +704,4 @@ class AdminController extends Controller
 
         return redirect()->route('employee');
     }
-
 }

@@ -5,9 +5,6 @@
 <div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Timeoff!</h5>
-        <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#timeoff">
-            Assign
-        </button>
     </div>
 </div>
 <br>
@@ -61,47 +58,6 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-</div>
-
-<div class="modal fade" id="timeoff" tabindex="-1" aria-labelledby="timeoff" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Assign Timeoff</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{url('/admins/timeoff/assign')}}" method="post">
-                    @csrf
-                    <div class="mb-3 row">
-                        <label for="maritalstatus" class="col-sm-3 col-form-label">Name</label>
-                        <div class="col-sm-9 my-auto">
-                            <select name="employee_id" class="form-control" id="employee_id" value="{{ old('name') }}">
-                                @foreach($employee as $emp)
-                                <option value="{{ $emp['id'] }}">{{ $emp['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="effectiveDate" class="col-sm-3 col-form-label">Effective Date</label>
-                        <div class="col-sm-9">
-                            <input type="date" name="effectiveDate" id="effectiveDate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="expDate" class="col-sm-3 col-form-label">Expiration Date</label>
-                        <div class="col-sm-9 my-auto">
-                            <input type="date" name="expDate" id="expDate" class="form-control datepicker" placeholder="YYYY-MM-DD" value="">
-                        </div>
-                    </div>
-                    <div class="d-grid">
-                        <button class="btn btn-primary">Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 </div>
 

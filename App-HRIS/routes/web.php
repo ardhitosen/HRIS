@@ -16,7 +16,7 @@ use App\Http\Controllers\EmployeeController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('backend.index');
 })->name('index');
 
 Route::get('/admins/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');

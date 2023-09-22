@@ -40,8 +40,8 @@
         <table id="attendanceTable" class="table table-hover text-nowrap text-center align-middle">
             <thead>
                 <tr>
-                    <th>Employee Name</th>
                     <th>Employee ID</th>
+                    <th>Employee Name</th>
                     <th>Attendance Date</th>
                     <th>Schedule In</th>
                     <th>Schedule Out</th>
@@ -55,8 +55,8 @@
             <tbody>
                 @foreach($attendance as $attendance)
                 <tr style="height: 100px">
-                    <td>{{ $attendance['employee_name'] ?? '-' }}</td>
                     <td>{{ $attendance['employee_id'] ?? '-' }}</td>
+                    <td>{{ $attendance['employee_name'] ?? '-' }}</td>
                     <td>{{ $attendance['date'] ?? '-' }}</td>
                     <td>{{ $attendance['schedule_in'] ?? '-' }}</td>
                     <td>{{ $attendance['schedule_out'] ?? '-' }}</td>
