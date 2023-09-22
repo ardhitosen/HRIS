@@ -14,13 +14,13 @@
 <div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#overtime">
-            Add Overtime
+            Request Overtime
         </button>
     </div>
 </div>
 <div class="card border-0 shadow show_table">
     <div class="table-responsive scrollable-table" style="max-height: 500px">
-        <table id="overtimeTable" class="table table-hover text-nowrap text-center align-middle">
+        <table id="overtimeTable_frontend" class="table table-hover text-nowrap align-middle">
             <thead>
                 <tr>
                     <th>ID</th>

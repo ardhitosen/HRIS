@@ -14,11 +14,59 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    
+
 </head>
 
 <body>
-    <nav class="shadow-sm navbar navbar-expand-lg" id="navbar">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="navbar">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="{{url('/employee/dashboard')}}" class="pb-3 mb-md-0 me-md-auto my-4">
+                        <span class="fs-5 d-none d-sm-inline"><img src="{{ asset('images/BUMN-Untuk-Indonesia.png') }}" alt="Image" style="width: 100%;"></span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-link px-0">
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0">Management</a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="{{url('/employee/attendance')}}" class="nav-link">Attendance</a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{url('/employee/timeoff')}}" class="nav-link">Take a Paid Leave</a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{url('/employee/overtime')}}" class="nav-link">Request Overtime</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('/employee/announcement')}}" class="nav-link px-0">Annoucement</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropup pb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="" width="30" height="30" class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">{{ session()->get('employee') ->username}} </span>
+                        </a>
+                        <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{url('/employee/logout')}}">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-4" id="main_page" style="background-image:url({{ asset('images/background.jpg') }}); background-size: cover;">
+                @yield('content')
+            </div>
+
+        </div>
+    </div>
+    <!-- <nav class="shadow-sm navbar navbar-expand-lg" id="navbar">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -49,11 +97,8 @@
                 <li><a class="dropdown-item" style="color:black" href="{{url('/employee/logout')}}">Log Out</a></li>
             </ul>
         </div>
-    </nav>
-    <div class="container">
-        @yield('content')
-    </div>
+    </nav> -->
 </body>
-    <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 </html>

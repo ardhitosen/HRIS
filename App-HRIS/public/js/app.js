@@ -60,3 +60,6 @@ $(document).ready(function() {
         }]
     });
 });
+
+new DataTable('#timeoff_frontend');
+new DataTable('#overtimeTable_frontend');

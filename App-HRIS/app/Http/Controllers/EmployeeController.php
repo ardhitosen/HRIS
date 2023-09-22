@@ -89,8 +89,8 @@ class EmployeeController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $filePath = $request->file('overtimeWork')->store('overtime_files');
         $user_id = session('employee')->id;
+        $filePath = $request->file('overtimeWork')->store('overtime_files');
         $overtime = new Overtime();
         $overtime->employee_id = $user_id;
         $overtime->overtime_date = $request->input('scheduleDate');
