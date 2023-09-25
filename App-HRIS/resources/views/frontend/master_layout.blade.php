@@ -25,8 +25,8 @@
                     <a href="{{url('/employee/dashboard')}}" class="pb-3 mb-md-0 me-md-auto my-4">
                         <span class="fs-5 d-none d-sm-inline"><img src="{{ asset('images/BUMN-Untuk-Indonesia.png') }}" alt="Image" style="width: 100%;"></span>
                     </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" >
-                        <li class="nav-link px-0">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+                        <li class="nav-item px-0">
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0">Management</a>
                             <ul class="collapse nav ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
@@ -37,8 +37,11 @@
                                 </li>
                                 <li class="w-100">
                                     <a href="{{url('/employee/overtime')}}" class="nav-link">Request Overtime</a>
-                                </li>
-                            </ul>
+                                </ul>
+                            </li>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('/employee/reimbursement')}}" class="nav-link px-0">Request Reimbursement</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/employee/announcement')}}" class="nav-link px-0">Annoucement</a>
@@ -47,7 +50,13 @@
                     <hr>
                     <div class="dropup pb-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="" width="30" height="30" class="rounded-circle">
+                            <div class="shadow " style="border-radius: 100px; overflow: hidden;">
+                                @if(session()->get('employee')->username == NULL)
+                                <img src="{{ session()->get('employee')->photo}}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
+                                @else
+                                <img src="data:image/jpeg;base64,{{ base64_encode(session()->get('employee')->photo) }}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
+                                @endif
+                            </div>
                             <span class="d-none d-sm-inline mx-1">{{ session()->get('employee') ->username}} </span>
                         </a>
                         <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm">

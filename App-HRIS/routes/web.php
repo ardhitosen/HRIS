@@ -90,5 +90,8 @@ Route::controller(EmployeeController::class)->group(function(){
     
     Route::get('/employee/profile', 'show_profile')->name('frontend_profile');
     
+    Route::get('/employee/reimbursement', 'reimbursement')->name('frontend_reimbursement');
+    Route::post('/employee/reimbursement/create', 'reimbursement_create')->name('frontend_reimbursement_create');
+
     Route::get('/employee/logout', 'logout')->name('frontend_logout');
 });

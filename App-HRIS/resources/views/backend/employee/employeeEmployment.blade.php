@@ -4,8 +4,14 @@
 <br>
 <div class="d-flex row">
     <div class="col-2">
-        <div class="text-center">
-            <img src="{{ asset('images/profile_icon.jpg') }}" alt="Image" style="border-radius: 100px; width: 100px;">
+        <div class="text-center d-flex row justify-content-center">
+            <div class="shadow " style="border-radius: 100px; width: 100px !important; height: 100px !important; overflow: hidden;">
+                @if($employee->photo == NULL)
+                <img src="{{ asset('images/profile_icon.jpg') }}" alt="Image" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;">
+                @else
+                <img src="data:image/jpeg;base64,{{ base64_encode($employee->photo) }}" alt="Image" class="rounded-circle" style="width: 100%; height: 100%; object-fit: contain;">
+                @endif
+            </div>
             <button class="btn">Change Image</button>
         </div>
         <hr>
