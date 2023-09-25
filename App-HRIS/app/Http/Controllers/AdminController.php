@@ -169,7 +169,6 @@ class AdminController extends Controller
         $employee->salary = $request->input('salary');
         $employee->employment_status = "Employed";
         $employee->tunjangan = $request->input('tunjangan');
-        $employee->photo = asset('images/profile_icon.jpg');
 
         $employee->save();
 
@@ -217,6 +216,7 @@ class AdminController extends Controller
     public function employeeDetail($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
+        // dd($employee);
         $url = Storage::url('app/') . $employee->photo;
         // return $url;
         return view('backend.employee.employeeDetail', ['emp' => $employee, 'url' => $url]);
@@ -286,8 +286,8 @@ class AdminController extends Controller
     {
         $employee = Employee::findOrFail($id);
         
-        $filePath = $request->file('image')->storePublicly('employee_profile_picture');
-        $employee->photo = $filePath;
+        // $filePath = $request->file('image')->storePublicly('employee_profile_picture');
+        $employee->photo = file_get_contents($request->image);
         $employee->save();
         return redirect()->route('employee');
     }
