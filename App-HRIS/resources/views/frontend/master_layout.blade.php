@@ -51,7 +51,7 @@
                             <span class="d-none d-sm-inline mx-1">{{ session()->get('employee') ->username}} </span>
                         </a>
                         <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{url('/employee/profile')}}">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

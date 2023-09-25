@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('marital_status');
             $table->decimal('salary', 10, 2);
             $table->decimal('tunjangan', 10, 2);
+            $table->string('photo')->nullable();
         });
     }
 

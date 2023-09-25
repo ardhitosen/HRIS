@@ -108,7 +108,7 @@ class EmployeeController extends Controller
         $today = Carbon::now()->toDateString();
         $user_id = session('employee')->id;
         $attendance = [];
-        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        $attendance = Attendance::orderBy('attendance_id', 'desc')->where('employee_id',$user_id)->where('date',$today)->first();
         return view('frontend.timeManagement.attendance', ['attendance' => $attendance]);
         
     }
@@ -119,7 +119,7 @@ class EmployeeController extends Controller
         $time = Carbon::now()->toTimeString();
         $user_id = session('employee')->id;
 
-        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        $attendance = Attendance::orderBy('attendance_id', 'desc')->where('employee_id',$user_id)->where('date',$today)->first();
         $attendance->clock_in = $time;
         $attendance->save();
         return redirect()->route('frontend_attendance');
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
         $time = Carbon::now()->toTimeString();
         $user_id = session('employee')->id;
 
-        $attendance = Attendance::where('employee_id',$user_id)->where('date',$today)->first();
+        $attendance = Attendance::orderBy('attendance_id', 'desc')->where('employee_id',$user_id)->where('date',$today)->first();
         $attendance->clock_out = $time;
         $attendance->save();
         return redirect()->route('frontend_attendance');
@@ -173,5 +173,11 @@ class EmployeeController extends Controller
     {
         $announcements = Announcement::all();
         return view('frontend.announcement',['announcements' => $announcements]);
+    }
+
+    public function show_profile() 
+    {
+        $employee = Employee::where('id', session('employee')->id);
+        return view('frontend.profile', ['employee'=>$employee]);
     }
 }
