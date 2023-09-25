@@ -29,7 +29,7 @@
                 <tr>
                     <th>Employee Name</th>
                     <th>Employee ID</th>
-                    <th>Branch</th>
+                    <th>Division</th>
                     <th>Organization</th>
                     <th>Job Position</th>
                     <th>Job Level</th>

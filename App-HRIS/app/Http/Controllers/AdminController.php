@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
@@ -91,33 +92,33 @@ class AdminController extends Controller
     public function employee()
     {
         $employee = Employee::all();
-        $employeeData = [];
-        foreach ($employee as $employee) {
-            $employeeData[] = [
-                'id' => $employee->id,
-                'username' => $employee->username,
-                'password' => $employee->password,
-                'name' => $employee->name,
-                'branch' => $employee->branch,
-                'organization' => $employee->organization,
-                'job_position' => $employee->job_position,
-                'job_level' => $employee->job_level,
-                'email' => $employee->email,
-                'join_date' => $employee->join_date,
-                'birth_date' => $employee->birth_date,
-                'resign_date' => $employee->resign_date,
-                'birth_place' => $employee->birth_place,
-                'address' => $employee->address,
-                'mobile_phone' => $employee->mobile_phone,
-                'religion' => $employee->religion,
-                'gender' => $employee->gender,
-                'marital_status' => $employee->marital_status,
-                'salary' => $employee->salary,
-                'employment_status' => $employee->employment_status,
-            ];
-        }
+        // $employeeData = [];
+        // foreach ($employee as $employee) {
+        //     $employeeData[] = [
+        //         'id' => $employee->id,
+        //         'username' => $employee->username,
+        //         'password' => $employee->password,
+        //         'name' => $employee->name,
+        //         'branch' => $employee->branch,
+        //         'organization' => $employee->organization,
+        //         'job_position' => $employee->job_position,
+        //         'job_level' => $employee->job_level,
+        //         'email' => $employee->email,
+        //         'join_date' => $employee->join_date,
+        //         'birth_date' => $employee->birth_date,
+        //         'resign_date' => $employee->resign_date,
+        //         'birth_place' => $employee->birth_place,
+        //         'address' => $employee->address,
+        //         'mobile_phone' => $employee->mobile_phone,
+        //         'religion' => $employee->religion,
+        //         'gender' => $employee->gender,
+        //         'marital_status' => $employee->marital_status,
+        //         'salary' => $employee->salary,
+        //         'employment_status' => $employee->employment_status,
+        //     ];
+        // }
 
-        return view('backend.employee.employee', ['employee' => $employeeData]);
+        return view('backend.employee.employee', ['employee' => $employee]);
     }
 
     public function addEmployee(Request $request)
@@ -168,6 +169,7 @@ class AdminController extends Controller
         $employee->salary = $request->input('salary');
         $employee->employment_status = "Employed";
         $employee->tunjangan = $request->input('tunjangan');
+        $employee->photo = asset('images/profile_icon.jpg');
 
         $employee->save();
 
@@ -210,6 +212,84 @@ class AdminController extends Controller
         $employee->save();
 
         return redirect()->route('dashboard');
+    }
+
+    public function employeeDetail($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+        $url = Storage::url('app/') . $employee->photo;
+        // return $url;
+        return view('backend.employee.employeeDetail', ['emp' => $employee, 'url' => $url]);
+    }
+
+    public function employeeEmployment($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+
+        return view('backend.employee.employeeEmployment', ['employee' => $employee]);
+    }
+
+    public function employeeTransferLog($id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+
+        $transfer_log = Transfer::where('employee_id', $id)->get();
+        $transferData = [];
+
+        foreach ($transfer_log as $log) {
+            $transferData[] = [
+                'id' => $log->logs_id,
+                'date' => Carbon::parse($log->created_at)->format('F j, Y - h:i A'),
+                'old_branch' => $log->old_branch,
+                'new_branch' => $log->new_branch,
+                'old_position' => $log->old_position,
+                'new_position' => $log->new_position,
+                'old_level' => $log->old_level,
+                'new_level' => $log->new_level,
+            ];
+        }
+        return view('backend.employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
+    }
+
+    public function transferEmployee(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'newBranch' => 'required',
+            'newPosition' => 'required',
+            'newLevel' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $transfer = new Transfer();
+        $transfer->employee_id = $id;
+        $transfer->old_branch = $request->input('oldBranch');
+        $transfer->new_branch = $request->input('newBranch');
+        $transfer->old_position = $request->input('oldPosition');
+        $transfer->new_position = $request->input('newPosition');
+        $transfer->old_level = $request->input('oldLevel');
+        $transfer->new_level = $request->input('newLevel');
+        $transfer->date = date('Y-m-d');
+        $transfer->save();
+        $employee = Employee::findOrFail($id);
+        $employee->branch = $request->input('newBranch');
+        $employee->job_level = $request->input('newLevel');
+        $employee->job_position = $request->input('newPosition');
+        $employee->save();
+
+        return redirect()->route('employee');
+    }
+
+    public function changeProfilePic(Request $request, $id) 
+    {
+        $employee = Employee::findOrFail($id);
+        
+        $filePath = $request->file('image')->storePublicly('employee_profile_picture');
+        $employee->photo = $filePath;
+        $employee->save();
+        return redirect()->route('employee');
     }
 
     public function resign(Request $request, $id)
@@ -298,22 +378,6 @@ class AdminController extends Controller
         $attendance->schedule_out = $request->input('schedule_out');
         $attendance->save();
 
-        return redirect()->route('attendance');
-    }
-
-    public function clockIn($attendance_id)
-    {
-        $attendance = Attendance::findOrFail($attendance_id);
-        $attendance->clock_in = Date::now();
-        $attendance->save();
-        return redirect()->route('attendance');
-    }
-
-    public function clockOut($attendance_id)
-    {
-        $attendance = Attendance::findOrFail($attendance_id);
-        $attendance->clock_out = Date::now();
-        $attendance->save();
         return redirect()->route('attendance');
     }
 
@@ -636,72 +700,5 @@ class AdminController extends Controller
         $reimburse->save();
 
         return redirect()->route('reimbursement');
-    }
-
-    public function employeeDetail($id)
-    {
-        $employee = Employee::where('id', $id)->firstOrFail();
-
-        return view('backend.employee.employeeDetail', ['emp' => $employee]);
-    }
-
-    public function employeeEmployment($id)
-    {
-        $employee = Employee::where('id', $id)->firstOrFail();
-
-        return view('backend.employee.employeeEmployment', ['employee' => $employee]);
-    }
-
-    public function employeeTransferLog($id)
-    {
-        $employee = Employee::where('id', $id)->firstOrFail();
-
-        $transfer_log = Transfer::where('employee_id', $id)->get();
-        $transferData = [];
-
-        foreach ($transfer_log as $log) {
-            $transferData[] = [
-                'id' => $log->logs_id,
-                'date' => Carbon::parse($log->created_at)->format('F j, Y - h:i A'),
-                'old_branch' => $log->old_branch,
-                'new_branch' => $log->new_branch,
-                'old_position' => $log->old_position,
-                'new_position' => $log->new_position,
-                'old_level' => $log->old_level,
-                'new_level' => $log->new_level,
-            ];
-        }
-        return view('backend.employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
-    }
-
-    public function transferEmployee(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'newBranch' => 'required',
-            'newPosition' => 'required',
-            'newLevel' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
-
-        $transfer = new Transfer();
-        $transfer->employee_id = $id;
-        $transfer->old_branch = $request->input('oldBranch');
-        $transfer->new_branch = $request->input('newBranch');
-        $transfer->old_position = $request->input('oldPosition');
-        $transfer->new_position = $request->input('newPosition');
-        $transfer->old_level = $request->input('oldLevel');
-        $transfer->new_level = $request->input('newLevel');
-        $transfer->date = date('Y-m-d');
-        $transfer->save();
-        $employee = Employee::findOrFail($id);
-        $employee->branch = $request->input('newBranch');
-        $employee->job_level = $request->input('newLevel');
-        $employee->job_position = $request->input('newPosition');
-        $employee->save();
-
-        return redirect()->route('employee');
     }
 }

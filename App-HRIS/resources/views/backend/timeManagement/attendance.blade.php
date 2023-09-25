@@ -65,26 +65,9 @@
                     <td>{{ $attendance['timeoff_id'] ?? '-' }}</td>
                     <td>{{ $attendance['overtime_id'] ?? '-' }}</td>
                     <td>
-                        <div class="btn-group dropstart">
-                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
-                            </button>
-                            <ul class="dropdown-menu" id="actionButton">
-                                @if(!isset($attendance['clock_in']))
-                                <li><a class="dropdown-item" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
-                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></li>
-                                @elseif(isset($attendance['clock_out']))
-                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
-                                <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></ @else <li><a class="dropdown-item disabled" href="{{ url('/admins/attendance/clockin/' . $attendance['attendance_id']) }}">Clock In</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/admins/attendance/clockout/' . $attendance['attendance_id']) }}">Clock Out</a></li>
-                                @endif
-                                <li>
-                                    <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
-                                        Edit
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                        <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#attendanceEdit{{$attendance['attendance_id']}}">
+                            Edit
+                        </button>
                     </td>
                     <div class="modal fade" id="attendanceEdit{{$attendance['attendance_id']}}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

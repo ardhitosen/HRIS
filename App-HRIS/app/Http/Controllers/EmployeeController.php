@@ -80,6 +80,7 @@ class EmployeeController extends Controller
     public function overtimeadd(Request $request)
     {
         $user_id = session('employee')->id;
+        $attendance = Attendance::where('employee_id', session('employee')->id)->first();
         $validator = Validator::make($request->all(), [
             'scheduleDate' => 'required|date',
             'scheduleTime' => 'required|numeric',
@@ -94,7 +95,9 @@ class EmployeeController extends Controller
         $overtime = new Overtime();
         $overtime->employee_id = $user_id;
         $overtime->overtime_date = $request->input('scheduleDate');
-        $overtime->duration = $request->input('scheduleTime');
+        $scheduleOut = Carbon::parse($attendance->schedule_out);
+        $newTime = $scheduleOut->addSeconds($request->scheduleTime * 3600)->format('H:i:s');
+        $overtime->duration = $newTime;
         $overtime->description = $request->input('description');
         $overtime->file = $filePath;
         $overtime->status = "Pending";

@@ -30,6 +30,7 @@ Route::get('/admins/employee/detail/employment/{id}', [AdminController::class, '
 Route::get('/admins/employee/detail/transferlog/{id}', [AdminController::class, 'employeeTransferLog'])->name('employeeTransferLog');
 Route::get('/admins/employee/resign/{id}', [AdminController::class, 'resign'])->name('resign');
 Route::post('/admins/employee/edit/{id}', [AdminController::class, 'editemployee'])->name('edit');
+Route::post('/admins/employee/edit/changepp/{id}', [AdminController::class, 'changeProfilePic'])->name('changeProfilePic');
 Route::post('/admins/employee/transfer/{id}', [AdminController::class, 'transferEmployee'])->name('transfer');
 Route::post('/admins/addemployee', [AdminController::class, 'addEmployee'])->name('addEmployee');
 

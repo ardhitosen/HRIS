@@ -1,12 +1,14 @@
 @extends('backend.layout.app')
 
+
 @section('content')
 <br>
 <div class="d-flex row">
     <div class="col-2">
         <div class="text-center">
-            <img src="{{ asset('images/profile_icon.jpg') }}" alt="Image" style="border-radius: 100px; width: 100px;">
-            <button class="btn">Change Image</button>
+            <!-- <img src="{{ asset('images/profile_icon.jpg') }}" alt="Image" style="border-radius: 100px; width: 100px;"> -->
+            <img src="{{ ($url) }}" alt="Image" style="border-radius: 100px; width: 100px;">
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#changeImage">Change Image</button>
         </div>
         <hr>
         <div class="d-flex row">
@@ -48,6 +50,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="changeImage" tabindex="-1" aria-labelledby="changeImage" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Profile Picture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('/admins/employee/edit/changepp/' . $emp['id']) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3 row">
+                        <label for="image" class="col-sm-3 col-form-label">Image</label>
+                        <div class="col-sm-9 my-auto">
+                            <input type="file" name="image" id="image" class="form-control-file">
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="editEmployee" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
