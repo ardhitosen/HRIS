@@ -53,10 +53,10 @@
                     <tbody>
                         @foreach($reimbursement as $reim)
                         <tr style="height: 100px">
-                            <td>{{ $reim['id'] ?? '-' }}</td>
+                            <td>{{ $reim['reimburse_id'] ?? '-' }}</td>
                             <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
                             <td>{{ 'IDR ' . number_format($reim['total_reimbursement'], 0, ',', '.') }}</td>
-                            <td>{{ data:image/jpeg;base64, base64_encode($reim['proof']) }}</td>
+                            <td><img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px"></td>
                             <td>
                                 <span style="{{ $reim['status'] == 'Pending' ? 'color: orange;' : ($reim['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
                                     {{ $reim['status'] ?? '-' }}
