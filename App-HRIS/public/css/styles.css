@@ -98,6 +98,17 @@ body {
     text-align: center;
 }
 
+#profile_template {
+    display: grid;
+    /* grid-template-rows: 100%; */
+    grid-template-columns: 30% 70%;
+
+}
+
+#profile_template div {
+    border: 1px solid;
+}
+
 #profile_dropdown {
     padding-left: 8px;
     padding-right: 8px;
