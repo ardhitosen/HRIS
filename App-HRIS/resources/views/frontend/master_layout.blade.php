@@ -46,19 +46,22 @@
                             <a href="{{url('/employee/announcement')}}" class="nav-link px-0">Annoucement</a>
                         </li>
                     </ul>
-                    <hr>
-                    <div class="dropup pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="shadow " style="border-radius: 100px; overflow: hidden;">
-                                @if(session()->get('employee')->username == NULL)
-                                <img src="{{ session()->get('employee')->photo}}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
-                                @else
-                                <img src="data:image/jpeg;base64,{{ base64_encode(session()->get('employee')->photo) }}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
-                                @endif
-                            </div>
-                            <span class="d-none d-sm-inline mx-1">{{ session()->get('employee') ->username}} </span>
+                    <div class="pb-4" style="width: 100%;">
+                        <hr class="border-2">
+                        <a href="#" class="d-flex justify-content-between align-items-center text-white text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-flex align-items-center">
+                                <div style="border-radius: 100px; overflow: hidden;">
+                                    @if(session()->get('employee')->username == NULL)
+                                    <img src="{{ session()->get('employee')->photo}}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
+                                    @else
+                                    <img src="data:image/jpeg;base64,{{ base64_encode(session()->get('employee')->photo) }}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
+                                    @endif
+                                </div>
+                                <span class="d-none d-sm-inline mx-1">{{ session()->get('employee') ->username}} </span>
+                            </span>
+                            <img src="{{ asset('images/menu-burger.png') }}" alt="" height="20px">
                         </a>
-                        <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm">
+                        <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm slides">
                             <li><a class="dropdown-item" href="{{url('/employee/profile')}}">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">

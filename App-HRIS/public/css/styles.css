@@ -97,3 +97,44 @@ body {
     grid-template-columns: auto auto;
     text-align: center;
 }
+
+#profile_dropdown {
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow: hidden;
+    max-width:208px;
+    width: 100%;
+}
+
+.slidesOut {
+    animation: slideOut 0.25s ease-in-out forwards;
+}
+
+.slides {
+    animation: slide 0.25s ease-in-out forwards;
+}
+
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        translate: 0 10px;
+    }
+
+    100% {
+        opacity: 1;
+        translate: 0 -10px;
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        translate: 0 -10px;
+    }
+
+    100% {
+        opacity: 0;
+        translate: 0 10px;
+    }
+}
