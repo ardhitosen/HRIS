@@ -63,6 +63,7 @@ $(document).ready(function () {
 
 new DataTable('#timeoff_frontend');
 new DataTable('#overtimeTable_frontend');
+new DataTable('#reimbursementTableFrontend');
 
 
 function showTime() {

@@ -177,22 +177,22 @@ class EmployeeController extends Controller
         $user_id = session('employee')->id;
 
         $reimbursement= Reimbursement::where('employee_id',$user_id)->get();
-        return view('frontend.reimbursement',['reimbursement'=>$reimbursement]);
+        return view('frontend.timeManagement.reimbursement',['reimbursement'=>$reimbursement]);
 
     }
 
     public function reimbursement_create(Request $request)
     {
-        // dd($request);
         $reimbursement = new Reimbursement();
-        $reimbursement->employee_id = $request->input('employee_id');
+        $reimbursement->employee_id = session('employee')->id;
         $reimbursement->reimbursement_type = $request->input('reimbursement_type');
         $reimbursement->total_reimbursement = $request->input('reimburse');
         $reimbursement->status = "Pending";
         $reimbursement->proof = file_get_contents($request->proof);
+        // dd($reimbursement);
         $reimbursement->save();
 
-        return redirect()->route('frontend.reimbursement'); 
+        return redirect()->route('frontend_reimbursement'); 
     }
 
     public function announcement()

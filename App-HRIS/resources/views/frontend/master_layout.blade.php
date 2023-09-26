@@ -14,7 +14,6 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-
 </head>
 
 <body>
@@ -37,11 +36,11 @@
                                 </li>
                                 <li class="w-100">
                                     <a href="{{url('/employee/overtime')}}" class="nav-link">Request Overtime</a>
-                                </ul>
-                            </li>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('/employee/reimbursement')}}" class="nav-link px-0">Request Reimbursement</a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{url('/employee/reimbursement')}}" class="nav-link">Request Reimbursement</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/employee/announcement')}}" class="nav-link px-0">Annoucement</a>

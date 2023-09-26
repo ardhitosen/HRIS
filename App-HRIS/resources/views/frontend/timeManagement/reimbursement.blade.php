@@ -6,7 +6,6 @@
         animation: slideIn 0.5s ease-in-out forwards;
         opacity: 0;
         transform: translateY(-20px);
-        text-align: center;
         padding: 20px;
     }
 
@@ -41,54 +40,27 @@
 
         <div class="card border-0 shadow show_table">
             <div class="table-responsive scrollable-table" style="max-height: 500px">
-                <table id="reimbursementTable" class="table table-hover text-nowrap text-center align-middle">
+                <table id="reimbursementTableFrontend" class="table table-hover text-nowrap align-middle">
                     <thead>
                         <tr>
                             <th>Reimburse ID</th>
-                            <th>Employee Name</th>
-                            <th>Employee ID</th>
                             <th>Reimbursement Type</th>
                             <th>Total Reimbursement</th>
+                            <th>File</th>
                             <th>Status</th>
-                            <th>Activity</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($reimbursement as $reim)
                         <tr style="height: 100px">
                             <td>{{ $reim['id'] ?? '-' }}</td>
-                            <td>{{ $reim['name'] ?? '-' }}</td>
-                            <td>{{ $reim['employee_id'] ?? '-' }}</td>
                             <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
                             <td>{{ 'IDR ' . number_format($reim['total_reimbursement'], 0, ',', '.') }}</td>
+                            <td>{{ data:image/jpeg;base64, base64_encode($reim['proof']) }}</td>
                             <td>
                                 <span style="{{ $reim['status'] == 'Pending' ? 'color: orange;' : ($reim['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
                                     {{ $reim['status'] ?? '-' }}
                                 </span>
-                            </td>
-                            <td>
-                                @if($reim['status'] == 'Pending')
-                                <div class="btn-group dropstart">
-                                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu" id="actionButton">
-                                        <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Accept/' . $reim['id'])}}">Accept</a></li>
-                                        <li>
-                                            <button class="dropdown-item float-end" data-bs-toggle="modal" data-bs-target="#revision{{ $reim['id'] }}">
-                                                Revision
-                                            </button>
-                                        </li>
-                                        <li><a class="dropdown-item" href="{{ url('/admins/reimbursement/status/Decline/' . $reim['id'])}}">Decline</a></li>
-                                    </ul>
-                                </div>
-                                @else
-                                <div class="btn-group dropstart ">
-                                    <button type="button" class="btn dropdown-toggle disabled border-0">
-                                        Action
-                                    </button>
-                                </div>
-                                @endif
                             </td>
                         </tr>
                         @endforeach

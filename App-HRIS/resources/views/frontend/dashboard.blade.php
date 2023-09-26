@@ -29,6 +29,12 @@
                 </a>
             </span>
             <span>
+                <a href="{{url('/employee/reimbursement')}}" class="btn">
+                    <img src="{{ asset('images/reimbursement.png') }}" alt="">
+                    <p>Request Reimbursement</p>
+                </a>
+            </span>
+            <span>
                 <a href="{{url('/employee/announcement')}}" class="btn">
                     <img src="{{ asset('images/annoucement.png') }}" alt="">
                     <p>View Announcement</p>

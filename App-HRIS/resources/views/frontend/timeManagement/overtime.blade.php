@@ -6,7 +6,6 @@
         animation: slideIn 0.5s ease-in-out forwards;
         opacity: 0;
         transform: translateY(-20px);
-        text-align: center;
         padding: 20px;
     }
 
@@ -104,7 +103,7 @@
                     <div class="mb-3 row">
                         <label for="overtimeWork" class="col-sm-3 col-form-label">Overtime Work</label>
                         <div class="col-sm-9 my-auto">
-                            <input type="file" name="overtimeWork" id="overtimeWork" class="form-control-file">
+                            <input type="file" name="overtimeWork" id="overtimeWork" class="form-control">
                         </div>
                     </div>
                     <div class="d-grid">

@@ -57,7 +57,7 @@ body {
 #shortcut {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     text-align: center;
 }
 

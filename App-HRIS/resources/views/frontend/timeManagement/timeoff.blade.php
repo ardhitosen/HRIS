@@ -6,7 +6,6 @@
         animation: slideIn 0.5s ease-in-out forwards;
         opacity: 0;
         transform: translateY(-20px);
-        text-align: center;
         padding: 20px;
     }
 
