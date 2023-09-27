@@ -101,12 +101,29 @@ body {
 #profile_template {
     display: grid;
     /* grid-template-rows: 100%; */
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 25% 70%;
+    justify-content: space-around;
 
 }
 
 #profile_template div {
-    border: 1px solid;
+    padding: 20px;
+    border-radius: 10px;
+    /* border: 1px solid; */
+}
+
+
+#left_profile {
+    background-color: rgb(8, 151, 176);
+    background-image: linear-gradient(to right,rgb(8, 151, 176), rgb(111, 211, 227));    
+}
+
+#left_profile img {
+    margin-top: 15%;
+    margin-bottom: 10%;
+    border-radius: 8px;
+    width: 70%;
+    background-color: white;
 }
 
 #profile_dropdown {
@@ -117,14 +134,9 @@ body {
     width: 100%;
 }
 
-.slidesOut {
-    animation: slideOut 0.25s ease-in-out forwards;
-}
-
 .slides {
     animation: slide 0.25s ease-in-out forwards;
 }
-
 
 @keyframes slide {
     0% {
@@ -135,17 +147,5 @@ body {
     100% {
         opacity: 1;
         translate: 0 -10px;
-    }
-}
-
-@keyframes slideOut {
-    0% {
-        opacity: 1;
-        translate: 0 -10px;
-    }
-
-    100% {
-        opacity: 0;
-        translate: 0 10px;
     }
 }

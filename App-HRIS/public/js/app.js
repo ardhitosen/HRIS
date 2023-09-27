@@ -77,10 +77,8 @@ setInterval(showTime, 1000);
 $(document).ready(function () {
     $('#dropdownUser1').on('hide.bs.dropdown', function () {
         $('#profile_dropdown').removeClass('slides');
-        $('#profile_dropdown').addClass('slidesOut');
     });
     $('#dropdownUser1').on('show.bs.dropdown', function () {
         $('#profile_dropdown').addClass('slides');
-        $('#profile_dropdown').removeClass('slidesOut');
     });
 });

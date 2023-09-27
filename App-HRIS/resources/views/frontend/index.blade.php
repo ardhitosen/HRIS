@@ -2,6 +2,7 @@
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{{asset('images/bumn_favicon.png')}}">
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <style>
         body {
