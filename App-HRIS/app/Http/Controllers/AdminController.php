@@ -389,7 +389,8 @@ class AdminController extends Controller
             $eventData[] = [
                 'title' => $evt->title,
                 'start_date' => $evt->start_date,
-                'end_date' => $evt->end_date
+                'end_date' => $evt->end_date,
+                'id'=>$evt->id
             ];
         }
         return view('backend.timeManagement.calendar', ['events' => $eventData]);
@@ -413,6 +414,31 @@ class AdminController extends Controller
         return redirect()->route('calendar');
     }
 
+    public function deleteEvent($event_id)
+    {
+        $event = Event::findOrFail($event_id);
+        $event->delete();
+
+        return redirect()->route('calendar');
+    }
+
+    public function editEvent($id,Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'new_title' => 'required',
+            'new_start_date' => 'required|date',
+            'new_end_date' => 'nullable|date'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $event = Event::findOrFail($id);
+        $event->start_date = $request->input('new_start_date');
+        $event->title = $request->input('new_title');
+        $event->end_date = ($request->input('new_end_date')) ? $request->input('new_end_date') : null;
+        $event->save();
+        return redirect()->route('calendar');
+    }
     public function overtime()
     {
         $employee = Employee::all();

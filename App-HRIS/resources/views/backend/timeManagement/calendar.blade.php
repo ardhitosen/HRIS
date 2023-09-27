@@ -18,7 +18,7 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
             initialView: 'dayGridMonth',
             // plugins: [FullCalendarInteraction],
             editable: true,
-            droppable: true, 
+            //droppable: true, 
             customButtons: {
                 addEvent: {
                     text: 'Add Event',
@@ -44,12 +44,14 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
                     {
                         title: '{{ $event['title'] }}',
                         start: '{{ $event['start_date'] }}',
-                        end: '{{$event['end_date'] ?? null}}'
+                        end: '{{$event['end_date'] ?? null}}',
+                        id: '{{$event['id']}}'
                     },
                 @endforeach
             ],
             eventClick: function(info) {
-                alert('Event: ' + info.event.title);
+                var eventId = info.event.id;
+                $('#editEvent' + eventId).modal('show');
             },
             droppable: true,
             selectable: true
@@ -112,6 +114,46 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js
             </div>
         </div>
     </div>
+    @foreach($events as $event)
+    <div class="modal fade" id="editEvent{{$event['id']}}" tabindex="-1" aria-labelledby="editEvent{{$event['id']}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('editEvent', ['id' => $event['id']]) }}" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="new_title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="new_title" name="new_title" value="{{$event['title']}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_start_date" class="form-label">Start Date</label>
+                            <input type="date" name="new_start_date" id="new_start_date" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{$event['start_date']}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_end_date" class="form-label">End Date (Optional)</label>
+                            <input type="date" name="new_end_date" id="new_end_date" class="form-control datepicker" placeholder="YYYY-MM-DD" value="{{$event['end_date'] ?? '-'}}">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                    <form action="{{ route('deleteEvent', ['id' => $event['id']]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <div class="d-grid mt-2 gap-2">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @endforeach
 </div>
 
 @endsection

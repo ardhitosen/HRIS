@@ -42,6 +42,8 @@ Route::post('/admins/attendance/edit/{id}', [AdminController::class, 'attendance
 
 Route::get('/admins/calendar', [AdminController::class, 'calendar'])->name('calendar');
 Route::post('/admins/calendar/addevent', [AdminController::class, 'addEvent'])->name('addEvent');
+Route::post('/admins/calendar/editevent/{id}', [AdminController::class, 'editEvent'])->name('editEvent');
+Route::delete('/admins/calendar/deleteevent/{id}', [AdminController::class, 'deleteEvent'])->name('deleteEvent');
 
 Route::get('/admins/overtime', [AdminController::class, 'overtime'])->name('overtime');
 Route::post('/admins/overtime/assign', [AdminController::class, 'overtimeAssign'])->name('overtimeAssign');
