@@ -31,28 +31,24 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function login()
-    {
-        return view('backend.index');
-    }
 
     public function loginProcess(Request $request)
     {
         $credentials = $request->only('username', 'password');
         $admin = Admin::where('username', $credentials['username'])->first();
 
-        $hCaptchaResponse = $request->input('h-captcha-response');
-        $secretKey = '0x5aDe1898FcA3C3ebdd7837EEAa8Baf6cBa1C7fB0';
+        // $hCaptchaResponse = $request->input('h-captcha-response');
+        // $secretKey = '0x5aDe1898FcA3C3ebdd7837EEAa8Baf6cBa1C7fB0';
 
-        $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
-            'response' => $hCaptchaResponse,
-            'secret' => $secretKey,
-        ]);
+        // $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
+        //     'response' => $hCaptchaResponse,
+        //     'secret' => $secretKey,
+        // ]);
 
-        $responseData = $response->json();
-        if (!$responseData['success']) {
-            return redirect()->back()->withErrors('Invalid captcha');
-        }
+        // $responseData = $response->json();
+        // if (!$responseData['success']) {
+        //     return redirect()->back()->withErrors('Invalid captcha');
+        // }
 
         if ($admin && $credentials['password'] == $admin->password) {
             return redirect()->route('dashboard');
@@ -86,37 +82,12 @@ class AdminController extends Controller
 
     public function logoutProcess()
     {
-        return redirect()->route('index');
+        return redirect()->route('login');
     }
 
     public function employee()
     {
         $employee = Employee::all();
-        // $employeeData = [];
-        // foreach ($employee as $employee) {
-        //     $employeeData[] = [
-        //         'id' => $employee->id,
-        //         'username' => $employee->username,
-        //         'password' => $employee->password,
-        //         'name' => $employee->name,
-        //         'branch' => $employee->branch,
-        //         'organization' => $employee->organization,
-        //         'job_position' => $employee->job_position,
-        //         'job_level' => $employee->job_level,
-        //         'email' => $employee->email,
-        //         'join_date' => $employee->join_date,
-        //         'birth_date' => $employee->birth_date,
-        //         'resign_date' => $employee->resign_date,
-        //         'birth_place' => $employee->birth_place,
-        //         'address' => $employee->address,
-        //         'mobile_phone' => $employee->mobile_phone,
-        //         'religion' => $employee->religion,
-        //         'gender' => $employee->gender,
-        //         'marital_status' => $employee->marital_status,
-        //         'salary' => $employee->salary,
-        //         'employment_status' => $employee->employment_status,
-        //     ];
-        // }
 
         return view('backend.employee.employee', ['employee' => $employee]);
     }
