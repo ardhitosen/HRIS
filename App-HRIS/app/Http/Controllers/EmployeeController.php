@@ -48,6 +48,8 @@ class EmployeeController extends Controller
         if ($employee && Hash::check($credentials['password'], $employee->password)) {
             Session::start();
             Session::put('employee', $employee);
+            Auth::guard('employee')->login($employee);
+
             return redirect()->route('frontend_dashboard');
         } else {
             return redirect()->back()->withErrors('Invalid credentials');
@@ -57,6 +59,7 @@ class EmployeeController extends Controller
     public function logout() 
     {
         Session::flush();
+        Auth::guard('employee')->logout();
         return redirect()->route('index_frontend');
     }
 

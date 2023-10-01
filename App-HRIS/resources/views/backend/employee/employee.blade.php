@@ -146,7 +146,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url('/admins/addemployee')}}" method="post">
+                <form action="{{url('/admins/employee/addemployee')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>

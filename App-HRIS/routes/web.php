@@ -19,10 +19,12 @@ use Illuminate\Support\Facades\Auth;
 Route::redirect('/', '/employee');
 Auth::routes();
 
-
 Route::controller(AdminController::class)->prefix('admins/')->group(function(){
     Route::view('/', 'backend.index')->name('login');
     Route::post('/loginProcess','loginProcess')->name('loginProcess');
+});
+
+Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:admin')->group(function(){
     Route::get('/logoutProcess', 'logoutProcess')->name('logoutProcess');
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     
@@ -76,8 +78,10 @@ Route::controller(AdminController::class)->prefix('admins/')->group(function(){
 Route::controller(EmployeeController::class)->prefix('employee/')->group(function(){
     Route::view('/', 'frontend.index')->name('index_frontend');
     Route::post('/login', 'login')->name('frontend_login');
-    Route::get('/dashboard', 'dashboard')->name('frontend_dashboard');
+});
 
+Route::controller(EmployeeController::class)->prefix('employee/')->middleware('auth.employee:employee')->group(function(){
+    Route::get('/dashboard', 'dashboard')->name('frontend_dashboard');
     Route::get('/attendance', 'attendance')->name('frontend_attendance');
     Route::post('/attendance/clockin', 'clockIn')->name('frontend_clockin');
     Route::post('/attendance/clockout', 'clockOut')->name('frontend_clockout');

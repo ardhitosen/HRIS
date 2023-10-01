@@ -51,6 +51,7 @@ class AdminController extends Controller
         // }
 
         if ($admin && $credentials['password'] == $admin->password) {
+            Auth::guard('admin')->login($admin);
             return redirect()->route('dashboard');
         } else {
             return redirect()->back()->withErrors('Invalid credentials');
@@ -82,6 +83,7 @@ class AdminController extends Controller
 
     public function logoutProcess()
     {
+        Auth::guard('admin')->logout();
         return redirect()->route('login');
     }
 
