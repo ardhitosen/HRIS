@@ -23,6 +23,7 @@
                     <th>Reimbursement Type</th>
                     <th>Total Reimbursement</th>
                     <th>Status</th>
+                    <th>File</th>
                     <th>Activity</th>
                 </tr>
             </thead>
@@ -39,7 +40,8 @@
                             {{ $reim['status'] ?? '-' }}
                         </span>
                     </td>
-                    <td>
+                    <td><img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px"></td>
+                    <<td>
                         @if($reim['status'] == 'Pending')
                         <div class="btn-group dropstart">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,7 +64,7 @@
                             </button>
                         </div>
                         @endif
-                    </td>
+                        </td>
                 </tr>
                 <div class="modal fade" id="revision{{ $reim['id'] }}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">

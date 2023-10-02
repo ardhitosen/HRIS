@@ -56,7 +56,7 @@ $(document).ready(function () {
     $('#reimbursementTable').DataTable({
         "columnDefs": [{
             orderable: false,
-            targets: 6
+            targets: [6,7]
         }]
     });
 });

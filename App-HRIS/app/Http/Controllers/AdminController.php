@@ -662,6 +662,7 @@ class AdminController extends Controller
                 'reimbursement_type' => $reimbursement->reimbursement_type,
                 'total_reimbursement' => $reimbursement->total_reimbursement,
                 'status' => $reimbursement->status,
+                'proof' =>$reimbursement->proof
             ];
         }
 

@@ -15,7 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Carbon\Carbon;
@@ -32,18 +32,18 @@ class EmployeeController extends Controller
         $credentials = $request->only('username', 'password');
         $employee = Employee::where('username', $credentials['username'])->first();
 
-        // $hCaptchaResponse = $request->input('h-captcha-response');
-        // $secretKey = '0x5aDe1898FcA3C3ebdd7837EEAa8Baf6cBa1C7fB0';
+        $hCaptchaResponse = $request->input('h-captcha-response');
+        $secretKey = '0x5aDe1898FcA3C3ebdd7837EEAa8Baf6cBa1C7fB0';
 
-        // $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
-        //     'response' => $hCaptchaResponse,
-        //     'secret' => $secretKey,
-        // ]);
+        $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
+            'response' => $hCaptchaResponse,
+            'secret' => $secretKey,
+        ]);
 
-        // $responseData = $response->json();
-        // if (!$responseData['success']) {
-        //     return redirect()->back()->withErrors('Invalid captcha');
-        // }
+        $responseData = $response->json();
+        if (!$responseData['success']) {
+            return redirect()->back()->withErrors('Invalid captcha');
+        }
 
         if ($employee && Hash::check($credentials['password'], $employee->password)) {
             Session::start();
