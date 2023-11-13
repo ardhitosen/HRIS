@@ -105,4 +105,7 @@
         </table>
     </div>
 </div>
+<a class="btn btn-link nav-link float-end" href="{{url('/admins/attendance/history')}}">
+    View History
+</a>
 @stop

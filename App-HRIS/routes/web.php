@@ -43,6 +43,7 @@ Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:a
     Route::get('/attendance/clockout/{id}', 'clockOut')->name('clockout');
     Route::post('/attendance/generate', 'generateAttendance')->name('generateAttendance');
     Route::post('/attendance/edit/{id}', 'attendanceEdit')->name('attendanceEdit');
+    Route::view('/attendance/history', 'backend.timeManagement.attendanceHistory')->name('attendanceHistory');
     
     Route::get('/calendar', 'calendar')->name('calendar');
     Route::post('/calendar/addevent', 'addEvent')->name('addEvent');

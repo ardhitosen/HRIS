@@ -82,7 +82,6 @@
             <label for="password" class="block text-gray-700 input-label">Password</label>
             <input type="password" name="password" id="password" placeholder="Password" class="w-full px-4 py-2 border border-gray-300 rounded-input focus:outline-none focus:border-blue-300">
         </div>
-        <div class="h-captcha" data-sitekey="ddd61fd9-6651-4ab6-ab13-aefe7c1eafb9"></div>
         <button type="submit" class="w-full bg-sky-500 text-white py-2 px-4 mt-2 rounded-button hover:bg-blue-400 transition-colors">Login</button>
     </form>
 </body>
