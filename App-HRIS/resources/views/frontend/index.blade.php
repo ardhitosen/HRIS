@@ -57,7 +57,7 @@
 </head>
 <body>
 
-    <form action="/employee/login" method="post" class="max-w-md mx-auto my-8 p-6 bg-white rounded shadow form-container">
+    <form action="/login" method="post" class="max-w-md mx-auto my-8 p-6 bg-white rounded shadow form-container">
         <div class="welcome-message">Welcome Back!</div>
         @if ($errors->any())
         <div class="mb-4 bg-red-100 p-4 rounded text-red-600">

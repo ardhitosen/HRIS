@@ -11,31 +11,31 @@
     <div class="card-body">
         <div id="shortcut">
             <span>
-                <a href="{{url('/employee/attendance')}}" class="btn">
+                <a href="{{url('/attendance')}}" class="btn">
                     <img src="{{ asset('images/attendance.png') }}" alt="">
                     <p>Take Attendance</p>
                 </a>
             </span>
             <span>
-                <a href="{{url('/employee/timeoff')}}" class="btn">
+                <a href="{{url('/timeoff')}}" class="btn">
                     <img src="{{ asset('images/day-off.png') }}" alt="">
                     <p>Take a Paid Leave</p>
                 </a>
             </span>
             <span>
-                <a href="{{url('/employee/overtime')}}" class="btn">
+                <a href="{{url('/overtime')}}" class="btn">
                     <img src="{{ asset('images/overtime.png') }}" alt="">
                     <p>Request Overtime</p>
                 </a>
             </span>
             <span>
-                <a href="{{url('/employee/reimbursement')}}" class="btn">
+                <a href="{{url('/reimbursement')}}" class="btn">
                     <img src="{{ asset('images/reimbursement.png') }}" alt="">
                     <p>Request Reimbursement</p>
                 </a>
             </span>
             <span>
-                <a href="{{url('/employee/announcement')}}" class="btn">
+                <a href="{{url('/announcement')}}" class="btn">
                     <img src="{{ asset('images/annoucement.png') }}" alt="">
                     <p>View Announcement</p>
                 </a>

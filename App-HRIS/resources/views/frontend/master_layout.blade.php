@@ -30,21 +30,21 @@
                             <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0">Management</a>
                             <ul class="collapse nav ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="{{url('/employee/attendance')}}" class="nav-link">Attendance</a>
+                                    <a href="{{url('/attendance')}}" class="nav-link">Attendance</a>
                                 </li>
                                 <li class="w-100">
-                                    <a href="{{url('/employee/timeoff')}}" class="nav-link">Take a Paid Leave</a>
+                                    <a href="{{url('/timeoff')}}" class="nav-link">Take a Paid Leave</a>
                                 </li>
                                 <li class="w-100">
-                                    <a href="{{url('/employee/overtime')}}" class="nav-link">Request Overtime</a>
+                                    <a href="{{url('/overtime')}}" class="nav-link">Request Overtime</a>
                                 </li>
                                 <li class="w-100">
-                                    <a href="{{url('/employee/reimbursement')}}" class="nav-link">Request Reimbursement</a>
+                                    <a href="{{url('/reimbursement')}}" class="nav-link">Request Reimbursement</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/employee/announcement')}}" class="nav-link px-0">Annoucement</a>
+                            <a href="{{url('/announcement')}}" class="nav-link px-0">Annoucement</a>
                         </li>
                     </ul>
                     <div class="pb-4" style="width: 100%;">
@@ -63,11 +63,11 @@
                             <img src="{{ asset('images/menu-burger.png') }}" alt="" height="20px">
                         </a>
                         <ul id="profile_dropdown" class="dropdown-menu text-small shadow-sm slides">
-                            <li><a class="dropdown-item" href="{{url('/employee/profile')}}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{url('/profile')}}">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{url('/employee/logout')}}">Sign out</a></li>
+                            <li><a class="dropdown-item" href="{{url('/logout')}}">Sign out</a></li>
                         </ul>
                     </div>
                 </div>

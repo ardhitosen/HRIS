@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::redirect('/', '/employee');
+Route::redirect('/', '/');
 Auth::routes();
 
 Route::controller(AdminController::class)->prefix('admins/')->group(function(){
@@ -76,12 +76,12 @@ Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:a
 
 });
 
-Route::controller(EmployeeController::class)->prefix('employee/')->group(function(){
+Route::controller(EmployeeController::class)->group(function(){
     Route::view('/', 'frontend.index')->name('index_frontend');
     Route::post('/login', 'login')->name('frontend_login');
 });
 
-Route::controller(EmployeeController::class)->prefix('employee/')->middleware('auth.employee:employee')->group(function(){
+Route::controller(EmployeeController::class)->prefix('/')->middleware('auth.employee:employee')->group(function(){
     Route::get('/dashboard', 'dashboard')->name('frontend_dashboard');
     Route::get('/attendance', 'attendance')->name('frontend_attendance');
     Route::post('/attendance/clockin', 'clockIn')->name('frontend_clockin');
