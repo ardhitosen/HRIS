@@ -62,7 +62,8 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ asset('storage/'.$ovt['file'])}}">Download</a>
+                                <!-- <a href="{{ asset('storage/'.$ovt['file'])}}">Download</a> -->
+                                <a href="{{ route('frontend_overtime_download', ['filename' => $ovt['file']]) }}">Download</a>
                             </td>
                         </tr>
                         @endforeach
@@ -80,7 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{url('/employee/overtime/add')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('/overtime/add')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3 row">
                         <label for="scheduleDate" class="col-sm-3 col-form-label">Overtime Date</label>

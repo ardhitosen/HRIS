@@ -61,12 +61,10 @@
                                 <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transferEmployee{{$emp['id']}}">Transfer</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/admins/employee/resign/' . $emp['id'])}}">Resign</a></li>
-                                <li><a class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                             @else
                             <ul class="dropdown-menu" id="actionButton">
                                 <li><a class="dropdown-item" href="{{ url('/admins/employee/detail/personal/' . $emp['id']) }}">Detail</a></li>
-                                <li><a class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                             @endif
                         </div>

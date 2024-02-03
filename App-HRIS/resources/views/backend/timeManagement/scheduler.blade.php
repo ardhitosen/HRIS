@@ -6,7 +6,7 @@
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Scheduler!</h5>
         <button class="btn" data-bs-toggle="modal" data-bs-target="#createscheduler">
-            Assign Scheduler
+            Assign Schedule
         </button>
     </div>
 </div>
@@ -51,11 +51,11 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Assign a Schedule</h5>
+                                <h5 class="modal-title">Edit Schedule</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{url('/admins/scheduler/assign')}}" method="post">
+                                <form action="{{url('/admins/scheduler/edit/' . $sched['scheduler_id'])}}" method="post">
                                     @csrf
                                     <div class="mb-3 row">
                                         <label for="maritalstatus" class="col-sm-3 col-form-label">Name</label>

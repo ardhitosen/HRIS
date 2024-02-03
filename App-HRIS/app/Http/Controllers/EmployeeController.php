@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Carbon\Carbon;
@@ -90,7 +91,8 @@ class EmployeeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user_id = session('employee')->id;
-        $filePath = $request->file('overtimeWork')->store('overtime_files');
+        // $filePath = $request->file('overtimeWork')->store('overtime_files');
+        $filePath = $request->file('overtimeWork')->storeAs($request->file('overtimeWork')->getClientOriginalName());
         $overtime = new Overtime();
         $overtime->employee_id = $user_id;
         $overtime->overtime_date = $request->input('scheduleDate');
@@ -103,6 +105,19 @@ class EmployeeController extends Controller
         $overtime->save();
 
         return redirect()->route('frontend_overtime');
+    }
+
+    public function overtimeFileDownload($filename)
+    {
+        $filePath = storage_path('app/' . $filename);
+
+        if (Storage::exists($filename)) {
+            return response()->download($filePath, $filename, [
+                'Content-Type' => mime_content_type($filePath),
+            ]);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 
     public function attendance()

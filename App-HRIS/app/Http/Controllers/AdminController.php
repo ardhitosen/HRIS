@@ -468,6 +468,20 @@ class AdminController extends Controller
         return redirect()->route('overtime');
     }
 
+    
+    public function overtimeFileDownload($filename)
+    {
+        $filePath = storage_path('app/' . $filename);
+
+        if (Storage::exists($filename)) {
+            return response()->download($filePath, $filename, [
+                'Content-Type' => mime_content_type($filePath),
+            ]);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
+
     public function scheduler()
     {
         $scheduler = Scheduler::all();
@@ -496,6 +510,18 @@ class AdminController extends Controller
     public function assignScheduler(Request $request)
     {
         $scheduler = new Scheduler();
+        $scheduler->employee_id = $request->employee_id;
+        $scheduler->current_schedule = $request->scheduleDate;
+        $scheduler->schedule_time = $request->scheduleTime;
+        $scheduler->schedule_detail = $request->description;
+        $scheduler->save();
+
+        return redirect()->route('scheduler');
+    }
+
+    public function editScheduler(Request $request, $id)
+    {
+        $scheduler = Scheduler::findOrFail($id);
         $scheduler->employee_id = $request->employee_id;
         $scheduler->current_schedule = $request->scheduleDate;
         $scheduler->schedule_time = $request->scheduleTime;

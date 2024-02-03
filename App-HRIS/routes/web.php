@@ -56,6 +56,7 @@ Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:a
     
     Route::get('/scheduler', 'scheduler')->name('scheduler');
     Route::post('/scheduler/assign', 'assignScheduler')->name('assignScheduler');
+    Route::post('/scheduler/edit/{id}', 'editScheduler')->name('editScheduler');
     
     Route::get('/timeoff', 'timeoff')->name('timeoff');
     Route::post('/timeoff/assign', 'timeoffAssign')->name('assigntimeoff');
@@ -92,6 +93,7 @@ Route::controller(EmployeeController::class)->prefix('/')->middleware('auth.empl
 
     Route::get('/overtime', 'overtime')->name('frontend_overtime');
     Route::post('/overtime/add', 'overtimeadd')->name('frontend_overtime_add');
+    Route::get('/overtime/{filename}', 'overtimeFileDownload')->name('frontend_overtime_download');
 
     Route::get('/announcement', 'announcement')->name('frontend_announcement');
     

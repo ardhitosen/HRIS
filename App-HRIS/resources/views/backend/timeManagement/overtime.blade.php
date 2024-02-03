@@ -34,7 +34,7 @@
                     <td>{{ $ovt['duration'] ?? '-' }}</td>
                     <td>{{ $ovt['description'] ?? '-' }}</td>
                     <td>
-                        <a href="{{ asset('storage/'.$ovt['file'])}}">Download</a>
+                        <a href="{{ route('frontend_overtime_download', ['filename' => $ovt['file']]) }}">Download</a>
                     </td>
                     <td>
                         <span style="{{ $ovt['status'] == 'Pending' ? 'color: orange;' : ($ovt['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
@@ -47,7 +47,7 @@
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Action
                             </button>
-                            <ul class="dropdown-menu" id="actionButton">                   
+                            <ul class="dropdown-menu" id="actionButton">
                                 <li><a class="dropdown-item" href="{{ url('/admins/overtime/Accept/' . $ovt['overtime_id'])}}">Accept</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/admins/overtime/Decline/' . $ovt['overtime_id'])}}">Decline</a></li>
                             </ul>
