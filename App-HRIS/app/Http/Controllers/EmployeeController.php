@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Overtime;
 use App\Models\Timeoff;
 use Illuminate\Support\Facades\Log;
+use App\Models\Scheduler;
 use App\Models\Employee;
 use App\Models\Reimbursement;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -212,7 +213,8 @@ class EmployeeController extends Controller
     public function announcement()
     {
         $announcements = Announcement::all();
-        return view('frontend.announcement',['announcements' => $announcements]);
+        $schedules = Scheduler::where('employee_id', session('employee')->id)->get();
+        return view('frontend.announcement',['announcements' => $announcements, 'schedules' => $schedules]);
     }
 
     public function show_profile() 

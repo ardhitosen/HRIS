@@ -25,6 +25,19 @@
 <div class="card card_container">
     <h2 class="mb-3">Annoucement Board</h2>
     <div id="announcement_card">
+        @if($schedules)
+        @foreach ($schedules as $schedule)
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Schedule: {{ $schedule->schedule_detail }}</h5>
+                <p>Scheduled at: {{ \Carbon\Carbon::parse($schedule->current_schedule)->format('d M Y') }}, 
+                    {{\Carbon\Carbon::parse($schedule->schedule_time)->format('H:i:s')}}</p>
+
+                <p>{{ $schedule->schedule_detail }}</p>
+            </div>
+        </div>
+        @endforeach
+        @endif
         @if($announcements)
         @foreach ($announcements as $announcement)
         <div class="card">

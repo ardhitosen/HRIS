@@ -52,8 +52,8 @@
                         <a href="#" class="d-flex justify-content-between align-items-center text-white text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-flex align-items-center">
                                 <div style="border-radius: 100px; overflow: hidden;">
-                                    @if(session()->get('employee')->username == NULL)
-                                    <img src="{{ session()->get('employee')->photo}}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
+                                    @if(session()->get('employee')->photo == NULL)
+                                    <img src="{{ asset('images/profile_icon.jpg') }}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
                                     @else
                                     <img src="data:image/jpeg;base64,{{ base64_encode(session()->get('employee')->photo) }}" width="30" height="30" class="rounded-circle" style="object-fit: cover;">
                                     @endif

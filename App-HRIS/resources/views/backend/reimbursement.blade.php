@@ -41,7 +41,7 @@
                         </span>
                     </td>
                     <td>
-                        <a href="#" onclick="openImageWindow('{{ base64_encode($reim['proof']) }}')">
+                        <a href="" onclick="openImageWindow('{{ base64_encode($reim['proof']) }}')">
                             <img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px" alt="Click to open in new page">
                         </a>
                     </td>

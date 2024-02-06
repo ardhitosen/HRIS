@@ -94,7 +94,7 @@ body {
     grid-gap: 1em;
     grid-auto-rows: auto;
     grid-template-rows: auto;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
     text-align: center;
 }
 

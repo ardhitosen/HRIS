@@ -33,7 +33,7 @@
 
 <div class="card card_container">
     <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#reimburse">
-        Create Reimbursement
+        Request Reimbursement
     </button>
 
     <div class="card-body">
@@ -56,7 +56,11 @@
                             <td>{{ $reim['reimburse_id'] ?? '-' }}</td>
                             <td>{{ $reim['reimbursement_type'] ?? '-' }}</td>
                             <td>{{ 'IDR ' . number_format($reim['total_reimbursement'], 0, ',', '.') }}</td>
-                            <td><img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px"></td>
+                            <td>
+                                <a href="" onclick="openImageWindow('{{ base64_encode($reim['proof']) }}')">
+                                    <img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px" alt="Click to open in new page">
+                                </a>
+                            </td>
                             <td>
                                 <span style="{{ $reim['status'] == 'Pending' ? 'color: orange;' : ($reim['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">
                                     {{ $reim['status'] ?? '-' }}
@@ -74,7 +78,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create Reimbursement</h5>
+                <h5 class="modal-title">Request for Reimbursement</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -113,4 +117,11 @@
 </div>
 
 
+
+<script>
+function openImageWindow(base64Image) {
+  var imageWindow = window.open();
+  imageWindow.document.write('<html><body><img src="data:image/jpeg;base64,' + base64Image + '"></body></html>');
+}
+</script>
 @stop

@@ -58,7 +58,7 @@
                                 <form action="{{url('/admins/scheduler/edit/' . $sched['scheduler_id'])}}" method="post">
                                     @csrf
                                     <div class="mb-3 row">
-                                        <label for="maritalstatus" class="col-sm-3 col-form-label">Name</label>
+                                        <label for="name" class="col-sm-3 col-form-label">Name</label>
                                         <div class="col-sm-9 my-auto">
                                             <select name="employee_id" class="form-control" id="employee_id" disabled>
                                                 <option value="{{ $sched['employee_id'] }}">{{ $sched['name'] }}</option>
@@ -71,19 +71,19 @@
                                     <div class="mb-3 row">
                                         <label for="scheduleDate" class="col-sm-3 col-form-label">Schedule Date</label>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="date" name="scheduleDate" id="scheduleDate" class="form-control datepicker" value="">
+                                            <input type="date" name="scheduleDate" id="scheduleDate" class="form-control datepicker" value="{{ $sched['current_schedule'] }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="scheduleTime" class="col-sm-3 col-form-label">Schedule Time</label>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="time" name="scheduleTime" id="scheduleTime" class="form-control datepicker" value="">
+                                            <input type="time" name="scheduleTime" id="scheduleTime" class="form-control datepicker" value="{{ $sched['schedule_time'] }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="description" class="col-sm-3 col-form-label">Description</label>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" name="description" id="description" class="form-control" value="">
+                                            <input type="text" name="description" id="description" class="form-control" value="{{ $sched['schedule_description'] }}">
                                         </div>
                                     </div>
                                     <div class="d-grid">
@@ -111,7 +111,7 @@
                 <form action="{{url('/admins/scheduler/assign')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
-                        <label for="maritalstatus" class="col-sm-3 col-form-label">Name</label>
+                        <label for="name" class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9 my-auto">
                             <select name="employee_id" class="form-control" id="employee_id">
                                 @foreach($employee as $emp)
