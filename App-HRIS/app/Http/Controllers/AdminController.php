@@ -37,19 +37,6 @@ class AdminController extends Controller
         $credentials = $request->only('username', 'password');
         $admin = Admin::where('username', $credentials['username'])->first();
 
-        // $hCaptchaResponse = $request->input('h-captcha-response');
-        // $secretKey = '0x5aDe1898FcA3C3ebdd7837EEAa8Baf6cBa1C7fB0';
-
-        // $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
-        //     'response' => $hCaptchaResponse,
-        //     'secret' => $secretKey,
-        // ]);
-
-        // $responseData = $response->json();
-        // if (!$responseData['success']) {
-        //     return redirect()->back()->withErrors('Invalid captcha');
-        // }
-
         if ($admin && $credentials['password'] == $admin->password) {
             Auth::guard('admin')->login($admin);
             return redirect()->route('dashboard');
@@ -189,9 +176,7 @@ class AdminController extends Controller
     public function employeeDetail($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
-        // dd($employee);
         $url = Storage::url('app/') . $employee->photo;
-        // return $url;
         return view('backend.employee.employeeDetail', ['emp' => $employee, 'url' => $url]);
     }
 
