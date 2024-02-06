@@ -655,6 +655,7 @@ class AdminController extends Controller
                 'id' => $emp->id,
                 'name' => $emp->name,
                 'salary' => $emp->salary,
+                'resign_date' => $emp->resign_date,
                 'tunjangan' => $emp->tunjangan,
             ];
 
@@ -664,6 +665,16 @@ class AdminController extends Controller
         }
 
         return view('backend.payroll', ['employee' => $employeeData]);
+    }
+
+    public function payrollEdit(Request $request, $id)
+    {
+        $employee = Employee::where('id', $id)->firstOrFail();
+        $employee->salary = $request->newSalary;
+        $employee->tunjangan = $request->newTunjanganJabatan;
+        $employee->save();
+
+        return redirect()->route('payroll');
     }
 
     public function reimbursement()
@@ -727,4 +738,5 @@ class AdminController extends Controller
 
         return redirect()->route('reimbursement');
     }
+
 }

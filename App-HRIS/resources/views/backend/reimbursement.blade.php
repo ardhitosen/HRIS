@@ -5,9 +5,9 @@
 <div class="card border-0 title">
     <div class="card-body d-flex justify-content-between">
         <h5 class="card-title">Reimbursement!</h5>
-        <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#reimburse">
+        <!-- <button class="btn btn-link nav-link float-end" data-bs-toggle="modal" data-bs-target="#reimburse">
             Create Reimbursement
-        </button>
+        </button> -->
     </div>
 </div>
 <br>
@@ -40,8 +40,12 @@
                             {{ $reim['status'] ?? '-' }}
                         </span>
                     </td>
-                    <td><img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px"></td>
-                    <<td>
+                    <td>
+                        <a href="#" onclick="openImageWindow('{{ base64_encode($reim['proof']) }}')">
+                            <img src="data:image/jpeg;base64,{{ base64_encode($reim['proof']) }}" width="50px" alt="Click to open in new page">
+                        </a>
+                    </td>
+                    <td>
                         @if($reim['status'] == 'Pending')
                         <div class="btn-group dropstart">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,7 +68,7 @@
                             </button>
                         </div>
                         @endif
-                        </td>
+                    </td>
                 </tr>
                 <div class="modal fade" id="revision{{ $reim['id'] }}" tabindex="-1" aria-labelledby="revision" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -143,5 +147,11 @@
 </div>
 
 
+<script>
+function openImageWindow(base64Image) {
+  var imageWindow = window.open();
+  imageWindow.document.write('<html><body><img src="data:image/jpeg;base64,' + base64Image + '"></body></html>');
+}
+</script>
 
 @stop

@@ -34,7 +34,7 @@
                     <td>{{ $ovt['duration'] ?? '-' }}</td>
                     <td>{{ $ovt['description'] ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('frontend_overtime_download', ['filename' => $ovt['file']]) }}">Download</a>
+                        <a href="{{ route('admin_overtime_download', ['filename' => $ovt['file']]) }}">Download</a>
                     </td>
                     <td>
                         <span style="{{ $ovt['status'] == 'Pending' ? 'color: orange;' : ($ovt['status'] == 'Accept' ? 'color: green;' : 'color: red;') }}">

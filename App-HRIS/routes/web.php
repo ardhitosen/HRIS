@@ -53,6 +53,7 @@ Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:a
     Route::get('/overtime', 'overtime')->name('overtime');
     Route::post('/overtime/assign', 'overtimeAssign')->name('overtimeAssign');
     Route::get('/overtime/{status}/{id}', 'overtimeStatusChange')->name('overtimeStatusChange');
+    Route::get('/overtime/{filename}', 'overtimeFileDownload')->name('admin_overtime_download');
     
     Route::get('/scheduler', 'scheduler')->name('scheduler');
     Route::post('/scheduler/assign', 'assignScheduler')->name('assignScheduler');
@@ -68,13 +69,12 @@ Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:a
     Route::delete('/deleteannouncement/{id}', 'deleteannouncement')->name('deleteAnnouncement');
     
     Route::get('/payroll', 'payroll')->name('payroll');
+    Route::post('/payroll/edit/{id}', 'payrollEdit')->name('payroll_edit');
     
     Route::get('/reimbursement', 'reimbursement')->name('reimbursement');
     Route::post('/reimbursement/create', 'createReimbursement')->name('reimbursementCreate');
     Route::post('/reimbursement/status/revision/{id}', 'reimburseRevision')->name('reimburseRevision');
     Route::get('/reimbursement/status/{status}/{id}', 'reimbursementAction')->name('reimburseAction');
-    
-
 });
 
 Route::controller(EmployeeController::class)->group(function(){
