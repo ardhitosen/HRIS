@@ -10,18 +10,11 @@ use App\Models\Attendance;
 use App\Models\Overtime;
 use App\Models\Timeoff;
 use App\Models\Scheduler;
-use Illuminate\Support\Facades\Log;
 use App\Models\Employee;
 use App\Models\Reimbursement;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
@@ -43,29 +36,6 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->withErrors('Invalid credentials');
         }
-    }
-
-    public function dashboard()
-    {
-        $employee = Employee::all();
-        $empCount = 0;
-        $today = Carbon::now();
-
-        $year = [];
-        $male = 0;
-        $female = 0;
-        $activeStaff = 0;
-        foreach ($employee as $employee) {
-            if (isset($employee->id)) $empCount++;
-            if (!isset($employee->resign_date)) $activeStaff++;
-            $employee->gender == "Male" ? $male++ : $female++;
-            $interval = Carbon::parse($employee->join_date)->diff($today);
-            $year[] = $interval->y;
-        }
-        return view(
-            'backend.dashboard',
-            ['empCount' => $empCount, 'year' => $year, 'male' => $male, 'female' => $female, 'activeStaff' => $activeStaff]
-        );
     }
 
     public function logoutProcess()
@@ -184,29 +154,14 @@ class AdminController extends Controller
     {
         $employee = Employee::where('id', $id)->firstOrFail();
 
-        return view('backend.employee.employeeEmployment', ['employee' => $employee]);
+        return view('backend.employee.employeeEmployment', ['emp' => $employee]);
     }
 
     public function employeeTransferLog($id)
     {
         $employee = Employee::where('id', $id)->firstOrFail();
-
         $transfer_log = Transfer::where('employee_id', $id)->get();
-        $transferData = [];
-
-        foreach ($transfer_log as $log) {
-            $transferData[] = [
-                'id' => $log->logs_id,
-                'date' => Carbon::parse($log->created_at)->format('F j, Y - h:i A'),
-                'old_branch' => $log->old_branch,
-                'new_branch' => $log->new_branch,
-                'old_position' => $log->old_position,
-                'new_position' => $log->new_position,
-                'old_level' => $log->old_level,
-                'new_level' => $log->new_level,
-            ];
-        }
-        return view('backend.employee.employeeTransferLog', ['employee' => $employee, 'transferData' => $transferData]);
+        return view('backend.employee.employeeTransferLog', ['emp' => $employee, 'transferData' => $transfer_log]);
     }
 
     public function transferEmployee(Request $request, $id)
@@ -242,15 +197,21 @@ class AdminController extends Controller
 
     public function changeProfilePic(Request $request, $id) 
     {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $employee = Employee::findOrFail($id);
         
-        // $filePath = $request->file('image')->storePublicly('employee_profile_picture');
         $employee->photo = file_get_contents($request->image);
         $employee->save();
         return redirect()->route('employee');
     }
 
-    public function resign(Request $request, $id)
+    public function resign($id)
     {
         $employee = Employee::findOrFail($id);
         $employee->resign_date = date('Y-m-d');
@@ -305,7 +266,6 @@ class AdminController extends Controller
         }
         $employee = Employee::all();
         $today = Carbon::parse(Carbon::now());
-        $todayFormat = $today->format('d M Y');
 
         foreach ($employee as $employee) {
             $attendance = new Attendance();
@@ -399,16 +359,6 @@ class AdminController extends Controller
     }
     public function overtime()
     {
-        $employee = Employee::all();
-        $employeeData = [];
-
-        foreach ($employee as $employee) {
-            $employeeData[] = [
-                'id' => $employee->id,
-                'name' => $employee->name,
-            ];
-        }
-
         $overtime = Overtime::all();
         $overtimeData = [];
         foreach ($overtime as $ovt) {
@@ -416,7 +366,7 @@ class AdminController extends Controller
             $overtimeData[] = [
                 'employee_id' => $ovt->employee_id,
                 'overtime_id' => $ovt->overtime_id,
-                'date' => $ovt->overtime_date,
+                'overtime_date' => $ovt->overtime_date,
                 'duration' => $ovt->duration,
                 'file' => $ovt->file,
                 'description' => $ovt->description,
@@ -424,7 +374,7 @@ class AdminController extends Controller
                 'employee_name' => $emp->name
             ];
         }
-        return view('backend.timeManagement.overtime', ['employee' => $employeeData, 'overtime' => $overtimeData]);
+        return view('backend.timeManagement.overtime', ['overtime' => $overtimeData]);
     }
 
     public function overtimeAssign(Request $request)
@@ -494,6 +444,16 @@ class AdminController extends Controller
 
     public function assignScheduler(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'scheduleDate' => 'required',
+            'scheduleTime' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $scheduler = new Scheduler();
         $scheduler->employee_id = $request->employee_id;
         $scheduler->current_schedule = $request->scheduleDate;
@@ -506,6 +466,16 @@ class AdminController extends Controller
 
     public function editScheduler(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'scheduleDate' => 'required',
+            'scheduleTime' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $scheduler = Scheduler::findOrFail($id);
         $scheduler->employee_id = $request->employee_id;
         $scheduler->current_schedule = $request->scheduleDate;
@@ -518,18 +488,8 @@ class AdminController extends Controller
 
     public function timeoff()
     {
-        $employee = Employee::all();
-        $employeeData = [];
-
         $timeoff = Timeoff::all();
         $timeoffData = [];
-
-        foreach ($employee as $employee) {
-            $employeeData[] = [
-                'id' => $employee->id,
-                'name' => $employee->name
-            ];
-        }
 
         foreach ($timeoff as $timeoff) {
             $emp = Employee::where('id', $timeoff->employee_id)->firstOrFail();
@@ -544,29 +504,14 @@ class AdminController extends Controller
             ];
         }
 
-        return view('backend.timeManagement.timeoff', ['employee' => $employeeData, 'timeoff' => $timeoffData]);
+        return view('backend.timeManagement.timeoff', ['timeoff' => $timeoffData]);
     }
 
     public function statusChange($status, $id)
     {
         $timeoff = Timeoff::findOrFail($id);
-
-        // $timeoff->status = $status;
-        // $timeoff->update(['status' => $status]);
         $timeoff->status = $status;
         $timeoff->save();
-
-        return redirect()->route('timeoff');
-    }
-
-    public function timeoffAssign(Request $request)
-    {
-        $newTimeOff = new Timeoff();
-        $newTimeOff->employee_id = $request->input('employee_id');
-        $newTimeOff->effective_date = $request->input('effectiveDate');
-        $newTimeOff->expiration_date = $request->input('expDate');
-        $newTimeOff->status = "Pending";
-        $newTimeOff->save();
 
         return redirect()->route('timeoff');
     }
@@ -615,7 +560,7 @@ class AdminController extends Controller
         return redirect()->route('announcement');
     }
 
-    public function deleteannouncement(Request $request, $id)
+    public function deleteannouncement($id)
     {
         $announcement = Announcement::findOrFail($id);
         $announcement->delete();
@@ -654,6 +599,15 @@ class AdminController extends Controller
 
     public function payrollEdit(Request $request, $id)
     {
+        
+        $validator = Validator::make($request->all(), [
+            'newSalary' => 'required',
+            'newTunjanganJabatan' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $employee = Employee::where('id', $id)->firstOrFail();
         $employee->salary = $request->newSalary;
         $employee->tunjangan = $request->newTunjanganJabatan;
@@ -664,21 +618,14 @@ class AdminController extends Controller
 
     public function reimbursement()
     {
-        $employee = Employee::all();
-        $employeeData = [];
-
-        foreach ($employee as $employee) {
-            $employeeData[] = [
-                'id' => $employee->id,
-                'name' => $employee->name
-            ];
-        }
         $reimbursement = Reimbursement::all();
         $reimbursementData = [];
 
         foreach ($reimbursement as $reimbursement) {
+            $emp = Employee::where('id', $reimbursement->employee_id)->firstOrFail();
+
             $reimbursementData[] = [
-                'name' => $employee->name,
+                'name' => $emp->name,
                 'id' => $reimbursement->reimburse_id,
                 'employee_id' => $reimbursement->employee_id,
                 'reimbursement_type' => $reimbursement->reimbursement_type,
@@ -688,7 +635,7 @@ class AdminController extends Controller
             ];
         }
 
-        return view('backend.reimbursement', ['reimbursement' => $reimbursementData, 'employee' => $employeeData]);
+        return view('backend.reimbursement', ['reimbursement' => $reimbursementData]);
     }
 
     public function createReimbursement(Request $request)
@@ -715,6 +662,13 @@ class AdminController extends Controller
 
     public function reimburseRevision(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'reason' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $reimburse = Reimbursement::where('reimburse_id', $id)->firstOrFail();
 
         $reimburse->status = "Revision";

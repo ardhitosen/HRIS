@@ -30,7 +30,7 @@
                     <td>{{ $ovt['overtime_id'] ?? '-' }}</td>
                     <td>{{ $ovt['employee_name'] ?? '-' }}</td>
                     <td>{{ $ovt['employee_id'] ?? '-' }}</td>
-                    <td>{{ $ovt['date'] ?? '-' }}</td>
+                    <td>{{ $ovt['overtime_date'] ?? '-' }}</td>
                     <td>{{ $ovt['duration'] ?? '-' }}</td>
                     <td>{{ $ovt['description'] ?? '-' }}</td>
                     <td>

@@ -92,7 +92,6 @@ class EmployeeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user_id = session('employee')->id;
-        // $filePath = $request->file('overtimeWork')->store('overtime_files');
         $filePath = $request->file('overtimeWork')->storeAs($request->file('overtimeWork')->getClientOriginalName());
         $overtime = new Overtime();
         $overtime->employee_id = $user_id;
@@ -204,7 +203,6 @@ class EmployeeController extends Controller
         $reimbursement->total_reimbursement = $request->input('reimburse');
         $reimbursement->status = "Pending";
         $reimbursement->proof = file_get_contents($request->proof);
-        // dd($reimbursement);
         $reimbursement->save();
 
         return redirect()->route('frontend_reimbursement'); 

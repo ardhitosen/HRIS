@@ -26,7 +26,7 @@ Route::controller(AdminController::class)->prefix('admins/')->group(function(){
 
 Route::controller(AdminController::class)->prefix('admins/')->middleware('auth:admin')->group(function(){
     Route::get('/logoutProcess', 'logoutProcess')->name('logoutProcess');
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::view('/dashboard', 'backend.dashboard')->name('dashboard');
     
     Route::get('employee/', 'employee')->name('employee');
     Route::get('/employee/detail/personal/{id}', 'employeeDetail')->name('employeeDetail');
